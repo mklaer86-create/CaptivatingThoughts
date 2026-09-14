@@ -1,0 +1,1068 @@
+<title>Holding Your Thoughts Captive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* ============ palettes ============
+   Base = Harbor (light). No data-skin attribute means "match my device",
+   so the media query and the host's data-theme stamp both get a say.
+   An explicit data-skin always wins over both.                        */
+:root{
+  --paper:#EEF2F5; --panel:#FAFCFD; --panel-2:#DCE4EA;
+  --ink:#1E2A33; --ink-2:#4C5F6C; --ink-3:#5A6B77;
+  --rule:#D2DCE3; --rule-2:#B9C7D1;
+  --accent:#3F6E85; --accent-wash:rgba(63,110,133,.10); --on-accent:#EEF2F5;
+  --calm:#3E6A5E; --calm-wash:rgba(62,106,94,.11);
+  --breath-a:#E3EEF3; --breath-b:#9FC3D3;
+  --focus:#3F6E85;
+  --sans:'IBM Plex Sans',ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --serif:'EB Garamond',Georgia,'Times New Roman',serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]):not([data-skin]){
+    --paper:#15171B; --panel:#1D2027; --panel-2:#262A33;
+    --ink:#E6E4E8; --ink-2:#A9A6B2; --ink-3:#888595;
+    --rule:#2B2F38; --rule-2:#3A3F4A;
+    --accent:#C9909A; --accent-wash:rgba(201,144,154,.13); --on-accent:#15171B;
+    --calm:#86B3A3; --calm-wash:rgba(134,179,163,.14);
+    --breath-a:#2E323D; --breath-b:#4E3C43;
+    --focus:#C9909A;
+  }
+}
+:root[data-theme="dark"]:not([data-skin]){
+  --paper:#15171B; --panel:#1D2027; --panel-2:#262A33;
+  --ink:#E6E4E8; --ink-2:#A9A6B2; --ink-3:#888595;
+  --rule:#2B2F38; --rule-2:#3A3F4A;
+  --accent:#C9909A; --accent-wash:rgba(201,144,154,.13); --on-accent:#15171B;
+  --calm:#86B3A3; --calm-wash:rgba(134,179,163,.14);
+  --breath-a:#2E323D; --breath-b:#4E3C43;
+  --focus:#C9909A;
+}
+:root[data-skin="harbor"]{
+  --paper:#EEF2F5; --panel:#FAFCFD; --panel-2:#DCE4EA;
+  --ink:#1E2A33; --ink-2:#4C5F6C; --ink-3:#5A6B77;
+  --rule:#D2DCE3; --rule-2:#B9C7D1;
+  --accent:#3F6E85; --accent-wash:rgba(63,110,133,.10); --on-accent:#EEF2F5;
+  --calm:#3E6A5E; --calm-wash:rgba(62,106,94,.11);
+  --breath-a:#E3EEF3; --breath-b:#9FC3D3;
+  --focus:#3F6E85;
+}
+:root[data-skin="rose"]{
+  --paper:#F7F1F1; --panel:#FDFAFA; --panel-2:#EEE1E3;
+  --ink:#2E2126; --ink-2:#6A555C; --ink-3:#7A666D;
+  --rule:#E6D7D9; --rule-2:#D4C0C4;
+  --accent:#A05561; --accent-wash:rgba(160,85,97,.10); --on-accent:#F7F1F1;
+  --calm:#4A6659; --calm-wash:rgba(74,102,89,.11);
+  --breath-a:#F7E7E9; --breath-b:#DCAEB5;
+  --focus:#A05561;
+}
+:root[data-skin="dusk"]{
+  --paper:#15171B; --panel:#1D2027; --panel-2:#262A33;
+  --ink:#E6E4E8; --ink-2:#A9A6B2; --ink-3:#888595;
+  --rule:#2B2F38; --rule-2:#3A3F4A;
+  --accent:#C9909A; --accent-wash:rgba(201,144,154,.13); --on-accent:#15171B;
+  --calm:#86B3A3; --calm-wash:rgba(134,179,163,.14);
+  --breath-a:#2E323D; --breath-b:#4E3C43;
+  --focus:#C9909A;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+img{max-width:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:44rem;margin:0 auto;padding-inline:20px;padding-block:0 4rem}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.15;font-weight:600}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:3px}
+
+/* ---------- top bar ---------- */
+.topbar{
+  display:flex;align-items:center;gap:.75rem;padding-block:1rem;
+  border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--paper);z-index:10;
+}
+.navbtn{
+  background:none;border:0;padding:.35rem .3rem;cursor:pointer;color:var(--ink-3);
+  font-size:.8125rem;white-space:nowrap;
+}
+.navbtn:hover{color:var(--ink)}
+.wordmark{font-family:var(--serif);font-size:1.0625rem;letter-spacing:.01em;color:var(--ink-2);white-space:nowrap}
+@media (max-width:560px){.wordmark{display:none}}
+.skins{display:flex;gap:.55rem;margin-left:auto;align-items:center}
+.swatch{
+  width:1.75rem;height:1.75rem;border-radius:50%;border:1px solid var(--rule-2);cursor:pointer;padding:0;
+  background:var(--panel-2);position:relative;
+}
+.swatch::after{content:"";position:absolute;inset:-8px;border-radius:50%}
+.swatch[data-skin="rose"]{background:linear-gradient(135deg,#F7F1F1 50%,#A05561 50%)}
+.swatch[data-skin="harbor"]{background:linear-gradient(135deg,#EEF2F5 50%,#3F6E85 50%)}
+.swatch[data-skin="dusk"]{background:linear-gradient(135deg,#2B2F38 50%,#C9909A 50%)}
+.swatch[data-skin="auto"]{background:linear-gradient(135deg,#EEF2F5 50%,#15171B 50%)}
+.swatch[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---------- home ---------- */
+.home{padding-block:2.75rem 0;display:flex;flex-direction:column;gap:2rem}
+.home h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,6.5vw,2.9rem);letter-spacing:-.015em}
+.home .opening{color:var(--ink-2);font-size:1.0625rem;max-width:32rem;margin-top:.85rem}
+.doors{display:flex;flex-direction:column;gap:.75rem}
+.door{
+  display:block;width:100%;text-align:left;cursor:pointer;
+  background:var(--panel);border:1px solid var(--rule);border-radius:6px;
+  padding:1.15rem 1.25rem;transition:border-color .15s ease;
+}
+.door:hover{border-color:var(--accent)}
+.door .dtitle{font-family:var(--serif);font-size:1.375rem;font-weight:500;line-height:1.2;display:block}
+.door .dsub{color:var(--ink-2);font-size:.9375rem;margin-top:.3rem;display:block;line-height:1.45}
+.howitworks{
+  border-left:2px solid var(--accent);padding:.2rem 0 .2rem 1rem;
+  display:flex;flex-direction:column;gap:.5rem;max-width:34rem;
+}
+.howitworks p{font-size:.9063rem;color:var(--ink-2);line-height:1.55}
+.quietnav{display:flex;flex-wrap:wrap;gap:.35rem 1.25rem;border-top:1px solid var(--rule);padding-top:1.1rem}
+.qlink{background:none;border:0;padding:.15rem 0;cursor:pointer;color:var(--ink-3);font-size:.875rem;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--rule-2)}
+.qlink:hover{color:var(--ink)}
+
+/* ---------- generic view ---------- */
+.view{padding-block:2.25rem 0;display:flex;flex-direction:column;gap:1.5rem}
+.vhead{display:flex;flex-direction:column;gap:.5rem}
+.kicker{font-family:var(--mono);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.view h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,5vw,2.2rem);letter-spacing:-.01em}
+.lede{color:var(--ink-2);max-width:34rem;font-size:1rem;line-height:1.55}
+.small{font-size:.8438rem;color:var(--ink-3);line-height:1.5}
+
+/* ---------- grounding ---------- */
+.steady{align-items:center;text-align:center;gap:1.75rem}
+.steady .lede{max-width:26rem}
+.breathbox{display:flex;flex-direction:column;align-items:center;gap:1rem}
+.breath{
+  width:11.5rem;height:11.5rem;border-radius:50%;display:grid;place-items:center;gap:.15rem;
+  background:radial-gradient(circle at 50% 34%, var(--breath-a), var(--breath-b));
+  box-shadow:0 0 0 10px var(--accent-wash), 0 0 44px var(--accent-wash);
+  animation:breathe 12s ease-in-out infinite;
+}
+@keyframes breathe{
+  0%,100%{transform:scale(.70)}
+  33.3%{transform:scale(1)}
+  50%{transform:scale(1)}
+}
+.breath.paused{animation:none;transform:scale(.86)}
+@media (prefers-reduced-motion:reduce){.breath{animation:none;transform:scale(.9)}}
+.breathword{font-size:.9375rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.breathnum{font-family:var(--mono);font-size:2.5rem;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink)}
+.breathmeta{font-family:var(--mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.praise{
+  border:1px solid var(--rule);border-radius:6px;background:var(--panel);
+  padding:1.15rem 1.25rem;text-align:left;max-width:30rem;display:flex;flex-direction:column;gap:.65rem;
+}
+.praise h3{font-family:var(--sans);font-size:.9375rem;font-weight:600}
+.praise p{font-size:.9375rem;color:var(--ink-2);line-height:1.55}
+.praise blockquote{margin:0;font-family:var(--serif);font-style:italic;font-size:1.0625rem;line-height:1.4;color:var(--ink)}
+.stillblock{display:flex;flex-direction:column;gap:.6rem;align-items:flex-start;text-align:left;max-width:30rem;width:100%;
+  border-left:2px solid var(--accent);padding-left:1.1rem}
+.stillverse{font-family:var(--serif);font-size:1.1875rem;font-style:italic;line-height:1.45;color:var(--ink);margin:0}
+.holds{display:flex;flex-direction:column;gap:.55rem;text-align:left;max-width:26rem;width:100%}
+.hold-item{display:grid;grid-template-columns:.7rem minmax(0,1fr);gap:.75rem;font-size:.9375rem;color:var(--ink-2);align-items:baseline}
+.hold-item::before{content:"";width:.4rem;height:.4rem;border-radius:50%;background:var(--accent);display:block}
+
+/* ---------- steps ---------- */
+.progress{display:flex;gap:.3rem;align-items:center}
+.pdot{height:3px;flex:1;background:var(--rule);border-radius:2px}
+.pdot[data-on="1"]{background:var(--accent)}
+.stepwrap{display:flex;flex-direction:column;gap:1.35rem}
+.field{display:flex;flex-direction:column;gap:.45rem}
+.field-label{font-size:.9063rem;font-weight:600}
+.field-hint{font-size:.8438rem;color:var(--ink-3);line-height:1.5}
+textarea,input[type="text"]{
+  width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--panel);
+  border:1px solid var(--rule);border-radius:5px;padding:.75rem .85rem;resize:vertical;line-height:1.6;
+}
+textarea::placeholder,input::placeholder{color:var(--ink-3);opacity:.8}
+textarea:focus,input:focus{border-color:var(--focus);outline:none}
+.example{
+  border:1px solid var(--rule);border-radius:6px;background:var(--panel);padding:.9rem 1rem;
+  display:flex;flex-direction:column;gap:.5rem;
+}
+.example .exlabel{font-family:var(--mono);font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.example p{font-size:.9063rem;line-height:1.5;color:var(--ink-2)}
+.example em{font-family:var(--serif);font-size:1.0625rem;font-style:italic;color:var(--ink)}
+.whymatters{
+  border-left:2px solid var(--calm);background:var(--calm-wash);
+  padding:.7rem .9rem;border-radius:0 4px 4px 0;font-size:.875rem;line-height:1.55;color:var(--ink-2);
+}
+.whymatters b{display:block;font-family:var(--mono);font-size:.625rem;letter-spacing:.12em;text-transform:uppercase;color:var(--calm);font-weight:500;margin-bottom:.25rem}
+.subhead{
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+  border-top:1px solid var(--rule);padding-top:1.1rem;margin-top:.35rem;
+}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{background:var(--panel);border:1px solid var(--rule);border-radius:999px;padding:.35rem .85rem;font-size:.875rem;cursor:pointer;color:var(--ink-2)}
+.chip:hover{border-color:var(--rule-2);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--ink);font-weight:500}
+.slider-row{display:grid;grid-template-columns:minmax(0,1fr) 3.5rem;gap:1rem;align-items:center}
+input[type="range"]{width:100%;accent-color:var(--accent)}
+.readout{font-family:var(--mono);font-size:1.375rem;text-align:right;font-variant-numeric:tabular-nums}
+.scale-ends{display:flex;justify-content:space-between;font-size:.75rem;color:var(--ink-3);margin-top:-.3rem}
+
+.margin-note{border-left:2px solid var(--accent);padding:.15rem 0 .15rem 1rem;display:flex;flex-direction:column;gap:.4rem}
+.margin-note blockquote{margin:0;font-family:var(--serif);font-style:italic;font-size:1.0625rem;line-height:1.45;color:var(--ink-2)}
+.ref{font-family:var(--mono);font-size:.6875rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.ref a{color:inherit;text-decoration:none;border-bottom:1px solid transparent}
+.ref a:hover{border-bottom-color:var(--accent)}
+
+/* ---------- shapes ---------- */
+.shapes{display:flex;flex-direction:column;border-top:1px solid var(--rule)}
+.shape{border-bottom:1px solid var(--rule)}
+.shape-head{width:100%;display:grid;grid-template-columns:1.25rem minmax(0,1fr);gap:.8rem;align-items:start;background:none;border:0;padding:.95rem .2rem;text-align:left;cursor:pointer}
+.mark{width:1.05rem;height:1.05rem;border:1px solid var(--rule-2);border-radius:3px;margin-top:.3rem;display:grid;place-items:center;font-size:.7rem;background:var(--panel);color:transparent}
+.shape[data-on="1"] .mark{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.shape-name{font-family:var(--serif);font-size:1.1875rem;font-style:italic;line-height:1.3;display:block}
+.shape-sub{font-size:.8438rem;color:var(--ink-3);line-height:1.45;margin-top:.25rem;display:block}
+.shape-body{padding:0 .2rem 1.15rem 3.05rem;display:flex;flex-direction:column;gap:.75rem}
+.says{font-family:var(--serif);font-style:italic;font-size:1.0625rem;line-height:1.4;color:var(--ink-2)}
+.exwhy{font-size:.875rem;color:var(--ink-3);line-height:1.5}
+.truer{background:var(--calm-wash);border-left:2px solid var(--calm);padding:.6rem .9rem;border-radius:0 4px 4px 0;font-size:.9375rem;line-height:1.55}
+.truer b{display:block;font-family:var(--mono);font-size:.625rem;letter-spacing:.12em;text-transform:uppercase;color:var(--calm);font-weight:500;margin-bottom:.2rem}
+
+/* ---------- verses ---------- */
+.vgroups{display:grid;grid-template-columns:repeat(auto-fill,minmax(16rem,1fr));gap:1.75rem 2.25rem}
+.vg h3{font-family:var(--mono);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);padding-bottom:.55rem;border-bottom:1px solid var(--rule);font-weight:500}
+.vg ul{list-style:none;margin:0;padding:.85rem 0 0;display:flex;flex-direction:column;gap:.95rem}
+.vg li{font-family:var(--serif);font-size:1.0625rem;line-height:1.4;color:var(--ink-2)}
+.vg .ref{display:block;margin-top:.25rem}
+.pick-list{display:flex;flex-direction:column;gap:.5rem}
+.pick{display:grid;grid-template-columns:1.1rem minmax(0,1fr);gap:.75rem;align-items:start;background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:.8rem .9rem;cursor:pointer;text-align:left}
+.pick:hover{border-color:var(--rule-2)}
+.pick[aria-pressed="true"]{border-color:var(--calm);background:var(--calm-wash)}
+.dot{width:.8rem;height:.8rem;border-radius:50%;border:1px solid var(--rule-2);margin-top:.35rem}
+.pick[aria-pressed="true"] .dot{background:var(--calm);border-color:var(--calm)}
+.pick[aria-pressed="true"] .ref, .pick[aria-pressed="true"] .ref a{color:var(--calm)}
+.pick q{font-family:var(--serif);font-style:italic;font-size:1.0625rem;line-height:1.4;quotes:none}
+
+/* ---------- buttons ---------- */
+.actions{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;padding-top:.35rem}
+.btn{border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);padding:.6rem 1.25rem;border-radius:5px;cursor:pointer;font-size:.9375rem;font-weight:500}
+.btn:hover{opacity:.9}
+.btn.ghost{background:none;color:var(--ink-2);border-color:var(--rule)}
+.btn.ghost:hover{color:var(--ink);border-color:var(--rule-2);opacity:1}
+.btn.quiet{background:none;border-color:transparent;color:var(--ink-3);padding-inline:.3rem;font-size:.875rem}
+.btn.quiet:hover{color:var(--accent);opacity:1}
+.flash{font-size:.875rem;color:var(--calm);font-weight:500}
+
+/* ---------- journal ---------- */
+.jhead{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:flex-end;border-bottom:1px solid var(--rule);padding-bottom:1rem}
+.entries{display:flex;flex-direction:column}
+.entry{border-bottom:1px solid var(--rule);padding-block:1.4rem}
+.etop{display:flex;justify-content:space-between;gap:1rem;align-items:baseline;flex-wrap:wrap}
+.edate{font-family:var(--mono);font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.tag{font-family:var(--mono);font-size:.5938rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--rule-2);color:var(--ink-3);padding:.1rem .4rem;border-radius:2px;margin-left:.5rem}
+.delta{display:flex;align-items:center;gap:.45rem;font-family:var(--mono);font-size:.8125rem;font-variant-numeric:tabular-nums;color:var(--ink-3)}
+.delta .after{color:var(--calm);font-weight:500}
+.bar{height:3px;background:var(--panel-2);border-radius:2px;overflow:hidden;width:3.5rem}
+.bar span{display:block;height:100%;background:var(--accent)}
+.bar.calm span{background:var(--calm)}
+.ethought{font-family:var(--serif);font-size:1.1875rem;font-style:italic;line-height:1.4;margin-top:.5rem;color:var(--ink-2)}
+.efree{margin-top:.5rem;font-size:.9688rem;line-height:1.6;white-space:pre-wrap}
+.ereframe{margin-top:.7rem;font-size:.9375rem;border-left:2px solid var(--calm);padding-left:.9rem;line-height:1.55}
+.enext{margin-top:.6rem;font-size:.9375rem;background:var(--calm-wash);border-left:2px solid var(--calm);padding:.55rem .9rem;border-radius:0 4px 4px 0;line-height:1.55}
+.enext b{display:block;font-family:var(--mono);font-size:.625rem;letter-spacing:.12em;text-transform:uppercase;color:var(--calm);font-weight:500;margin-bottom:.2rem}
+.emeta{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.7rem}
+.minitag{font-size:.6875rem;font-family:var(--mono);color:var(--ink-3);border:1px solid var(--rule);padding:.1rem .45rem;border-radius:999px}
+.everse{font-family:var(--serif);font-style:italic;color:var(--ink-2);margin-top:.7rem;font-size:1rem}
+.empty{padding:2rem 0;color:var(--ink-3);font-size:.9375rem;max-width:32rem;line-height:1.6}
+
+.footer{border-top:1px solid var(--rule);margin-top:3.5rem;padding-top:1.5rem;display:flex;flex-direction:column;gap:.8rem;color:var(--ink-3);font-size:.8125rem;max-width:38rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.topbar,.actions,.quietnav,.skins{display:none!important}body{background:#fff;color:#000}.entry{break-inside:avoid}}
+</style>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <button class="navbtn" type="button" id="backBtn" hidden>&larr; Back</button>
+    <button class="navbtn" type="button" id="homeBtn" hidden>Home</button>
+    <span class="wordmark" id="wordmark">Holding Your Thoughts Captive</span>
+    <div class="skins" role="group" aria-label="Colour">
+      <button class="swatch" type="button" data-skin="auto" aria-pressed="true" aria-label="Match my device" title="Match my device"></button>
+      <button class="swatch" type="button" data-skin="rose" aria-pressed="false" aria-label="Rose" title="Rose"></button>
+      <button class="swatch" type="button" data-skin="harbor" aria-pressed="false" aria-label="Harbor" title="Harbor"></button>
+      <button class="swatch" type="button" data-skin="dusk" aria-pressed="false" aria-label="Dusk" title="Dusk"></button>
+    </div>
+  </div>
+
+  <!-- =============== HOME =============== -->
+  <section class="home" id="v-home">
+    <div>
+      <h1>Holding Your Thoughts Captive</h1>
+      <p class="opening">You don&rsquo;t have to explain yourself to start, and you don&rsquo;t have to know what&rsquo;s wrong. Pick whichever one is closest to true right now.</p>
+    </div>
+
+    <div class="doors">
+      <button class="door" type="button" data-view="steady">
+        <span class="dtitle">I&rsquo;m crashing &mdash; I need grounding</span>
+        <span class="dsub">Nothing to figure out yet. Just help me come down.</span>
+      </button>
+      <button class="door" type="button" data-view="untangle">
+        <span class="dtitle">I&rsquo;m struggling with my thoughts</span>
+        <span class="dsub">I can&rsquo;t shake this and it isn&rsquo;t helping me. Walk me through it.</span>
+      </button>
+      <button class="door" type="button" data-view="write">
+        <span class="dtitle">I just want to dump where I&rsquo;m at</span>
+        <span class="dsub">No structure. Say it however it comes out.</span>
+      </button>
+    </div>
+
+    <div class="howitworks">
+      <p><strong>Use any of these, in any order.</strong> Start with grounding and stop there. Walk through the thoughts and skip half the questions. Open it three times in a day or once in a month. There is no right way and nothing is left unfinished.</p>
+      <p><strong>It works with a paper journal, not instead of one.</strong> If you keep one, use these pages as the prompts and write your answers by hand &mdash; the questions are the useful part. Every screen can be copied or printed, so you can paste it into whatever you already keep.</p>
+    </div>
+
+    <nav class="quietnav" aria-label="More">
+      <button class="qlink" type="button" data-view="journal">Everything you&rsquo;ve written</button>
+      <button class="qlink" type="button" data-view="shapes">What a hard thought is doing</button>
+      <button class="qlink" type="button" data-view="verses">Verses for the hard days</button>
+    </nav>
+  </section>
+
+  <!-- =============== GROUNDING =============== -->
+  <section class="view steady" id="v-steady" hidden>
+    <div class="vhead" style="align-items:center">
+      <div class="kicker">Before anything else</div>
+      <h2>Stay here a minute</h2>
+      <p class="lede">Nothing on this page needs figuring out. You don&rsquo;t have to feel better by the end of it.</p>
+    </div>
+
+    <div class="breathbox">
+      <div class="breath" id="breathCircle">
+        <span class="breathword" id="breathWord">Breathe in</span>
+        <span class="breathnum" id="breathNum">4</span>
+      </div>
+      <div class="breathmeta" id="breathMeta">Breath 1 of 8</div>
+      <p class="small" style="max-width:22rem">Follow the circle. In as it grows, out as it shrinks. Eight breaths and it&rsquo;s done &mdash; you can stop before that.</p>
+      <div class="actions" id="breathDone" hidden style="justify-content:center">
+        <button class="btn ghost" type="button" id="breathAgain">Eight more</button>
+      </div>
+    </div>
+
+    <div class="stillblock">
+      <blockquote class="stillverse">&ldquo;Finally, brothers, whatever is true, whatever is honorable, whatever is just, whatever is pure, whatever is lovely, whatever is commendable, if there is any excellence, if there is anything worthy of praise, think about these things. What you have learned and received and heard and seen in me&mdash;practice these things, and the God of peace will be with you.&rdquo;</blockquote>
+      <span class="ref"><a href="https://biblehub.com/esv/philippians/4-8.htm" target="_blank" rel="noopener">Philippians 4:8&ndash;9 &middot; ESV</a></span>
+    </div>
+
+    <div class="praise">
+      <h3>Find one thing to praise Him for</h3>
+      <p>Not because you feel like it. The psalmist didn&rsquo;t either &mdash; he asks his own soul why it&rsquo;s in turmoil and then says he will praise God anyway. <strong>You can be downcast and still sing.</strong></p>
+      <p>It can be small. The day ends. There is water. Someone texted back. He hasn&rsquo;t left.</p>
+      <blockquote>&ldquo;Why are you cast down, O my soul, and why are you in turmoil within me? Hope in God; for I shall again praise him, my salvation and my God. My soul is cast down within me; therefore I remember you from the land of Jordan and of Hermon, from Mount Mizar.&rdquo;</blockquote>
+      <span class="ref"><a href="https://biblehub.com/esv/psalms/42-5.htm" target="_blank" rel="noopener">Psalm 42:5&ndash;6 &middot; ESV</a></span>
+    </div>
+
+    <div class="holds">
+      <p class="field-label" style="margin-bottom:.2rem">Small things, while you sit</p>
+      <div class="hold-item"><span>Put both feet flat on the floor and let them be heavy.</span></div>
+      <div class="hold-item"><span>Unclench your jaw. Drop your shoulders.</span></div>
+      <div class="hold-item"><span>Drink some water, even a mouthful.</span></div>
+      <div class="hold-item"><span>Name five things you can see from where you&rsquo;re sitting.</span></div>
+      <div class="hold-item"><span>Say one true sentence to God. It can be &ldquo;I can&rsquo;t do this.&rdquo;</span></div>
+    </div>
+
+    <div class="actions" style="justify-content:center">
+      <button class="btn" type="button" data-view="untangle">I&rsquo;m ready to look at the thought</button>
+      <button class="btn ghost" type="button" data-view="write">I&rsquo;d rather just write</button>
+      <button class="btn quiet" type="button" data-view="home">That&rsquo;s enough for now</button>
+    </div>
+  </section>
+
+  <!-- =============== UNTANGLE =============== -->
+  <section class="view" id="v-untangle" hidden>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+    <div class="stepwrap" id="stepwrap"></div>
+  </section>
+
+  <!-- =============== WRITE =============== -->
+  <section class="view" id="v-write" hidden>
+    <div class="vhead">
+      <div class="kicker">A page of your own</div>
+      <h2>Dump where you&rsquo;re at</h2>
+      <p class="lede">No one is reading this. It doesn&rsquo;t have to make sense, be fair, or reach a conclusion. Half a sentence counts. If you&rsquo;d rather write it in a paper journal, use the prompt below and close this.</p>
+    </div>
+
+    <div class="field">
+      <textarea id="w-text" rows="12" placeholder="Start anywhere."></textarea>
+      <div class="actions" style="padding-top:0">
+        <button class="btn quiet" type="button" id="promptBtn">Give me something to answer</button>
+        <span class="small" id="promptOut"></span>
+      </div>
+    </div>
+
+    <div class="field">
+      <span class="field-label">If you want to mark how it feels &mdash; optional</span>
+      <div class="chips" id="w-chips"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="button" id="saveWrite">Keep this</button>
+      <button class="btn ghost" type="button" data-view="home">Home</button>
+      <span class="flash hidden" id="writeFlash">Kept.</span>
+    </div>
+  </section>
+
+  <!-- =============== JOURNAL =============== -->
+  <section class="view" id="v-journal" hidden>
+    <div class="jhead">
+      <div>
+        <h2 style="font-size:1.7rem">Everything you&rsquo;ve written</h2>
+        <p class="small" style="margin-top:.35rem;max-width:30rem">Kept in this browser, on this device. Not sent anywhere, not visible to anyone else. Copy or print it now and then so you always have it &mdash; and so it can go in a paper journal if that&rsquo;s where you keep things.</p>
+      </div>
+      <div class="actions" style="padding-top:0">
+        <button class="btn ghost" type="button" id="copyAll">Copy all</button>
+        <button class="btn ghost" type="button" id="printAll">Print</button>
+      </div>
+    </div>
+    <div class="entries" id="entries"></div>
+    <div id="copyOut"></div>
+  </section>
+
+  <!-- =============== SHAPES =============== -->
+  <section class="view" id="v-shapes" hidden>
+    <div class="vhead">
+      <div class="kicker">Ten of them</div>
+      <h2>What a hard thought is doing</h2>
+      <p class="lede">Each one is named as the sentence itself, because that&rsquo;s how it arrives &mdash; not as a category, as something you believe. Find the one that sounds like your own head. Naming the shape isn&rsquo;t finding a fault in you; nobody thinks straight while they&rsquo;re hurting.</p>
+    </div>
+    <div class="shapes" id="shapeList"></div>
+  </section>
+
+  <!-- =============== VERSES =============== -->
+  <section class="view" id="v-verses" hidden>
+    <div class="vhead">
+      <div class="kicker">English Standard Version</div>
+      <h2>Verses for the hard days</h2>
+      <p class="lede">Grouped by what actually hurts, not by book order. Each reference links to Bible Hub so you can read the chapter it lives in &mdash; a verse alone always says less than a verse in its own paragraph.</p>
+    </div>
+    <div class="vgroups" id="verseGroups"></div>
+  </section>
+
+  <footer class="footer">
+    <p>Scripture quotations are from the ESV&reg; Bible (The Holy Bible, English Standard Version&reg;), copyright &copy; 2001 by Crossway.</p>
+    <p>This is built on the thought record from cognitive behavioral therapy. It is not therapy and it can&rsquo;t be. If the thoughts are constant, if they&rsquo;re about hurting yourself, or if you just can&rsquo;t get out from under them &mdash; please tell a real person today. A friend, your campus counseling center, your doctor. In the US you can call or text <strong>988</strong> any hour of any day, and you don&rsquo;t have to be in crisis to do it.</p>
+    <p>Made with love, to be shared freely.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $ = function(id){ return document.getElementById(id); };
+var esc = function(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]; }); };
+var BH = "https://biblehub.com/esv/";
+function refLink(ref,url){ return '<span class="ref"><a href="'+BH+url+'" target="_blank" rel="noopener">'+esc(ref)+'</a></span>'; }
+
+/* ============================================================== data === */
+/* Each shape is named as the sentence a person actually thinks, so it is
+   recognised rather than categorised. Then: the example, why it is the
+   example, and the reframe.                                            */
+var SHAPES = [
+ { id:"catastrophizing", name:"This is going to ruin everything",
+   sub:"One bad thing becomes the whole future.",
+   says:"I bombed the quiz. So I'll fail the class, wreck my GPA, and never get in anywhere.",
+   exwhy:"One quiz became four years in about two seconds. The jump is the tell — watch for the word 'so'.",
+   truer:"I did badly on one quiz. That is the actual size of it. Tomorrow's problems can wait for tomorrow.",
+   v:{ text:"Therefore do not be anxious about tomorrow, for tomorrow will be anxious for itself. Sufficient for the day is its own trouble.", ref:"Matthew 6:34", url:"matthew/6-34.htm" } },
+
+ { id:"all-or-nothing", name:"If it's not perfect, it's a failure",
+   sub:"Two settings only — flawless, or worthless.",
+   says:"I got an A minus. I might as well not have bothered.",
+   exwhy:"There's no scale here, just a cliff. Anything short of the top gets filed at the bottom.",
+   truer:"Almost all of a real life happens in the middle. Being partway is still being on the way.",
+   v:{ text:"But he said to me, “My grace is sufficient for you, for my power is made perfect in weakness.” Therefore I will boast all the more gladly of my weaknesses, so that the power of Christ may rest upon me.", ref:"2 Corinthians 12:9", url:"2_corinthians/12-9.htm" } },
+
+ { id:"overgeneralizing", name:"This always happens to me",
+   sub:"One time becomes a permanent rule about you.",
+   says:"I froze in the presentation. I always freeze. I'll never be able to do this.",
+   exwhy:"Listen for always and never. They turn one bad Tuesday into a life sentence.",
+   truer:"It happened this time. 'Always' is a feeling wearing a fact's clothes.",
+   v:{ text:"The steadfast love of the LORD never ceases; his mercies never come to an end; they are new every morning; great is your faithfulness.", ref:"Lamentations 3:22–23", url:"lamentations/3-22.htm" } },
+
+ { id:"filtering", name:"I can only see what went wrong",
+   sub:"Nine things went fine. The tenth is all that's left.",
+   says:"The presentation went well, but I stumbled on one slide. That's all I can think about.",
+   exwhy:"The word 'but' did the work. Everything before it got quietly deleted.",
+   truer:"Both are real. You're allowed to count the nine.",
+   v:{ text:"Finally, brothers, whatever is true, whatever is honorable, whatever is just, whatever is pure, whatever is lovely, whatever is commendable, if there is any excellence, if there is anything worthy of praise, think about these things.", ref:"Philippians 4:8", url:"philippians/4-8.htm" } },
+
+ { id:"mind-reading", name:"I know what they're thinking about me",
+   sub:"You decide what's in someone's head, then react to your own guess.",
+   says:"She left me on read. She thinks I'm an idiot.",
+   exwhy:"There's one fact here — no reply — and an entire verdict built on top of it.",
+   truer:"You don't actually know. People are usually busy, not disgusted.",
+   v:{ text:"For am I now seeking the approval of man, or of God? Or am I trying to please man? If I were still trying to please man, I would not be a servant of Christ.", ref:"Galatians 1:10", url:"galatians/1-10.htm" } },
+
+ { id:"fortune-telling", name:"I already know how this ends",
+   sub:"You've watched the ending, and it's bad.",
+   says:"There's no point applying. I won't get it.",
+   exwhy:"This one is sneaky because it feels like being realistic. It's a forecast wearing a fact's face.",
+   truer:"That's a prediction, not knowledge. The only way to find out is to still be in it.",
+   v:{ text:"For I know the plans I have for you, declares the LORD, plans for welfare and not for evil, to give you a future and a hope.", ref:"Jeremiah 29:11", url:"jeremiah/29-11.htm" } },
+
+ { id:"shoulds", name:"I should be handling this better",
+   sub:"A rule you never agreed to, enforced only against you.",
+   says:"Everyone else manages this workload. I shouldn't need help.",
+   exwhy:"Find the word 'should' and ask who wrote the rule. Usually nobody you'd take orders from.",
+   truer:"Needing help is the ordinary human condition, not a failure of it.",
+   v:{ text:"There is therefore now no condemnation for those who are in Christ Jesus.", ref:"Romans 8:1", url:"romans/8-1.htm" } },
+
+ { id:"personalizing", name:"It's my fault",
+   sub:"Something went wrong nearby, so it must be about you.",
+   says:"The group project fell apart. I should have carried it.",
+   exwhy:"Four people, one deadline, and somehow all of it landed on you.",
+   truer:"Your part is yours. The rest belongs to other people and to things you didn't control.",
+   v:{ text:"If possible, so far as it depends on you, live peaceably with all.", ref:"Romans 12:18", url:"romans/12-18.htm" } },
+
+ { id:"emotional-reasoning", name:"I feel it, so it must be true",
+   sub:"The feeling gets treated as evidence.",
+   says:"I feel worthless. So I must be worthless.",
+   exwhy:"Swap in any other feeling and the problem shows: I feel cold, so it must be winter.",
+   truer:"Feelings report the weather, not the verdict. You can feel it fully and still not believe it.",
+   v:{ text:"Why are you cast down, O my soul, and why are you in turmoil within me? Hope in God; for I shall again praise him, my salvation and my God.", ref:"Psalm 42:11", url:"psalms/42-11.htm" } },
+
+ { id:"comparing", name:"Everyone else is doing better than me",
+   sub:"Your insides measured against other people's outsides.",
+   says:"Everyone in my class has it together. I'm the only one drowning.",
+   exwhy:"You're comparing what it feels like to be you with what it looks like to be them.",
+   truer:"The real question isn't whether you're ahead of them. It's whether you're doing your own work well.",
+   v:{ text:"But let each one test his own work, and then his reason to boast will be in himself alone and not in his neighbor.", ref:"Galatians 6:4", url:"galatians/6-4.htm" } }
+];
+
+var FEELINGS = [
+ {l:"Anxious",g:"afraid"},{l:"Afraid",g:"afraid"},{l:"Panicked",g:"afraid"},{l:"Dreading it",g:"courage"},
+ {l:"Overwhelmed",g:"worn"},{l:"Exhausted",g:"worn"},{l:"Numb",g:"worn"},{l:"Can't start",g:"worn"},
+ {l:"Ashamed",g:"ashamed"},{l:"Guilty",g:"ashamed"},{l:"Embarrassed",g:"ashamed"},
+ {l:"Worthless",g:"notenough"},{l:"Not enough",g:"notenough"},{l:"Stupid",g:"notenough"},
+ {l:"Defeated",g:"failing"},{l:"Discouraged",g:"failing"},{l:"Like a failure",g:"failing"},
+ {l:"Lonely",g:"alone"},{l:"Unseen",g:"alone"},{l:"Sad",g:"alone"},{l:"Homesick",g:"alone"},
+ {l:"Envious",g:"comparing"},{l:"Behind",g:"comparing"},
+ {l:"Angry",g:"angry"},{l:"Frustrated",g:"angry"}
+];
+
+var VERSES = {
+ afraid:{ title:"When you're afraid", items:[
+  {text:"fear not, for I am with you; be not dismayed, for I am your God; I will strengthen you, I will help you, I will uphold you with my righteous right hand.",ref:"Isaiah 41:10",url:"isaiah/41-10.htm"},
+  {text:"do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts and your minds in Christ Jesus.",ref:"Philippians 4:6–7",url:"philippians/4-6.htm"},
+  {text:"Humble yourselves, therefore, under the mighty hand of God so that at the proper time he may exalt you, casting all your anxieties on him, because he cares for you.",ref:"1 Peter 5:6–7",url:"1_peter/5-7.htm"},
+  {text:"In all circumstances take up the shield of faith, with which you can extinguish all the flaming darts of the evil one;",ref:"Ephesians 6:16",url:"ephesians/6-16.htm"}
+ ]},
+ notenough:{ title:"When you're not enough", items:[
+  {text:"I praise you, for I am fearfully and wonderfully made. Wonderful are your works; my soul knows it very well.",ref:"Psalm 139:14",url:"psalms/139-14.htm"},
+  {text:"For we are his workmanship, created in Christ Jesus for good works, which God prepared beforehand, that we should walk in them.",ref:"Ephesians 2:10",url:"ephesians/2-10.htm"},
+  {text:"For the LORD sees not as man sees: man looks on the outward appearance, but the LORD looks on the heart.",ref:"1 Samuel 16:7",url:"1_samuel/16-7.htm"}
+ ]},
+ failing:{ title:"After you've failed at something", items:[
+  {text:"for the righteous falls seven times and rises again, but the wicked stumble in times of calamity.",ref:"Proverbs 24:16",url:"proverbs/24-16.htm"},
+  {text:"There is therefore now no condemnation for those who are in Christ Jesus.",ref:"Romans 8:1",url:"romans/8-1.htm"},
+  {text:"Rejoice not over me, O my enemy; when I fall, I shall rise; when I sit in darkness, the LORD will be a light to me.",ref:"Micah 7:8",url:"micah/7-8.htm"}
+ ]},
+ worn:{ title:"When you're worn out", items:[
+  {text:"Come to me, all who labor and are heavy laden, and I will give you rest. Take my yoke upon you, and learn from me, for I am gentle and lowly in heart, and you will find rest for your souls. For my yoke is easy, and my burden is light.",ref:"Matthew 11:28–30",url:"matthew/11-28.htm"},
+  {text:"but they who wait for the LORD shall renew their strength; they shall mount up with wings like eagles; they shall run and not be weary; they shall walk and not faint.",ref:"Isaiah 40:31",url:"isaiah/40-31.htm"},
+  {text:"And let us not grow weary of doing good, for in due season we will reap, if we do not give up.",ref:"Galatians 6:9",url:"galatians/6-9.htm"},
+  {text:"And after the earthquake a fire, but the LORD was not in the fire. And after the fire the sound of a low whisper.",ref:"1 Kings 19:12",url:"1_kings/19-12.htm"},
+  {text:"Hear my cry, O God, listen to my prayer; from the end of the earth I call to you when my heart is faint. Lead me to the rock that is higher than I,",ref:"Psalm 61:1–2",url:"psalms/61-2.htm"}
+ ]},
+ alone:{ title:"When you feel alone", items:[
+  {text:"Be strong and courageous. Do not fear or be in dread of them, for it is the LORD your God who goes with you. He will not leave you or forsake you.",ref:"Deuteronomy 31:6",url:"deuteronomy/31-6.htm"},
+  {text:"The LORD is near to the brokenhearted and saves the crushed in spirit.",ref:"Psalm 34:18",url:"psalms/34-18.htm"},
+  {text:"When you pass through the waters, I will be with you; and through the rivers, they shall not overwhelm you; when you walk through fire you shall not be burned, and the flame shall not consume you.",ref:"Isaiah 43:2",url:"isaiah/43-2.htm"}
+ ]},
+ comparing:{ title:"When you're comparing", items:[
+  {text:"But let each one test his own work, and then his reason to boast will be in himself alone and not in his neighbor. For each will have to bear his own load.",ref:"Galatians 6:4–5",url:"galatians/6-4.htm"},
+  {text:"But as it is, God arranged the members in the body, each one of them, as he chose.",ref:"1 Corinthians 12:18",url:"1_corinthians/12-18.htm"}
+ ]},
+ ashamed:{ title:"When you're ashamed", items:[
+  {text:"If we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.",ref:"1 John 1:9",url:"1_john/1-9.htm"},
+  {text:"as far as the east is from the west, so far does he remove our transgressions from us.",ref:"Psalm 103:12",url:"psalms/103-12.htm"}
+ ]},
+ angry:{ title:"When you're angry", items:[
+  {text:"Be angry, and do not sin; ponder in your own hearts on your beds, and be silent.",ref:"Psalm 4:4",url:"psalms/4-4.htm"},
+  {text:"Know this, my beloved brothers: let every person be quick to hear, slow to speak, slow to anger;",ref:"James 1:19",url:"james/1-19.htm"}
+ ]},
+ courage:{ title:"When you need courage", items:[
+  {text:"for God gave us a spirit not of fear but of power and love and self-control.",ref:"2 Timothy 1:7",url:"2_timothy/1-7.htm"},
+  {text:"The LORD is my light and my salvation; whom shall I fear? The LORD is the stronghold of my life; of whom shall I be afraid?",ref:"Psalm 27:1",url:"psalms/27-1.htm"},
+  {text:"Have I not commanded you? Be strong and courageous. Do not be frightened, and do not be dismayed, for the LORD your God is with you wherever you go.",ref:"Joshua 1:9",url:"joshua/1-9.htm"}
+ ]}
+};
+var GROUP_ORDER = ["afraid","notenough","failing","worn","alone","comparing","ashamed","angry","courage"];
+
+var PROMPTS = [
+ "What's the heaviest part of today?",
+ "What are you afraid is going to happen?",
+ "Where do you feel it in your body?",
+ "What would you say to someone you love who was carrying this?",
+ "What's one thing that was true today that wasn't terrible?",
+ "What do you need that you haven't asked anyone for?",
+ "What are you carrying that isn't yours to carry?",
+ "What did you get through today that you're giving yourself no credit for?",
+ "If tomorrow were one degree easier, what would be different about it?",
+ "What would you say to God right now, in your own words, if nothing had to sound right?"
+];
+
+/* ---- four pages ---- */
+var STEPS = [
+ { kicker:"One", title:"What&rsquo;s going on",
+   lede:"Two parts, and either can stay empty. First what happened, then the sentence your head is saying about it. Doing this on paper works just as well &mdash; the questions are the useful part.",
+   v:{text:"Search me, O God, and know my heart! Try me and know my thoughts!",ref:"Psalm 139:23",url:"psalms/139-23.htm"},
+   body:'<div class="example"><div class="exlabel">For example</div>'+
+        '<p><strong>What happened:</strong> Got the organic chem exam back. 74. Two people behind me said it was easy.</p>'+
+        '<p><strong>The sentence in my head:</strong> <em>&ldquo;I&rsquo;m not smart enough to be here. Everyone else gets it and I&rsquo;m faking it.&rdquo;</em></p>'+
+        '<p class="exwhy">Notice the difference: the first is what a camera would have seen. The second is what you added.</p></div>'+
+        '<label class="field" for="f-situation"><span class="field-label">What happened</span>'+
+        '<span class="field-hint">Just the facts of it, as a camera would have caught them.</span>'+
+        '<textarea id="f-situation" rows="3" placeholder="Walked out of the exam. Two people behind me said it was easy."></textarea></label>'+
+        '<label class="field" for="f-thought"><span class="field-label">The sentence in your head</span>'+
+        '<span class="field-hint">Word for word, cruel parts included, no cleaning it up. It isn&rsquo;t news to God, and it can&rsquo;t be answered while it&rsquo;s hiding.</span>'+
+        '<textarea id="f-thought" rows="3" placeholder="I&rsquo;m not smart enough to be here. Everyone else gets it and I&rsquo;m faking it."></textarea></label>' },
+
+ { kicker:"Two", title:"Describe the mixture of what you&rsquo;re feeling",
+   lede:"Feelings almost never come one at a time, and they rarely have a single name. Tap everything that fits. There is no wrong set.",
+   v:{text:"Trust in him at all times, O people; pour out your heart before him; God is a refuge for us.",ref:"Psalm 62:8",url:"psalms/62-8.htm"},
+   body:'<div class="whymatters"><b>Why this part matters</b>Naming a feeling is the first thing that takes the edge off it — that is a real effect, not a nice idea. It also gives you a reading to compare against at the end. And over weeks, looking back, you&rsquo;ll see which feelings keep returning: those are the ones worth going deeper into.</div>'+
+        '<div class="field"><span class="field-label">Tap everything that fits</span><div class="chips" id="u-chips"></div></div>'+
+        '<div class="field"><span class="field-label">How heavy is it right now?</span>'+
+        '<div class="slider-row"><div><input type="range" id="f-before" min="0" max="100" step="5" value="70" aria-label="How heavy it feels now">'+
+        '<div class="scale-ends"><span>I can carry it</span><span>It&rsquo;s all of me</span></div></div>'+
+        '<div class="readout" id="beforeVal">70</div></div></div>' },
+
+ { kicker:"Three", title:"What is that thought doing?",
+   lede:"Hard thoughts come in shapes. Each one below is named as the sentence itself, the way it actually shows up in your head — find the one that sounds like yours. This isn&rsquo;t a fault in you. Nobody thinks straight while they&rsquo;re hurting.",
+   v:{text:"We destroy arguments and every lofty opinion raised against the knowledge of God, and take every thought captive to obey Christ,",ref:"2 Corinthians 10:5",url:"2_corinthians/10-5.htm"},
+   body:'<div class="shapes" id="u-shapes"></div>' },
+
+ { kicker:"Four", title:"An honest review for a healthier me",
+   lede:"Not thinking positive. Thinking accurately. A true thought can stand up to questions — and most of these can&rsquo;t.",
+   v:{text:"Do not despise prophecies, but test everything; hold fast what is good.",ref:"1 Thessalonians 5:20–21",url:"1_thessalonians/5-21.htm"},
+   body:'<label class="field" for="f-provable"><span class="field-label">What part of this is provable?</span>'+
+        '<span class="field-hint">Facts only — not assumptions, not predictions, not your opinion of yourself. If it wouldn&rsquo;t hold up as evidence, it doesn&rsquo;t belong here. Usually what&rsquo;s left is much smaller than the thought.</span>'+
+        '<textarea id="f-provable" rows="2" placeholder="I scored 74. I couldn&rsquo;t finish the last mechanism."></textarea></label>'+
+        '<label class="field" for="f-leftout"><span class="field-label">What did the feeling leave out?</span>'+
+        '<span class="field-hint">There is always more to the story, and when we&rsquo;re low the good parts go first. What has gone well here? What did you get right? What are you actually good at? Those count as evidence too.</span>'+
+        '<textarea id="f-leftout" rows="3" placeholder="I passed the last two. The average was 68. I&rsquo;m good at the lab work. I asked for help this time instead of hiding."></textarea></label>'+
+        '<label class="field" for="f-friend"><span class="field-label">If someone who loves you could talk to you right now, what would they say?</span>'+
+        '<span class="field-hint">And turn it around: if they said this about themselves, what would you say back? You already know how to be kind. This is only about aiming it at yourself.</span>'+
+        '<textarea id="f-friend" rows="2" placeholder="My mom would say one exam isn&rsquo;t a verdict, and she&rsquo;d mean it."></textarea></label>'+
+
+        '<div class="subhead">Now say it truer</div>'+
+        '<label class="field" for="f-reframe"><span class="field-label">The truer sentence</span>'+
+        '<span class="field-hint">Not brighter — truer. One sentence that holds the hard part and everything else too.</span>'+
+        '<textarea id="f-reframe" rows="3" placeholder="That exam was hard and I didn&rsquo;t do as well as I wanted. That&rsquo;s a result, not a ruling on whether I belong here."></textarea></label>'+
+        '<label class="field" for="f-nexttime"><span class="field-label">Next time this thought shows up, what will you tell yourself?</span>'+
+        '<span class="field-hint">This is the part you&rsquo;re keeping. Write it as something you could actually say to yourself at 11pm — short enough to remember.</span>'+
+        '<textarea id="f-nexttime" rows="2" placeholder="One score is data, not a verdict. Check what I missed, then go to bed."></textarea></label>'+
+        '<label class="field" for="f-step"><span class="field-label">One small next step</span>'+
+        '<span class="field-hint">Small enough to do before tomorrow night. Going to bed counts. So does asking someone for help.</span>'+
+        '<input type="text" id="f-step" placeholder="Email the TA about question 4."></label>'+
+        '<div class="field"><span class="field-label">A verse to carry</span>'+
+        '<span class="field-hint">Chosen for what you said you were feeling. Take one, or none.</span>'+
+        '<div class="pick-list" id="versePicks"></div>'+
+        '<div><button class="btn quiet" type="button" id="shuffleVerses">Show me different ones</button></div></div>'+
+        '<div class="field"><span class="field-label">How heavy is it now?</span>'+
+        '<div class="slider-row"><div><input type="range" id="f-after" min="0" max="100" step="5" value="45" aria-label="How heavy it feels after">'+
+        '<div class="scale-ends"><span>I can carry it</span><span>It&rsquo;s all of me</span></div></div>'+
+        '<div class="readout" id="afterVal">45</div></div>'+
+        '<span class="field-hint">It does not have to have moved. If it hasn&rsquo;t, that&rsquo;s information, not failure — and it&rsquo;s worth telling someone.</span></div>'+
+        '<div class="margin-note"><blockquote>&ldquo;Do not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect.&rdquo;</blockquote>'+
+        refLink("Romans 12:2 · ESV","romans/12-2.htm")+'</div>' }
+];
+
+/* ============================================================= state === */
+var EKEY = "tet.entries.v2", SKEY = "tet.skin";
+var entries = [], step = 1, chosenVerse = null, shuffle = 0, view = "home", stack = [];
+
+function load(){ try{ var r = localStorage.getItem(EKEY); entries = r ? JSON.parse(r) : []; }catch(e){ entries = []; }
+  if(!Array.isArray(entries)) entries = []; }
+function persist(){ try{ localStorage.setItem(EKEY, JSON.stringify(entries)); }catch(e){} }
+
+/* ============================================================== views == */
+var VIEWS = ["home","steady","untangle","write","journal","shapes","verses"];
+function show(v, push){
+  if(push !== false && v !== view) stack.push(view);
+  if(v === "home") stack = [];
+  view = v;
+  VIEWS.forEach(function(k){ $("v-"+k).hidden = (k !== v); });
+  $("homeBtn").hidden = (v === "home");
+  $("backBtn").hidden = (v === "home") || (stack.length === 0 && !(v === "untangle" && step > 1));
+  if(v === "untangle") renderStep();
+  if(v === "journal") renderEntries();
+  if(v === "steady") startBreath(); else stopBreath();
+  window.scrollTo(0,0);
+}
+function goBack(){
+  if(view === "untangle" && step > 1){ goStep(step-1); return; }
+  if(stack.length){ show(stack.pop(), false); return; }
+  show("home", false);
+}
+
+/* ============================================================= breath == */
+var CYCLE = 12000, IN_MS = 4000, HOLD_MS = 6000, TOTAL = 8;
+var breathT0 = 0, breathTimer = null;
+function startBreath(){
+  stopBreath();
+  breathT0 = Date.now();
+  $("breathCircle").classList.remove("paused");
+  $("breathDone").hidden = true;
+  tickBreath();
+  breathTimer = setInterval(tickBreath, 120);
+}
+function stopBreath(){ if(breathTimer){ clearInterval(breathTimer); breathTimer = null; } }
+function tickBreath(){
+  var el = Date.now() - breathT0;
+  var idx = Math.floor(el / CYCLE);
+  if(idx >= TOTAL){
+    stopBreath();
+    $("breathCircle").classList.add("paused");
+    $("breathWord").textContent = "Eight breaths";
+    $("breathNum").textContent = "·";
+    $("breathMeta").textContent = "Done — or keep going";
+    $("breathDone").hidden = false;
+    return;
+  }
+  var t = el % CYCLE, word, num;
+  if(t < IN_MS){ word = "Breathe in"; num = Math.ceil((IN_MS - t)/1000); }
+  else if(t < HOLD_MS){ word = "Hold"; num = Math.ceil((HOLD_MS - t)/1000); }
+  else { word = "Breathe out"; num = Math.ceil((CYCLE - t)/1000); }
+  $("breathWord").textContent = word;
+  $("breathNum").textContent = num;
+  $("breathMeta").textContent = "Breath " + (idx+1) + " of " + TOTAL;
+}
+
+/* ============================================================== steps == */
+function renderProgress(){
+  $("progress").innerHTML = STEPS.map(function(_,i){
+    return '<span class="pdot" data-on="'+(i < step ? "1" : "0")+'"></span>';
+  }).join("");
+}
+function renderStep(){
+  var s = STEPS[step-1];
+  renderProgress();
+  $("stepwrap").innerHTML =
+    '<div class="vhead"><div class="kicker">Step '+s.kicker.toLowerCase()+' of four</div>'+
+    '<h2>'+s.title+'</h2><p class="lede">'+s.lede+'</p></div>'+
+    (step === 4 ? '' : '<div class="margin-note"><blockquote>&ldquo;'+esc(s.v.text)+'&rdquo;</blockquote>'+refLink(s.v.ref+" · ESV", s.v.url)+'</div>')+
+    s.body+
+    (step === 4 ? '' : '') +
+    '<div class="actions">'+
+      (step < 4
+        ? '<button class="btn" type="button" data-step="'+(step+1)+'">Next</button>'
+        : '<button class="btn" type="button" id="saveRecord">Keep this</button>')+
+      '<button class="btn ghost" type="button" id="stepBack">Back</button>'+
+      (step < 4 ? '<button class="btn quiet" type="button" data-step="'+(step+1)+'">Skip this</button>' : '')+
+      (step === 1 ? '<button class="btn quiet" type="button" id="loadExample">Fill it in for me</button>' : '')+
+      '<span class="flash hidden" id="recordFlash"></span>'+
+    '</div>';
+  if(step === 1 && s.v){
+    /* step one keeps its verse under the heading; already inserted above */
+  }
+  if(step === 2){ paintChips("u-chips"); bindRange("f-before","beforeVal"); }
+  if(step === 3){ paintShapes("u-shapes", true); }
+  if(step === 4){
+    /* the review page opens with its own margin note under the lede */
+    var head = $("stepwrap").querySelector(".vhead");
+    var note = document.createElement("div");
+    note.className = "margin-note";
+    note.innerHTML = '<blockquote>&ldquo;'+esc(s.v.text)+'&rdquo;</blockquote>'+refLink(s.v.ref+" · ESV", s.v.url);
+    head.insertAdjacentElement("afterend", note);
+    renderVersePicks(); bindRange("f-after","afterVal");
+  }
+  restore();
+  $("backBtn").hidden = false;
+}
+
+var draft = { situation:"", thought:"", feelings:[], before:70, shapes:[], provable:"", leftOut:"", friend:"", reframe:"", nextTime:"", nextStep:"", after:45 };
+var FIELDMAP = [["situation","f-situation"],["thought","f-thought"],["provable","f-provable"],
+  ["leftOut","f-leftout"],["friend","f-friend"],["reframe","f-reframe"],["nextTime","f-nexttime"],["nextStep","f-step"]];
+
+function capture(){
+  FIELDMAP.forEach(function(p){ var el = $(p[1]); if(el) draft[p[0]] = el.value; });
+  if($("f-before")) draft.before = parseInt($("f-before").value,10);
+  if($("f-after")) draft.after = parseInt($("f-after").value,10);
+  if($("u-chips")){
+    draft.feelings = [];
+    $("u-chips").querySelectorAll('.chip[aria-pressed="true"]').forEach(function(c){ draft.feelings.push(c.getAttribute("data-feel")); });
+  }
+  if($("u-shapes")){
+    draft.shapes = [];
+    $("u-shapes").querySelectorAll('.shape[data-on="1"]').forEach(function(el){ draft.shapes.push(el.getAttribute("data-id")); });
+  }
+}
+function restore(){
+  FIELDMAP.forEach(function(p){ var el = $(p[1]); if(el) el.value = draft[p[0]] || ""; });
+  if($("f-before")){ $("f-before").value = draft.before; $("beforeVal").textContent = draft.before; }
+  if($("f-after")){ $("f-after").value = draft.after; $("afterVal").textContent = draft.after; }
+  if($("u-chips")) $("u-chips").querySelectorAll(".chip").forEach(function(c){
+    c.setAttribute("aria-pressed", draft.feelings.indexOf(c.getAttribute("data-feel")) > -1 ? "true" : "false"); });
+  if($("u-shapes")) $("u-shapes").querySelectorAll(".shape").forEach(function(el){
+    var on = draft.shapes.indexOf(el.getAttribute("data-id")) > -1;
+    el.setAttribute("data-on", on ? "1" : "0");
+    el.querySelector(".shape-body").hidden = !on;
+  });
+}
+function goStep(n){ capture(); step = n; renderStep(); window.scrollTo(0,0); }
+
+function bindRange(id, out){
+  var el = $(id); if(!el) return;
+  el.addEventListener("input", function(){ $(out).textContent = this.value; });
+}
+function paintChips(hostId){
+  $(hostId).innerHTML = FEELINGS.map(function(f){
+    return '<button type="button" class="chip" data-feel="'+esc(f.l)+'" data-group="'+f.g+'" aria-pressed="false">'+esc(f.l)+'</button>';
+  }).join("");
+}
+function shapeHTML(s, interactive){
+  return '<div class="shape" data-id="'+s.id+'" data-on="0">'+
+    '<button type="button" class="shape-head" data-shape="'+s.id+'">'+
+      '<span class="mark" aria-hidden="true">✓</span>'+
+      '<span><span class="shape-name">&ldquo;'+esc(s.name)+'&rdquo;</span><span class="shape-sub">'+esc(s.sub)+'</span></span>'+
+    '</button>'+
+    '<div class="shape-body"'+(interactive?" hidden":"")+'>'+
+      '<p class="says">&ldquo;'+esc(s.says)+'&rdquo;</p>'+
+      '<p class="exwhy">'+esc(s.exwhy)+'</p>'+
+      '<p class="truer"><b>The reframe</b>'+esc(s.truer)+'</p>'+
+      '<p><span style="font-family:var(--serif);font-style:italic;color:var(--ink-2)">&ldquo;'+esc(s.v.text)+'&rdquo;</span> '+refLink(s.v.ref, s.v.url)+'</p>'+
+    '</div></div>';
+}
+function paintShapes(hostId, interactive){
+  $(hostId).innerHTML = SHAPES.map(function(s){ return shapeHTML(s, interactive); }).join("");
+}
+
+/* ============================================================= verses == */
+function activeGroups(){
+  var gs = [];
+  draft.feelings.forEach(function(l){
+    var f = FEELINGS.filter(function(x){ return x.l === l; })[0];
+    if(f && gs.indexOf(f.g) === -1) gs.push(f.g);
+  });
+  return gs.length ? gs : GROUP_ORDER.slice();
+}
+function suggested(){
+  var pool = [];
+  activeGroups().forEach(function(g){ (VERSES[g]||{items:[]}).items.forEach(function(v){ pool.push(v); }); });
+  var out = [], n = Math.min(3, pool.length);
+  for(var i=0;i<n;i++) out.push(pool[(shuffle*3 + i) % pool.length]);
+  return out;
+}
+function renderVersePicks(){
+  var vs = suggested();
+  if(chosenVerse && !vs.some(function(v){ return v.ref === chosenVerse.ref; })) vs = [chosenVerse].concat(vs.slice(0,2));
+  $("versePicks").innerHTML = vs.map(function(v,i){
+    var on = chosenVerse && chosenVerse.ref === v.ref && chosenVerse.text === v.text;
+    return '<button type="button" class="pick" data-vi="'+i+'" aria-pressed="'+(on?"true":"false")+'">'+
+      '<span class="dot" aria-hidden="true"></span><span><q>'+esc(v.text)+'</q><br>'+refLink(v.ref+" · ESV", v.url)+'</span></button>';
+  }).join("");
+  $("versePicks").__vs = vs;
+}
+function renderVerseGroups(){
+  $("verseGroups").innerHTML = GROUP_ORDER.map(function(g){
+    var grp = VERSES[g];
+    return '<section class="vg"><h3>'+esc(grp.title)+'</h3><ul>'+grp.items.map(function(v){
+      return '<li>&ldquo;'+esc(v.text)+'&rdquo;'+refLink(v.ref, v.url)+'</li>'; }).join("")+'</ul></section>';
+  }).join("");
+}
+
+/* ============================================================ journal == */
+function fmtDate(ts){
+  try{ return new Date(ts).toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric",year:"numeric"}); }
+  catch(e){ return new Date(ts).toDateString(); }
+}
+function entryHTML(e){
+  var moved = (typeof e.before === "number" && typeof e.after === "number");
+  return '<article class="entry" data-eid="'+esc(e.id)+'">'+
+    '<div class="etop"><div class="edate">'+esc(fmtDate(e.ts))+
+      '<span class="tag">'+(e.kind === "page" ? "Page" : "Worked through") 
+      +'</span></div>'+
+      (moved ? '<div class="delta"><span class="bar"><span style="width:'+e.before+'%"></span></span>'+e.before+
+        ' <span aria-hidden="true">&rarr;</span> <span class="bar calm"><span style="width:'+e.after+'%"></span></span>'+
+        '<span class="after">'+e.after+'</span></div>' : '')+
+    '</div>'+
+    (e.situation ? '<p class="small" style="margin-top:.5rem">'+esc(e.situation)+'</p>' : '')+
+    (e.text ? '<p class="efree">'+esc(e.text)+'</p>' : '')+
+    (e.thought ? '<p class="ethought">&ldquo;'+esc(e.thought)+'&rdquo;</p>' : '')+
+    ((e.feelings&&e.feelings.length)||(e.shapes&&e.shapes.length) ?
+      '<div class="emeta">'+
+        (e.feelings||[]).map(function(f){ return '<span class="minitag">'+esc(f)+'</span>'; }).join("")+
+        (e.shapes||[]).map(function(s){ return '<span class="minitag" style="color:var(--accent);border-color:var(--accent)">'+esc(s)+'</span>'; }).join("")+
+      '</div>' : '')+
+    (e.leftOut ? '<p class="small" style="margin-top:.6rem"><strong style="color:var(--ink-2)">It left out:</strong> '+esc(e.leftOut)+'</p>' : '')+
+    (e.reframe ? '<p class="ereframe">'+esc(e.reframe)+'</p>' : '')+
+    (e.nextTime ? '<p class="enext"><b>Next time, tell yourself</b>'+esc(e.nextTime)+'</p>' : '')+
+    (e.nextStep ? '<p class="small" style="margin-top:.5rem"><strong style="color:var(--ink-2)">Next step:</strong> '+esc(e.nextStep)+'</p>' : '')+
+    (e.verse ? '<p class="everse">&ldquo;'+esc(e.verse.text)+'&rdquo; '+refLink(e.verse.ref, e.verse.url||"")+'</p>' : '')+
+    '<div class="actions"><button class="btn quiet" type="button" data-del="'+esc(e.id)+'">Delete this</button></div>'+
+  '</article>';
+}
+function renderEntries(){
+  if(!entries.length){
+    $("entries").innerHTML = '<p class="empty">Nothing here yet. Whatever you write — a full walk-through or three words on a bad night — lands on this page, newest first, so you can look back and see that the heavy days did pass.</p>';
+    return;
+  }
+  $("entries").innerHTML = entries.slice().sort(function(a,b){ return b.ts - a.ts; }).map(entryHTML).join("");
+}
+function toText(){
+  return "Holding Your Thoughts Captive — journal\n\n" + entries.slice().sort(function(a,b){ return b.ts-a.ts; }).map(function(e){
+    var L = ["## " + fmtDate(e.ts) + (e.kind === "page" ? " (page)" : "")];
+    if(e.situation) L.push("What happened: " + e.situation);
+    if(e.text) L.push(e.text);
+    if(e.feelings && e.feelings.length) L.push("Feeling: " + e.feelings.join(", ") + (typeof e.before === "number" ? "  — heaviness " + e.before + (typeof e.after === "number" ? " → " + e.after : "") : ""));
+    if(e.thought) L.push("The thought: “" + e.thought + "”");
+    if(e.shapes && e.shapes.length) L.push("What it was doing: " + e.shapes.join("; "));
+    if(e.provable) L.push("Provable: " + e.provable);
+    if(e.leftOut) L.push("It left out: " + e.leftOut);
+    if(e.friend) L.push("Someone who loves me would say: " + e.friend);
+    if(e.reframe) L.push("Truer: " + e.reframe);
+    if(e.nextTime) L.push("Next time, tell yourself: " + e.nextTime);
+    if(e.nextStep) L.push("Next step: " + e.nextStep);
+    if(e.verse) L.push("Verse: “" + e.verse.text + "” — " + e.verse.ref + " (ESV)");
+    return L.join("\n\n");
+  }).join("\n\n---\n\n") + "\n";
+}
+
+/* ============================================================= events == */
+document.addEventListener("click", function(ev){
+  var t = ev.target.closest ? ev.target.closest("[data-view],[data-step],[data-feel],[data-shape],[data-vi],[data-del],[data-skin]") : null;
+  if(!t) return;
+
+  if(t.hasAttribute("data-skin")){
+    var sk = t.getAttribute("data-skin");
+    if(sk === "auto") document.documentElement.removeAttribute("data-skin");
+    else document.documentElement.setAttribute("data-skin", sk);
+    try{ localStorage.setItem(SKEY, sk); }catch(e){}
+    document.querySelectorAll(".swatch").forEach(function(b){ b.setAttribute("aria-pressed", b === t ? "true" : "false"); });
+    return;
+  }
+  if(t.hasAttribute("data-view")){ if(view === "untangle") capture(); show(t.getAttribute("data-view")); return; }
+  if(t.hasAttribute("data-step")){ goStep(parseInt(t.getAttribute("data-step"),10)); return; }
+  if(t.hasAttribute("data-feel")){ t.setAttribute("aria-pressed", t.getAttribute("aria-pressed") === "true" ? "false" : "true"); shuffle = 0; return; }
+  if(t.hasAttribute("data-shape")){
+    var box = t.parentElement, interactive = !!box.closest("#u-shapes");
+    if(interactive){
+      var on = box.getAttribute("data-on") === "1" ? "0" : "1";
+      box.setAttribute("data-on", on);
+      box.querySelector(".shape-body").hidden = (on !== "1");
+    } else {
+      var bd = box.querySelector(".shape-body"); bd.hidden = !bd.hidden;
+    }
+    return;
+  }
+  if(t.hasAttribute("data-vi")){
+    var vs = $("versePicks").__vs || [], v = vs[parseInt(t.getAttribute("data-vi"),10)];
+    chosenVerse = (chosenVerse && v && chosenVerse.ref === v.ref && chosenVerse.text === v.text) ? null : v;
+    renderVersePicks();
+    return;
+  }
+  if(t.hasAttribute("data-del")){
+    var id = t.getAttribute("data-del");
+    entries = entries.filter(function(e){ return e.id !== id; });
+    persist(); renderEntries();
+    return;
+  }
+});
+
+document.addEventListener("click", function(ev){
+  var t = ev.target;
+  if(!t.id) return;
+
+  if(t.id === "homeBtn"){ if(view === "untangle") capture(); show("home", false); }
+  if(t.id === "backBtn" || t.id === "stepBack"){ if(view === "untangle") capture(); goBack(); }
+  if(t.id === "breathAgain"){ startBreath(); }
+  if(t.id === "shuffleVerses"){ shuffle++; renderVersePicks(); }
+
+  if(t.id === "loadExample"){
+    draft = { situation:"Got the organic chem exam back. 74. Two people behind me were saying it was easy.",
+      thought:"I'm not smart enough to be here. Everyone else understands this and I'm faking it.",
+      feelings:["Discouraged","Not enough","Behind"], before:80,
+      shapes:["all-or-nothing","mind-reading","emotional-reasoning"],
+      provable:"I scored 74. I couldn't finish the last mechanism.",
+      leftOut:"I passed the last two. The posted average was 68. I'm good at the lab work, and I asked for help this time instead of hiding.",
+      friend:"My mom would say one exam isn't a verdict on whether I belong, and she'd mean it.",
+      reframe:"That exam was hard and I didn't do as well as I wanted. That's a result, not a ruling on whether I belong here.",
+      nextTime:"One score is data, not a verdict. Find out what I missed, then go to bed.",
+      nextStep:"Go to office hours Thursday with the two problems I couldn't finish.", after:45 };
+    chosenVerse = VERSES.notenough.items[0];
+    renderStep();
+  }
+
+  if(t.id === "saveRecord"){
+    capture();
+    if(!draft.thought && !draft.reframe && !draft.situation){
+      var f = $("recordFlash");
+      f.textContent = "Write one line first — anything at all."; f.style.color = "var(--accent)"; f.classList.remove("hidden");
+      return;
+    }
+    var names = draft.shapes.map(function(id){ var s = SHAPES.filter(function(x){ return x.id === id; })[0]; return s ? s.name : id; });
+    entries.push({ id:"e"+Date.now(), ts:Date.now(), kind:"record",
+      situation:draft.situation.trim(), thought:draft.thought.trim(),
+      feelings:draft.feelings.slice(), before:draft.before, shapes:names,
+      provable:draft.provable.trim(), leftOut:draft.leftOut.trim(), friend:draft.friend.trim(),
+      reframe:draft.reframe.trim(), nextTime:draft.nextTime.trim(), nextStep:draft.nextStep.trim(),
+      verse:chosenVerse, after:draft.after });
+    persist();
+    draft = { situation:"", thought:"", feelings:[], before:70, shapes:[], provable:"", leftOut:"", friend:"", reframe:"", nextTime:"", nextStep:"", after:45 };
+    chosenVerse = null; shuffle = 0; step = 1;
+    show("journal", false);
+  }
+
+  if(t.id === "promptBtn"){ $("promptOut").textContent = PROMPTS[Math.floor(Math.random()*PROMPTS.length)]; }
+
+  if(t.id === "saveWrite"){
+    var txt = $("w-text").value.trim();
+    if(!txt){
+      var wf = $("writeFlash");
+      wf.textContent = "Nothing to keep yet."; wf.style.color = "var(--accent)"; wf.classList.remove("hidden");
+      return;
+    }
+    var feels = [];
+    $("w-chips").querySelectorAll('.chip[aria-pressed="true"]').forEach(function(c){ feels.push(c.getAttribute("data-feel")); });
+    entries.push({ id:"e"+Date.now(), ts:Date.now(), kind:"page", text:txt, feelings:feels });
+    persist();
+    $("w-text").value = ""; $("promptOut").textContent = "";
+    $("w-chips").querySelectorAll(".chip").forEach(function(c){ c.setAttribute("aria-pressed","false"); });
+    show("journal", false);
+  }
+
+  if(t.id === "copyAll"){
+    var text = toText(), btn = t;
+    var fallback = function(){
+      var ta = document.createElement("textarea");
+      ta.rows = 12; ta.value = text; ta.readOnly = true;
+      $("copyOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">Copying was blocked here — select this and copy it by hand:</p>';
+      $("copyOut").appendChild(ta); ta.focus(); ta.select();
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){
+        var o = btn.textContent; btn.textContent = "Copied"; setTimeout(function(){ btn.textContent = o; }, 1500);
+      }).catch(fallback);
+    } else fallback();
+  }
+
+  if(t.id === "printAll") window.print();
+});
+
+/* ================================================================ go === */
+try{
+  var sk0 = localStorage.getItem(SKEY);
+  if(sk0 && sk0 !== "auto") document.documentElement.setAttribute("data-skin", sk0);
+  if(sk0) document.querySelectorAll(".swatch").forEach(function(b){
+    b.setAttribute("aria-pressed", b.getAttribute("data-skin") === sk0 ? "true" : "false"); });
+}catch(e){}
+
+load();
+paintChips("w-chips");
+paintShapes("shapeList", false);
+renderVerseGroups();
+renderEntries();
+show("home", false);
+})();
+</script>
