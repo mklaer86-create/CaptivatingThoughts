@@ -49,22 +49,22 @@
   --focus:#3F6E85;
 }
 :root[data-skin="rose"]{
-  --paper:#F7F1F1; --panel:#FDFAFA; --panel-2:#EEE1E3;
-  --ink:#2E2126; --ink-2:#6A555C; --ink-3:#7A666D;
-  --rule:#E6D7D9; --rule-2:#D4C0C4;
-  --accent:#A05561; --accent-wash:rgba(160,85,97,.10); --on-accent:#F7F1F1;
+  --paper:#FBEAEF; --panel:#FFF3F7; --panel-2:#F6D3E0;
+  --ink:#3A1520; --ink-2:#7A2F49; --ink-3:#8C3E5B;
+  --rule:#F3CCDA; --rule-2:#E8AEC4;
+  --accent:#C11F5C; --accent-wash:rgba(193,31,92,.12); --on-accent:#FFF5F8;
   --calm:#4A6659; --calm-wash:rgba(74,102,89,.11);
-  --breath-a:#F7E7E9; --breath-b:#DCAEB5;
-  --focus:#A05561;
+  --breath-a:#FBD9E4; --breath-b:#E8829F;
+  --focus:#C11F5C;
 }
 :root[data-skin="dusk"]{
-  --paper:#15171B; --panel:#1D2027; --panel-2:#262A33;
-  --ink:#E6E4E8; --ink-2:#A9A6B2; --ink-3:#888595;
-  --rule:#2B2F38; --rule-2:#3A3F4A;
-  --accent:#C9909A; --accent-wash:rgba(201,144,154,.13); --on-accent:#15171B;
-  --calm:#86B3A3; --calm-wash:rgba(134,179,163,.14);
-  --breath-a:#2E323D; --breath-b:#4E3C43;
-  --focus:#C9909A;
+  --paper:#211A2E; --panel:#2B2240; --panel-2:#392C52;
+  --ink:#F0E6E8; --ink-2:#C2A9BE; --ink-3:#A78FAF;
+  --rule:#3D3054; --rule-2:#4C3D68;
+  --accent:#F0A860; --accent-wash:rgba(240,168,96,.16); --on-accent:#211A2E;
+  --calm:#8FBFAE; --calm-wash:rgba(143,191,174,.16);
+  --breath-a:#352A48; --breath-b:#8C5A52;
+  --focus:#F0A860;
 }
 
 *{box-sizing:border-box}
@@ -98,9 +98,9 @@ button{font:inherit;color:inherit}
   background:var(--panel-2);position:relative;
 }
 .swatch::after{content:"";position:absolute;inset:-8px;border-radius:50%}
-.swatch[data-skin="rose"]{background:linear-gradient(135deg,#F7F1F1 50%,#A05561 50%)}
+.swatch[data-skin="rose"]{background:linear-gradient(135deg,#FBEAEF 50%,#C11F5C 50%)}
 .swatch[data-skin="harbor"]{background:linear-gradient(135deg,#EEF2F5 50%,#3F6E85 50%)}
-.swatch[data-skin="dusk"]{background:linear-gradient(135deg,#2B2F38 50%,#C9909A 50%)}
+.swatch[data-skin="dusk"]{background:linear-gradient(135deg,#211A2E 50%,#F0A860 50%)}
 .swatch[data-skin="auto"]{background:linear-gradient(135deg,#EEF2F5 50%,#15171B 50%)}
 .swatch[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:2px}
 
