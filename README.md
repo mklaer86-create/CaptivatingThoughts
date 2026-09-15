@@ -18,7 +18,7 @@ It opens on three doors, because someone who is struggling often can't articulat
 - **I'm struggling with my thoughts** — four pages: what happened and the sentence in your head → describe the mixture of what you're feeling → what that thought is doing → an honest review for a healthier me. Every field is skippable.
 - **I just want to dump where I'm at** — a blank page, with a prompt on tap if you're stuck.
 
-Underneath: everything you've written, the ten shapes a hard thought takes, and the verse library grouped by what hurts.
+Underneath: everything you've written, the eleven shapes a hard thought takes, and the verse library grouped by what hurts.
 
 Four colour settings in the top corner — match my device, Rose, Harbor, Dusk — and it remembers which you chose.
 
@@ -57,7 +57,7 @@ Edit `page.html` and run `./build.sh`, or edit `index.html` directly if you're o
 
 Everything worth changing lives near the top of the `<script>` block in one place:
 
-- `SHAPES` — the ten shapes, each named as the sentence a person actually thinks, with an example, a note on why it's the example, and the reframe.
+- `SHAPES` — the eleven shapes, each named as the sentence a person actually thinks, with an example, a note on why it's the example, and the reframe.
 - `FEELINGS` — the feeling chips, each tagged with a verse group.
 - `VERSES` — the verse library. Add groups, reorder them, swap the translation.
 - `STEPS` — the four pages: heading, opening line, margin verse, and the fields.
@@ -75,6 +75,6 @@ Read the verses in their own chapters; a verse alone says less than a verse in i
 
 ## Credits
 
-The thought-record structure is standard CBT (Beck, Burns, and everyone since). The ten shapes follow the common clinical set of cognitive distortions, renamed as the sentences people actually think, informed by [Calm's guide to negative self-talk](https://www.calm.com/blog/negative-self-talk).
+The thought-record structure is standard CBT (Beck, Burns, and everyone since). The eleven shapes follow the common clinical set of cognitive distortions, renamed as the sentences people actually think, informed by [Calm's guide to negative self-talk](https://www.calm.com/blog/negative-self-talk).
 
 MIT licensed — copy it, change it, share it.

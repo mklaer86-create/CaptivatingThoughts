@@ -170,12 +170,12 @@ with sync_playwright() as pw:
     for name in ["This is going to ruin everything","If it's not perfect, it's a failure","This always happens to me",
                  "I can only see what went wrong","I know what they're thinking about me","I already know how this ends",
                  "I should be handling this better","It's my fault","I feel it, so it must be true",
-                 "Everyone else is doing better than me"]:
+                 "Everyone else is doing better than me","I feel completely worthless"]:
         if name.replace("'","’") not in sh and name not in sh: fail("shapes","missing: "+name)
-    ok("shapes","all ten renamed as first-person sentences")
+    ok("shapes","all eleven renamed as first-person sentences")
     if "the reframe" not in sh.lower(): fail("shapes","reframe label missing")
     n = p.eval_on_selector_all("#shapeList .exwhy","e=>e.length")
-    if n != 10: fail("shapes", f"{n} example descriptions, expected 10")
+    if n != 11: fail("shapes", f"{n} example descriptions, expected 11")
     else: ok("shapes","every shape has an example description")
     check_contrast(p,"shapes@390")
     p.click("#homeBtn"); p.wait_for_timeout(200)
@@ -199,7 +199,13 @@ with sync_playwright() as pw:
     p.click('#u-chips .chip'); p.wait_for_timeout(100)
     p.eval_on_selector("#f-before","el=>{el.value=85;el.dispatchEvent(new Event('input'))}")
     p.click('.btn[data-step="3"]'); p.wait_for_timeout(250)
-    if p.eval_on_selector_all("#u-shapes .shape","e=>e.length") != 10: fail("steps","page three shapes missing")
+    if p.eval_on_selector_all("#u-shapes .shape","e=>e.length") != 11: fail("steps","page three shapes missing")
+    recap = p.inner_text("#u-recap") if p.is_visible("#u-recap") else ""
+    if "THE THOUGHT" not in recap or "SITUATION TEXT" not in recap: fail("steps","page three does not recap page one")
+    else: ok("steps","page three recaps what was written on page one")
+    order = p.eval_on_selector_all("#v-untangle .actions .btn","els=>els.map(e=>e.textContent.trim())")
+    if not order or order[0] != "Back": fail("steps", f"Back is not the first action button: {order}")
+    else: ok("steps","Back comes before Next/Keep this")
     p.click('#u-shapes .shape-head'); p.wait_for_timeout(150)
     p.click('.btn[data-step="4"]'); p.wait_for_timeout(300)
     h2 = p.inner_text("#v-untangle h2")

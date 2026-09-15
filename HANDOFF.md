@@ -25,15 +25,15 @@ Three doors on the home screen, because someone at their lowest often cannot art
 | Door | What it does |
 | --- | --- |
 | **I'm crashing — I need grounding** | A counted breath (4 in / 2 hold / 6 out, eight breaths, with a visible count so it is finite), Philippians 4:8–9, a praise prompt built on Psalm 42:5–6, five small physical things. No inputs — nothing to figure out. |
-| **I'm struggling with my thoughts** | Four pages. 1) What happened + the sentence in your head, with a worked example. 2) Describe the mixture of what you're feeling, plus why that matters. 3) What is that thought doing (the ten shapes). 4) An honest review for a healthier me — provable facts, what the feeling left out, what someone who loves you would say, the truer sentence, what to tell yourself next time, one small next step, a verse, and the after reading. |
+| **I'm struggling with my thoughts** | Four pages. 1) What happened + the sentence in your head, with a worked example. 2) Describe the mixture of what you're feeling, plus why that matters. 3) What is that thought doing (the eleven shapes) — page three now recaps what you wrote on page one so you don't have to tab back. 4) An honest review for a healthier me — provable facts, what the feeling left out, what someone who loves you would say, the truer sentence, what to tell yourself next time, one small next step, a verse, and the after reading. |
 | **I just want to dump where I'm at** | A blank page with a prompt on tap. |
 
-Underneath: the journal, the ten shapes as a reference, and the verse library.
+Underneath: the journal, the eleven shapes as a reference, and the verse library.
 
 ### Decisions already locked in — do not undo these without asking
 
 - **Scripture is ESV**, quoted **whole** (no ellipses), with every reference linking to its Bible Hub page (`https://biblehub.com/esv/<book>/<chapter>-<verse>.htm`). Every verse in the app was pulled verse-by-verse from Bible Hub rather than from memory. **Do the same for anything you add.**
-- **The ten shapes are named as the sentence the person is actually thinking** ("This is going to ruin everything", "It's my fault"), not as clinical categories ("catastrophizing", "personalizing"). This was a deliberate, tested change — the category names were unpickable for someone mid-spiral. Each shape shows: the assumption → an example → why that example gives it away → the reframe.
+- **The eleven shapes are named as the sentence the person is actually thinking** ("This is going to ruin everything", "It's my fault"), not as clinical categories ("catastrophizing", "personalizing"). This was a deliberate, tested change — the category names were unpickable for someone mid-spiral. Each shape shows: the assumption → an example → why that example gives it away → the reframe. The eleventh, "I feel completely worthless" (`labeling`), was added at Michelle's request to cover relationship-shaped hurt rather than only school — its verse reuses Psalm 139:14, already vetted elsewhere in the app, rather than sourcing a fresh Bible Hub pairing.
 - **Nothing is called an "error."** Telling someone in despair that their thinking is in error lands as one more failure.
 - **Every field is skippable** and the flow can be abandoned at any point.
 - **Four colour palettes**: match-my-device (default, no attribute), Rose, Harbor, Dusk. Remembered in `localStorage`. Explicit choice always beats the host's `data-theme` stamp and `prefers-color-scheme`.
