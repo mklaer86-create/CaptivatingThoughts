@@ -78,8 +78,32 @@ The tension, in her words and mine: naming it as attack has real force and is wh
 | `qa/qa.py` | The Playwright test suite. |
 | `docs/scripture-decisions.md` | The open verse questions. |
 | `.nojekyll` | Stops GitHub Pages running the files through Jekyll. |
+| `manifest.json` | Web app manifest — name, theme colour, and the two PNG icons — so Chrome/Android offer "Install app" / "Add to Home Screen" with the feather icon rather than a screenshot of the page. |
+| `icons/icon.svg` | Source vector for the app icon — a feather (ties to the 🪶 favicon already used for the Claude-artifact copy, and to "take every thought captive"). Edit this, then regenerate the PNGs (see below). |
+| `icons/icon-512.png`, `icons/icon-192.png` | Rasters of `icon.svg` for `manifest.json`. |
+| `icons/apple-touch-icon.png` | 180×180 raster for iOS "Add to Home Screen" — Safari looks for this via the `<link rel="apple-touch-icon">` in `page.html`, not the manifest. |
+| `icons/favicon-32.png` | Browser-tab favicon. |
 
 **Edit `page.html`, never `index.html`.** `index.html` is generated.
+
+### Regenerating the icon PNGs after editing `icons/icon.svg`
+
+There's no build script for this (it's a one-off, unlike `build.sh`) — render the SVG in a real browser at each exact target size, since resizing a raster afterward softens it:
+
+```python
+from playwright.sync_api import sync_playwright
+html = '<!doctype html><html><head><style>html,body{margin:0;padding:0;width:100%;height:100%}svg{display:block;width:100vw;height:100vh}</style></head><body>' + open("icons/icon.svg").read() + '</body></html>'
+open("/tmp/icon_render.html","w").write(html)
+with sync_playwright() as pw:
+    b = pw.chromium.launch()
+    for size, out in [(512,"icons/icon-512.png"),(192,"icons/icon-192.png"),(180,"icons/apple-touch-icon.png"),(32,"icons/favicon-32.png")]:
+        p = b.new_page(viewport={"width":size,"height":size})
+        p.goto("file:///tmp/icon_render.html")
+        p.screenshot(path=out, clip={"x":0,"y":0,"width":size,"height":size})
+    b.close()
+```
+
+The SVG must not have fixed `width`/`height` attributes on the root `<svg>` (only `viewBox`) — Chromium won't scale a fixed-size SVG down to a small viewport, it just crops the top-left corner, which is a silent, easy-to-miss failure mode (ask if you don't believe it — it happened once already).
 
 ---
 

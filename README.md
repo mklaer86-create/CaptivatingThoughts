@@ -22,6 +22,8 @@ Underneath: everything you've written, the eleven shapes a hard thought takes, a
 
 Four colour settings in the top corner — match my device, Rose, Harbor, Dusk. Rose is the default until you pick something else; it remembers whichever you chose.
 
+It has its own icon — a feather — for the browser tab and for "Add to Home Screen" (iOS Safari) or "Install app" (Android/Chrome), so it opens full-screen like an app rather than a browser tab.
+
 ## Privacy
 
 Journal entries are saved with `localStorage` — they stay in the browser they were written in. They are never uploaded, and there is no server, no accounts, no analytics, and no third-party script other than the Google Fonts stylesheet. Clearing browser data clears the journal — and iPhone/iPad Safari can do this on its own after about a week of the page being closed — so use **Save a backup file** on the journal page now and then. It downloads everything as a small JSON file; **Load a backup file** reads one back in, merging it with whatever's already there rather than overwriting it. **Copy all** and **Print** still work for a plain-text copy, but only a backup file can be loaded back in.
@@ -48,8 +50,11 @@ Then in the repository: **Settings → Pages → Build and deployment → Source
 | `build.sh` | Regenerates `index.html` from `page.html`. Run it after editing `page.html`. |
 | `LICENSE` | MIT. |
 | `HANDOFF.md` | Full project context: decisions made, what's still open, how to pick this up in a new session. |
-| `qa/qa.py` | Playwright test suite — 111 checks across flows, palettes and widths. |
+| `qa/qa.py` | Playwright test suite across flows, palettes and widths — run it for the current check count. |
 | `docs/scripture-decisions.md` | The verses still awaiting a ruling. |
+| `manifest.json` | Web app manifest so browsers offer "Install" / "Add to Home Screen" with the app's own icon. |
+| `icons/icon.svg` | Source vector for the feather app icon. Edit this, not the PNGs. |
+| `icons/*.png` | Generated from `icon.svg` — the home-screen icon (`apple-touch-icon.png`), manifest icons, and the tab favicon. See `HANDOFF.md` for how to regenerate them after editing the SVG. |
 
 Edit `page.html` and run `./build.sh`, or edit `index.html` directly if you're only ever using the GitHub version.
 

@@ -275,6 +275,7 @@ with sync_playwright() as pw:
     else: ok("journal","delete works")
 
     # --- backup / restore
+    p.click("#homeBtn"); p.wait_for_timeout(200)
     p.click('[data-view="write"]'); p.wait_for_timeout(200)
     p.fill("#w-text","BACKUP CANARY"); p.click("#saveWrite"); p.wait_for_timeout(400)
     before_count = p.eval_on_selector_all(".entry","e=>e.length")
@@ -312,6 +313,7 @@ with sync_playwright() as pw:
     if p.eval_on_selector_all(".entry","e=>e.length") != before_count: fail("backup","loading the same backup twice duplicated entries")
     else: ok("backup","loading the same backup again does not duplicate")
 
+    p.click("#homeBtn"); p.wait_for_timeout(200)
     p.click('[data-view="write"]'); p.wait_for_timeout(200)
     p.fill("#w-text","NEWER THAN BACKUP"); p.click("#saveWrite"); p.wait_for_timeout(400)
     with p.expect_file_chooser() as fc3:
