@@ -125,6 +125,15 @@ button{font:inherit;color:inherit}
 .door:hover{border-color:var(--accent)}
 .door .dtitle{font-family:var(--serif);font-size:1.375rem;font-weight:500;line-height:1.2;display:block}
 .door .dsub{color:var(--ink-2);font-size:.9375rem;margin-top:.3rem;display:block;line-height:1.45}
+.remap-row{display:flex;justify-content:center;margin-top:-.15rem}
+.remap-pill{
+  display:flex;flex-direction:column;align-items:center;gap:.15rem;cursor:pointer;
+  border:1px dashed var(--accent);border-radius:999px;background:var(--panel);
+  padding:.6rem 1.5rem;transition:border-color .15s ease;
+}
+.remap-pill:hover{border-style:solid}
+.remap-pill-label{font-family:var(--mono);font-size:.75rem;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);font-weight:500}
+.remap-pill-note{font-size:.75rem;color:var(--ink-3)}
 .howitworks{
   border-left:2px solid var(--accent);padding:.2rem 0 .2rem 1rem;
   display:flex;flex-direction:column;gap:.5rem;max-width:34rem;
@@ -241,6 +250,12 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 .vg ul{list-style:none;margin:0;padding:.85rem 0 0;display:flex;flex-direction:column;gap:.95rem}
 .vg li{font-family:var(--serif);font-size:1.0625rem;line-height:1.4;color:var(--ink-2)}
 .vctx{display:block;font-family:var(--sans);font-style:normal;font-size:.8125rem;color:var(--ink-3);line-height:1.45;margin-top:.3rem}
+.remap-item{border-bottom:1px solid var(--rule);padding-block:1.15rem}
+.remap-item:last-child{border-bottom:0}
+.remap-says{font-family:var(--serif);font-style:italic;font-size:1.0625rem;color:var(--ink);line-height:1.4}
+.remap-arrow{font-family:var(--mono);font-size:.625rem;letter-spacing:.12em;text-transform:uppercase;color:var(--calm);margin:.55rem 0 .2rem}
+.remap-truer{font-size:.9375rem;color:var(--ink-2);line-height:1.5}
+.remap-verse{margin-top:.55rem;font-size:.875rem;font-family:var(--serif);font-style:italic;color:var(--ink-2)}
 .vg .ref{display:block;margin-top:.25rem}
 .pick-list{display:flex;flex-direction:column;gap:.5rem}
 .pick{display:grid;grid-template-columns:1.1rem minmax(0,1fr);gap:.75rem;align-items:start;background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:.8rem .9rem;cursor:pointer;text-align:left}
@@ -321,6 +336,13 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
       <button class="door" type="button" data-view="write">
         <span class="dtitle">I just want to dump where I&rsquo;m at</span>
         <span class="dsub">No structure. Say it however it comes out.</span>
+      </button>
+    </div>
+
+    <div class="remap-row">
+      <button class="remap-pill" type="button" data-view="remap">
+        <span class="remap-pill-label">Quick Remap</span>
+        <span class="remap-pill-note">Skip straight to the reframes</span>
       </button>
     </div>
 
@@ -459,6 +481,16 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
       <p class="lede">Grouped by what actually hurts, not by book order. Each reference links to Bible Hub so you can read the chapter it lives in &mdash; a verse alone always says less than a verse in its own paragraph.</p>
     </div>
     <div class="vgroups" id="verseGroups"></div>
+  </section>
+
+  <!-- =============== QUICK REMAP =============== -->
+  <section class="view" id="v-remap" hidden>
+    <div class="vhead">
+      <div class="kicker">The eleven, fast</div>
+      <h2>Quick Remap</h2>
+      <p class="lede">No steps, nothing to fill in &mdash; just the thought, the truer sentence, and a verse to carry, side by side. Come here when you already know the shape and just need the reframe.</p>
+    </div>
+    <div id="remapList"></div>
   </section>
 
   <footer class="footer">
@@ -754,7 +786,7 @@ function load(){ try{ var r = localStorage.getItem(EKEY); entries = r ? JSON.par
 function persist(){ try{ localStorage.setItem(EKEY, JSON.stringify(entries)); }catch(e){} }
 
 /* ============================================================== views == */
-var VIEWS = ["home","steady","untangle","write","journal","shapes","verses"];
+var VIEWS = ["home","steady","untangle","write","journal","shapes","verses","remap"];
 function show(v, push){
   if(push !== false && v !== view) stack.push(view);
   if(v === "home") stack = [];
@@ -914,6 +946,17 @@ function shapeHTML(s, interactive){
 }
 function paintShapes(hostId, interactive){
   $(hostId).innerHTML = SHAPES.map(function(s){ return shapeHTML(s, interactive); }).join("");
+}
+function remapHTML(s){
+  return '<article class="remap-item">'+
+    '<p class="remap-says">&ldquo;'+esc(s.says)+'&rdquo;</p>'+
+    '<div class="remap-arrow">Truer</div>'+
+    '<p class="remap-truer">'+esc(s.truer)+'</p>'+
+    (s.v ? '<p class="remap-verse">&ldquo;'+esc(s.v.text)+'&rdquo; '+refLink(s.v.ref, s.v.url)+'</p>' : '')+
+  '</article>';
+}
+function renderRemap(){
+  $("remapList").innerHTML = SHAPES.map(remapHTML).join("");
 }
 
 /* ============================================================= verses == */
@@ -1203,6 +1246,7 @@ try{
 load();
 paintChips("w-chips");
 paintShapes("shapeList", false);
+renderRemap();
 renderVerseGroups();
 renderEntries();
 show("home", false);

@@ -20,6 +20,8 @@ It opens on three doors, because someone who is struggling often can't articulat
 
 Underneath: everything you've written, the eleven shapes a hard thought takes, and the verse library grouped by what hurts.
 
+There's also a small **Quick Remap** button below the three doors — not a fourth door, just a shortcut for when you already know the shape and want the reframe without the four pages: every shape's thought, its truer sentence, and a verse, all on one page.
+
 Four colour settings in the top corner — match my device, Rose, Harbor, Dusk. Rose is the default until you pick something else; it remembers whichever you chose.
 
 It has its own icon — three rings pulsing out from a centre, a still frame of the breath-circle grounding tool — for the browser tab and for "Add to Home Screen" (iOS Safari) or "Install app" (Android/Chrome), so it opens full-screen like an app rather than a browser tab.

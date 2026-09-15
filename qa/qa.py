@@ -106,7 +106,7 @@ with sync_playwright() as pw:
     check_overflow(p,"home@390"); check_contrast(p,"home@390"); check_tap_targets(p,"home@390")
 
     # --- nav + back stack
-    for v in ["steady","untangle","write","journal","shapes","verses"]:
+    for v in ["steady","untangle","write","journal","shapes","verses","remap"]:
         p.click(f'[data-view="{v}"]'); p.wait_for_timeout(350)
         if not p.is_visible(f"#v-{v}"): fail("nav", f"{v} did not open")
         else: ok("nav", f"{v} opens")
@@ -178,6 +178,20 @@ with sync_playwright() as pw:
     if n != 11: fail("shapes", f"{n} example descriptions, expected 11")
     else: ok("shapes","every shape has an example description")
     check_contrast(p,"shapes@390")
+    p.click("#homeBtn"); p.wait_for_timeout(200)
+
+    # --- quick remap
+    p.click('[data-view="remap"]'); p.wait_for_timeout(300)
+    n = p.eval_on_selector_all("#remapList .remap-item","e=>e.length")
+    if n != 11: fail("remap", f"{n} remap items, expected 11")
+    else: ok("remap","all eleven shapes appear in the quick remap list")
+    n2 = p.eval_on_selector_all("#remapList .remap-truer","e=>e.length")
+    if n2 != 11: fail("remap", f"{n2} reframes shown, expected 11")
+    else: ok("remap","every remap item shows its reframe")
+    n3 = p.eval_on_selector_all("#remapList .remap-verse","e=>e.length")
+    if n3 != 10: fail("remap", f"{n3} verses shown, expected 10 (one shape has no paired verse)")
+    else: ok("remap","verses shown for every shape that has one")
+    check_contrast(p,"remap@390")
     p.click("#homeBtn"); p.wait_for_timeout(200)
 
     # --- four-page flow
@@ -338,7 +352,7 @@ with sync_playwright() as pw:
 
     for skin in ["rose","harbor","dusk"]:
         p.click(f'.swatch[data-skin="{skin}"]'); p.wait_for_timeout(200)
-        for v in ["steady","untangle","write","journal","shapes","verses"]:
+        for v in ["steady","untangle","write","journal","shapes","verses","remap"]:
             p.evaluate(f"()=>{{document.querySelectorAll('.view,.home').forEach(e=>e.hidden=true);document.getElementById('v-{v}').hidden=false;}}")
             p.wait_for_timeout(120)
             check_contrast(p, f"{v}-{skin}")
@@ -365,7 +379,7 @@ with sync_playwright() as pw:
         cx = b.new_context(viewport={"width":w,"height":900})
         pw2 = cx.new_page(); pw2.goto(URL); pw2.wait_for_timeout(1600)
         check_overflow(pw2, f"home@{w}")
-        for v in ["steady","untangle","write","journal","shapes","verses"]:
+        for v in ["steady","untangle","write","journal","shapes","verses","remap"]:
             pw2.click(f'[data-view="{v}"]'); pw2.wait_for_timeout(250)
             check_overflow(pw2, f"{v}@{w}")
             pw2.click("#homeBtn"); pw2.wait_for_timeout(150)
@@ -378,7 +392,7 @@ with sync_playwright() as pw:
     # links
     p.goto(URL); p.wait_for_timeout(1500)
     links = []
-    for v in ["steady","untangle","shapes","verses"]:
+    for v in ["steady","untangle","shapes","verses","remap"]:
         p.click(f'[data-view="{v}"]'); p.wait_for_timeout(300)
         links += p.eval_on_selector_all("a[href]","els=>els.map(e=>e.href)")
         p.click("#homeBtn"); p.wait_for_timeout(150)

@@ -30,6 +30,8 @@ Three doors on the home screen, because someone at their lowest often cannot art
 
 Underneath: the journal, the eleven shapes as a reference, and the verse library.
 
+Also on the home screen, but deliberately not a fourth door — a small dashed pill button below the three, labeled **Quick Remap**: "Skip straight to the reframes." It's for someone who already knows which shape they're in and just wants the payoff without the four-page walk-through — one static page listing all eleven shapes' thought → reframe → verse, no inputs, no interaction. Content is generated from the same `SHAPES` array (`renderRemap()`/`remapHTML()` in `page.html`), so editing a shape's `truer` or `v` updates both places automatically. Michelle's own framing when she asked for it: "a map to a better reframe... when I'm stuck in this place."
+
 ### Decisions already locked in — do not undo these without asking
 
 - **Scripture is ESV**, quoted **whole** (no ellipses), with every reference linking to its Bible Hub page (`https://biblehub.com/esv/<book>/<chapter>-<verse>.htm`). Every verse in the app was pulled verse-by-verse from Bible Hub rather than from memory. **Do the same for anything you add.**
