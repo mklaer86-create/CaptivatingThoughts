@@ -15,10 +15,10 @@ Open `index.html` in any browser, or visit the published page. Nothing to instal
 It opens on three doors, because someone who is struggling often can't articulate what's wrong yet. Use any of them, in any order, and stop wherever you like — it also works as a set of prompts for a paper journal rather than a replacement for one:
 
 - **I'm crashing — I need grounding** — a counted breath (four in, hold, six out, eight breaths), Philippians 4:8–9, a prompt to find one thing to praise God for from Psalm 42, and five small physical things. Nothing to figure out.
-- **I'm struggling with my thoughts** — four pages: what happened and the sentence in your head → describe the mixture of what you're feeling → what that thought is doing → an honest review for a healthier me. Every field is skippable.
+- **I'm struggling with my thoughts** — four pages: what happened and the sentence in your head → describe the mixture of what you're feeling → when your inner voice turns on you → an honest review for a healthier me. Every field is skippable.
 - **I just want to dump where I'm at** — a blank page, with a prompt on tap if you're stuck.
 
-Underneath: everything you've written, the eleven shapes a hard thought takes, and the verse library grouped by what hurts.
+Underneath: everything you've written, the eleven shapes your inner voice takes when it turns on you, and the verse library grouped by what hurts.
 
 There's also a small **Quick Remap** button below the three doors — not a fourth door, just a shortcut for when you already know the shape and want the reframe without the four pages: every shape's thought, its truer sentence, and a verse, all on one page.
 
