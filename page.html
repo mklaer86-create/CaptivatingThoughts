@@ -286,8 +286,8 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
     <button class="navbtn" type="button" id="homeBtn" hidden>Home</button>
     <span class="wordmark" id="wordmark">Holding Your Thoughts Captive</span>
     <div class="skins" role="group" aria-label="Colour">
-      <button class="swatch" type="button" data-skin="auto" aria-pressed="true" aria-label="Match my device" title="Match my device"></button>
-      <button class="swatch" type="button" data-skin="rose" aria-pressed="false" aria-label="Rose" title="Rose"></button>
+      <button class="swatch" type="button" data-skin="auto" aria-pressed="false" aria-label="Match my device" title="Match my device"></button>
+      <button class="swatch" type="button" data-skin="rose" aria-pressed="true" aria-label="Rose" title="Rose"></button>
       <button class="swatch" type="button" data-skin="harbor" aria-pressed="false" aria-label="Harbor" title="Harbor"></button>
       <button class="swatch" type="button" data-skin="dusk" aria-pressed="false" aria-label="Dusk" title="Dusk"></button>
     </div>
@@ -415,15 +415,19 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
     <div class="jhead">
       <div>
         <h2 style="font-size:1.7rem">Everything you&rsquo;ve written</h2>
-        <p class="small" style="margin-top:.35rem;max-width:30rem">Kept in this browser, on this device. Not sent anywhere, not visible to anyone else. Copy or print it now and then so you always have it &mdash; and so it can go in a paper journal if that&rsquo;s where you keep things.</p>
+        <p class="small" style="margin-top:.35rem;max-width:30rem">Kept in this browser, on this device. Not sent anywhere, not visible to anyone else. Copy or print it now and then so you always have it &mdash; and so it can go in a paper journal if that&rsquo;s where you keep things. Save a backup file every so often too, especially on an iPhone or iPad, which can quietly clear this after the page has sat closed for about a week &mdash; a backup file loads right back in, on this device or a new one.</p>
       </div>
       <div class="actions" style="padding-top:0">
         <button class="btn ghost" type="button" id="copyAll">Copy all</button>
         <button class="btn ghost" type="button" id="printAll">Print</button>
+        <button class="btn ghost" type="button" id="saveBackup">Save a backup file</button>
+        <button class="btn ghost" type="button" id="loadBackup">Load a backup file</button>
+        <input type="file" id="backupFile" accept="application/json,.json" hidden>
       </div>
     </div>
     <div class="entries" id="entries"></div>
     <div id="copyOut"></div>
+    <div id="backupOut"></div>
   </section>
 
   <!-- =============== SHAPES =============== -->
@@ -928,6 +932,40 @@ function renderEntries(){
   }
   $("entries").innerHTML = entries.slice().sort(function(a,b){ return b.ts - a.ts; }).map(entryHTML).join("");
 }
+var BACKUP_APP = "captivating-thoughts";
+function backupPayload(){
+  return { app:BACKUP_APP, version:1, exportedAt:new Date().toISOString(), entries:entries };
+}
+function backupFilename(){
+  var d = new Date(), pad = function(n){ return (n < 10 ? "0" : "") + n; };
+  return "captivating-thoughts-backup-" + d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate()) + ".json";
+}
+function mergeEntries(imported){
+  var have = {}; entries.forEach(function(e){ have[e.id] = true; });
+  var added = 0;
+  imported.forEach(function(e){
+    if(e && e.id && !have[e.id]){ entries.push(e); have[e.id] = true; added++; }
+  });
+  return added;
+}
+function restoreFromText(text){
+  var data;
+  try{ data = JSON.parse(text); }
+  catch(e){
+    $("backupOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">That didn&rsquo;t look like a backup file. Nothing was changed.</p>';
+    return;
+  }
+  var imported = Array.isArray(data) ? data : (data && Array.isArray(data.entries) ? data.entries : null);
+  if(!imported){
+    $("backupOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">That file didn&rsquo;t have any entries in it. Nothing was changed.</p>';
+    return;
+  }
+  var added = mergeEntries(imported);
+  persist(); renderEntries();
+  $("backupOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">'+
+    (added ? "Added " + added + (added === 1 ? " entry" : " entries") + " from that file." : "Nothing new in that file &mdash; you already had everything in it.")+
+    '</p>';
+}
 function toText(){
   return "Holding Your Thoughts Captive — journal\n\n" + entries.slice().sort(function(a,b){ return b.ts-a.ts; }).map(function(e){
     var L = ["## " + fmtDate(e.ts) + (e.kind === "page" ? " (page)" : "")];
@@ -1066,13 +1104,43 @@ document.addEventListener("click", function(ev){
   }
 
   if(t.id === "printAll") window.print();
+
+  if(t.id === "saveBackup"){
+    var payload = JSON.stringify(backupPayload(), null, 2);
+    try{
+      var blob = new Blob([payload], {type:"application/json"});
+      var url = URL.createObjectURL(blob);
+      var dl = document.createElement("a");
+      dl.href = url; dl.download = backupFilename();
+      document.body.appendChild(dl); dl.click(); document.body.removeChild(dl);
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+    }catch(e){}
+    var ta = document.createElement("textarea");
+    ta.rows = 6; ta.readOnly = true; ta.value = payload;
+    $("backupOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">If a file didn&rsquo;t download just now, copy this instead and save it somewhere you trust:</p>';
+    $("backupOut").appendChild(ta);
+  }
+
+  if(t.id === "loadBackup") $("backupFile").click();
+});
+
+$("backupFile").addEventListener("change", function(ev){
+  var f = ev.target.files && ev.target.files[0];
+  ev.target.value = "";
+  if(!f) return;
+  var reader = new FileReader();
+  reader.onload = function(){ restoreFromText(String(reader.result)); };
+  reader.onerror = function(){
+    $("backupOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">Couldn&rsquo;t read that file. Nothing was changed.</p>';
+  };
+  reader.readAsText(f);
 });
 
 /* ================================================================ go === */
 try{
-  var sk0 = localStorage.getItem(SKEY);
-  if(sk0 && sk0 !== "auto") document.documentElement.setAttribute("data-skin", sk0);
-  if(sk0) document.querySelectorAll(".swatch").forEach(function(b){
+  var sk0 = localStorage.getItem(SKEY) || "rose";
+  if(sk0 !== "auto") document.documentElement.setAttribute("data-skin", sk0);
+  document.querySelectorAll(".swatch").forEach(function(b){
     b.setAttribute("aria-pressed", b.getAttribute("data-skin") === sk0 ? "true" : "false"); });
 }catch(e){}
 

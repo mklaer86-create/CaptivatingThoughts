@@ -10,13 +10,13 @@ A single self-contained HTML page: a free, gentle tool for challenging negative 
 
 The app's on-screen title is **Holding Your Thoughts Captive** (from 2 Corinthians 10:5). The repository is named `captivating-thoughts`. If those should match, change the `<title>` in `page.html` and the `<h1>` in the home section, then rerun `./build.sh`.
 
-**No accounts, no server, no analytics, no tracking.** Journal entries live in `localStorage` on the reader's own device. The only external request is the Google Fonts stylesheet.
+**No accounts, no server, no analytics, no tracking.** Journal entries live in `localStorage` on the reader's own device. The only external request is the Google Fonts stylesheet. A login with server-side storage was proposed and deliberately turned down — see the "no login" decision below. Durability across devices/data loss is handled instead by a manual backup-file export/import (journal view: **Save a backup file** / **Load a backup file**), which keeps the same zero-server promise.
 
 ---
 
 ## Current state
 
-Finished and QA'd. 111 automated checks pass with no failures and no console errors. Published privately as a Claude artifact; **not yet on GitHub**.
+Finished and QA'd, and live on GitHub Pages at `https://mklaer86-create.github.io/CaptivatingThoughts/`. Automated checks pass with no failures and no console errors (run `qa/qa.py` for the current count — it grows as features are added).
 
 ### Structure
 
@@ -36,9 +36,16 @@ Underneath: the journal, the eleven shapes as a reference, and the verse library
 - **The eleven shapes are named as the sentence the person is actually thinking** ("This is going to ruin everything", "It's my fault"), not as clinical categories ("catastrophizing", "personalizing"). This was a deliberate, tested change — the category names were unpickable for someone mid-spiral. Each shape shows: the assumption → an example → why that example gives it away → the reframe. The eleventh, "I feel completely worthless" (`labeling`), was added at Michelle's request to cover relationship-shaped hurt rather than only school — its verse reuses Psalm 139:14, already vetted elsewhere in the app, rather than sourcing a fresh Bible Hub pairing.
 - **Nothing is called an "error."** Telling someone in despair that their thinking is in error lands as one more failure.
 - **Every field is skippable** and the flow can be abandoned at any point.
-- **Four colour palettes**: match-my-device (default, no attribute), Rose, Harbor, Dusk. Remembered in `localStorage`. Explicit choice always beats the host's `data-theme` stamp and `prefers-color-scheme`.
+- **Four colour palettes**: Rose, Harbor, Dusk, match-my-device. **Rose is the default** for a first-time visitor (Michelle's request); match-my-device is still there but no longer the fallback. Remembered in `localStorage` once someone picks one. Explicit choice always beats the host's `data-theme` stamp and `prefers-color-scheme`.
 - **The tool pairs with a paper journal** rather than replacing one — said on the home screen and on the writing pages.
 - **The 988 line stays in the footer**, and the tool never claims to be therapy.
+- **No login, no account, no server-side storage.** Proposed (a way to keep entries past 90 days / across devices) and turned down: a server means someone — host, breach, subpoena — could read a struggling teenager's worst thoughts, which is a real cost even with good intentions, and it turns a free static site into something with ongoing hosting and auth to maintain. The durability problem is solved instead with a manual, local backup file (see below) — same zero-server guarantee, no new attack surface.
+
+### Backup files
+
+Journal view has **Save a backup file** (downloads `captivating-thoughts-backup-YYYY-MM-DD.json`) and **Load a backup file** (file picker, reads one back in). Format: `{app:"captivating-thoughts", version:1, exportedAt:<ISO date>, entries:[...]}` — `entries` is the same array shape stored under the `tet.entries.v2` localStorage key. Loading a file **merges** by entry `id` rather than replacing — anything already present is left alone, so loading an old backup can't erase newer entries written since.
+
+Downloads can be inert inside an embedding iframe (see the Claude-artifact note under Publishing) — there's no reliable way to detect that from script, so Save a backup file always also drops the same JSON into a read-only textarea underneath as a copy-and-paste fallback, every time, whether or not the download itself worked.
 
 ---
 

@@ -274,6 +274,53 @@ with sync_playwright() as pw:
     if p.eval_on_selector_all(".entry","e=>e.length") != 1: fail("journal","delete failed")
     else: ok("journal","delete works")
 
+    # --- backup / restore
+    p.click('[data-view="write"]'); p.wait_for_timeout(200)
+    p.fill("#w-text","BACKUP CANARY"); p.click("#saveWrite"); p.wait_for_timeout(400)
+    before_count = p.eval_on_selector_all(".entry","e=>e.length")
+    with p.expect_download() as dl_info:
+        p.click("#saveBackup")
+    backup_path = "/tmp/qa_backup.json"
+    dl_info.value.save_as(backup_path)
+    p.wait_for_timeout(200)
+    with open(backup_path) as bf: backup_data = json.load(bf)
+    if backup_data.get("app") != "captivating-thoughts" or not isinstance(backup_data.get("entries"), list):
+        fail("backup","backup file has the wrong shape")
+    elif len(backup_data["entries"]) != before_count:
+        fail("backup", f"backup has {len(backup_data['entries'])} entries, journal shows {before_count}")
+    else: ok("backup","backup file downloads with the right shape and count")
+    if not p.is_visible("#backupOut textarea"):
+        fail("backup","fallback copy textarea not shown alongside the download")
+    else: ok("backup","fallback copy text always offered alongside the download")
+
+    while p.eval_on_selector_all(".entry .btn.quiet","e=>e.length") > 0:
+        p.click(".entry .btn.quiet"); p.wait_for_timeout(150)
+    if p.eval_on_selector_all(".entry","e=>e.length") != 0: fail("backup","could not clear entries to test restore")
+
+    with p.expect_file_chooser() as fc1:
+        p.click("#loadBackup")
+    fc1.value.set_files(backup_path)
+    p.wait_for_timeout(300)
+    if p.eval_on_selector_all(".entry","e=>e.length") != before_count: fail("backup","restore did not bring entries back")
+    elif "BACKUP CANARY" not in p.inner_text("#entries"): fail("backup","restored entry missing its text")
+    else: ok("backup","loading a backup file restores entries")
+
+    with p.expect_file_chooser() as fc2:
+        p.click("#loadBackup")
+    fc2.value.set_files(backup_path)
+    p.wait_for_timeout(300)
+    if p.eval_on_selector_all(".entry","e=>e.length") != before_count: fail("backup","loading the same backup twice duplicated entries")
+    else: ok("backup","loading the same backup again does not duplicate")
+
+    p.click('[data-view="write"]'); p.wait_for_timeout(200)
+    p.fill("#w-text","NEWER THAN BACKUP"); p.click("#saveWrite"); p.wait_for_timeout(400)
+    with p.expect_file_chooser() as fc3:
+        p.click("#loadBackup")
+    fc3.value.set_files(backup_path)
+    p.wait_for_timeout(300)
+    if "NEWER THAN BACKUP" not in p.inner_text("#entries"): fail("backup","restoring an older backup deleted a newer entry")
+    else: ok("backup","restoring an older backup merges instead of overwriting newer entries")
+
     # skins
     for skin in ["rose","harbor","dusk","auto"]:
         if p.is_visible("#homeBtn"): p.click("#homeBtn"); p.wait_for_timeout(150)
@@ -299,6 +346,12 @@ with sync_playwright() as pw:
     ctx2 = b.new_context(viewport={"width":390,"height":844}, color_scheme="dark")
     p2 = ctx2.new_page(); p2.on("pageerror", lambda e: errs.append("dark:"+str(e)))
     p2.goto(URL); p2.wait_for_timeout(1800)
+    if p2.evaluate("()=>document.documentElement.getAttribute('data-skin')") != "rose":
+        fail("skin","rose is not the default for a first-time visitor")
+    elif not p2.get_attribute('.swatch[data-skin="rose"]', "aria-pressed") == "true":
+        fail("skin","rose swatch not marked pressed by default")
+    else: ok("skin","rose is the default for a first-time visitor, even under system dark")
+    p2.click('.swatch[data-skin="auto"]'); p2.wait_for_timeout(250)
     check_contrast(p2,"home-systemdark")
     p2.click('[data-view="untangle"]'); p2.wait_for_timeout(300)
     check_contrast(p2,"step1-systemdark")

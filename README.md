@@ -20,11 +20,11 @@ It opens on three doors, because someone who is struggling often can't articulat
 
 Underneath: everything you've written, the eleven shapes a hard thought takes, and the verse library grouped by what hurts.
 
-Four colour settings in the top corner — match my device, Rose, Harbor, Dusk — and it remembers which you chose.
+Four colour settings in the top corner — match my device, Rose, Harbor, Dusk. Rose is the default until you pick something else; it remembers whichever you chose.
 
 ## Privacy
 
-Journal entries are saved with `localStorage` — they stay in the browser they were written in. They are never uploaded, and there is no server, no analytics, and no third-party script other than the Google Fonts stylesheet. Clearing browser data clears the journal, so use **Copy all** or **Print** to keep a lasting copy.
+Journal entries are saved with `localStorage` — they stay in the browser they were written in. They are never uploaded, and there is no server, no accounts, no analytics, and no third-party script other than the Google Fonts stylesheet. Clearing browser data clears the journal — and iPhone/iPad Safari can do this on its own after about a week of the page being closed — so use **Save a backup file** on the journal page now and then. It downloads everything as a small JSON file; **Load a backup file** reads one back in, merging it with whatever's already there rather than overwriting it. **Copy all** and **Print** still work for a plain-text copy, but only a backup file can be loaded back in.
 
 ## Publishing it on GitHub Pages
 
