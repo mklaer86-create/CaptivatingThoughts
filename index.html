@@ -247,6 +247,7 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 .vg h3{font-family:var(--mono);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);padding-bottom:.55rem;border-bottom:1px solid var(--rule);font-weight:500}
 .vg ul{list-style:none;margin:0;padding:.85rem 0 0;display:flex;flex-direction:column;gap:.95rem}
 .vg li{font-family:var(--serif);font-size:1.0625rem;line-height:1.4;color:var(--ink-2)}
+.vctx{display:block;font-family:var(--sans);font-style:normal;font-size:.8125rem;color:var(--ink-3);line-height:1.45;margin-top:.3rem}
 .vg .ref{display:block;margin-top:.25rem}
 .pick-list{display:flex;flex-direction:column;gap:.5rem}
 .pick{display:grid;grid-template-columns:1.1rem minmax(0,1fr);gap:.75rem;align-items:start;background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:.8rem .9rem;cursor:pointer;text-align:left}
@@ -367,6 +368,7 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
     <div class="stillblock">
       <blockquote class="stillverse">&ldquo;Finally, brothers, whatever is true, whatever is honorable, whatever is just, whatever is pure, whatever is lovely, whatever is commendable, if there is any excellence, if there is anything worthy of praise, think about these things. What you have learned and received and heard and seen in me&mdash;practice these things, and the God of peace will be with you.&rdquo;</blockquote>
       <span class="ref"><a href="https://biblehub.com/esv/philippians/4-8.htm" target="_blank" rel="noopener">Philippians 4:8&ndash;9 &middot; ESV</a></span>
+      <span class="vctx">Paul, writing from prison, telling a small church what to fill their minds with &mdash; a deliberate redirection, not denial that things are hard.</span>
     </div>
 
     <div class="praise">
@@ -375,6 +377,7 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
       <p>It can be small. The day ends. There is water. Someone texted back. He hasn&rsquo;t left.</p>
       <blockquote>&ldquo;Why are you cast down, O my soul, and why are you in turmoil within me? Hope in God; for I shall again praise him, my salvation and my God. My soul is cast down within me; therefore I remember you from the land of Jordan and of Hermon, from Mount Mizar.&rdquo;</blockquote>
       <span class="ref"><a href="https://biblehub.com/esv/psalms/42-5.htm" target="_blank" rel="noopener">Psalm 42:5&ndash;6 &middot; ESV</a></span>
+      <span class="vctx">Written while displaced from Jerusalem, likely in the region of Mount Hermon &mdash; homesick as much as anything else.</span>
     </div>
 
     <div class="holds">
@@ -482,6 +485,7 @@ var esc = function(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c
   return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]; }); };
 var BH = "https://biblehub.com/esv/";
 function refLink(ref,url){ return '<span class="ref"><a href="'+BH+url+'" target="_blank" rel="noopener">'+esc(ref)+'</a></span>'; }
+function vctx(c){ return c ? '<span class="vctx">'+esc(c)+'</span>' : ''; }
 
 /* ============================================================== data === */
 /* Each shape is named as the sentence a person actually thinks, so it is
@@ -493,77 +497,86 @@ var SHAPES = [
    says:"I bombed the quiz. So I'll fail the class, wreck my GPA, and never get in anywhere.",
    exwhy:"One quiz became four years in about two seconds. The jump is the tell — watch for the word 'so'.",
    truer:"I did badly on one quiz. That is the actual size of it. Tomorrow's problems can wait for tomorrow.",
-   v:{ text:"Therefore do not be anxious about tomorrow, for tomorrow will be anxious for itself. Sufficient for the day is its own trouble.", ref:"Matthew 6:34", url:"matthew/6-34.htm" } },
+   v:{ text:"Therefore do not be anxious about tomorrow, for tomorrow will be anxious for itself. Sufficient for the day is its own trouble.", ref:"Matthew 6:34", url:"matthew/6-34.htm",
+       ctx:"Part of Jesus' teaching on worry, aimed at people anxious about food and clothing — real survival, not just one bad grade." } },
 
  { id:"all-or-nothing", name:"If it's not perfect, it's a failure",
    sub:"Two settings only — flawless, or worthless.",
    says:"I got an A minus. I might as well not have bothered.",
    exwhy:"There's no scale here, just a cliff. Anything short of the top gets filed at the bottom.",
    truer:"Almost all of a real life happens in the middle. Being partway is still being on the way.",
-   v:{ text:"But he said to me, “My grace is sufficient for you, for my power is made perfect in weakness.” Therefore I will boast all the more gladly of my weaknesses, so that the power of Christ may rest upon me.", ref:"2 Corinthians 12:9", url:"2_corinthians/12-9.htm" } },
+   v:{ text:"But he said to me, “My grace is sufficient for you, for my power is made perfect in weakness.” Therefore I will boast all the more gladly of my weaknesses, so that the power of Christ may rest upon me.", ref:"2 Corinthians 12:9", url:"2_corinthians/12-9.htm",
+       ctx:"Paul, after asking three times for a real physical suffering to be taken away and being told no — this 'weakness' is hardship, not a B-minus." } },
 
  { id:"overgeneralizing", name:"This always happens to me",
    sub:"One time becomes a permanent rule about you.",
    says:"I froze in the presentation. I always freeze. I'll never be able to do this.",
    exwhy:"Listen for always and never. They turn one bad Tuesday into a life sentence.",
    truer:"It happened this time. 'Always' is a feeling wearing a fact's clothes.",
-   v:{ text:"The steadfast love of the LORD never ceases; his mercies never come to an end; they are new every morning; great is your faithfulness.", ref:"Lamentations 3:22–23", url:"lamentations/3-22.htm" } },
+   v:{ text:"The steadfast love of the LORD never ceases; his mercies never come to an end; they are new every morning; great is your faithfulness.", ref:"Lamentations 3:22–23", url:"lamentations/3-22.htm",
+       ctx:"From the book mourning Jerusalem's destruction — this hope is spoken from inside the worst thing that had happened, not after it passed." } },
 
  { id:"filtering", name:"I can only see what went wrong",
    sub:"Nine things went fine. The tenth is all that's left.",
    says:"The presentation went well, but I stumbled on one slide. That's all I can think about.",
    exwhy:"The word 'but' did the work. Everything before it got quietly deleted.",
    truer:"Both are real. You're allowed to count the nine.",
-   v:{ text:"Finally, brothers, whatever is true, whatever is honorable, whatever is just, whatever is pure, whatever is lovely, whatever is commendable, if there is any excellence, if there is anything worthy of praise, think about these things.", ref:"Philippians 4:8", url:"philippians/4-8.htm" } },
+   v:{ text:"Finally, brothers, whatever is true, whatever is honorable, whatever is just, whatever is pure, whatever is lovely, whatever is commendable, if there is any excellence, if there is anything worthy of praise, think about these things.", ref:"Philippians 4:8", url:"philippians/4-8.htm",
+       ctx:"Paul's instruction on what to dwell on, written from prison to a church he loved." } },
 
  { id:"mind-reading", name:"I know what they're thinking about me",
    sub:"You decide what's in someone's head, then react to your own guess.",
    says:"She left me on read. She thinks I'm an idiot.",
    exwhy:"There's one fact here — no reply — and an entire verdict built on top of it.",
    truer:"You don't actually know. People are usually busy, not disgusted.",
-   v:{ text:"For am I now seeking the approval of man, or of God? Or am I trying to please man? If I were still trying to please man, I would not be a servant of Christ.", ref:"Galatians 1:10", url:"galatians/1-10.htm" } },
+   v:{ text:"The fear of man lays a snare, but whoever trusts in the LORD is safe.", ref:"Proverbs 29:25", url:"proverbs/29-25.htm",
+       ctx:"Wisdom literature, general address — squarely about the exact trap of worrying what other people might be thinking." } },
 
  { id:"fortune-telling", name:"I already know how this ends",
    sub:"You've watched the ending, and it's bad.",
    says:"There's no point applying. I won't get it.",
    exwhy:"This one is sneaky because it feels like being realistic. It's a forecast wearing a fact's face.",
    truer:"That's a prediction, not knowledge. The only way to find out is to still be in it.",
-   v:{ text:"For I know the plans I have for you, declares the LORD, plans for welfare and not for evil, to give you a future and a hope.", ref:"Jeremiah 29:11", url:"jeremiah/29-11.htm" } },
+   v:{ text:"My times are in your hand; rescue me from the hand of my enemies and from my persecutors!", ref:"Psalm 31:15", url:"psalms/31-15.htm",
+       ctx:"First person, said from inside distress rather than promised over it — answers 'I already know how this ends' without claiming to know the ending." } },
 
  { id:"shoulds", name:"I should be handling this better",
    sub:"A rule you never agreed to, enforced only against you.",
    says:"Everyone else manages this workload. I shouldn't need help.",
    exwhy:"Find the word 'should' and ask who wrote the rule. Usually nobody you'd take orders from.",
-   truer:"Needing help is the ordinary human condition, not a failure of it.",
-   v:{ text:"There is therefore now no condemnation for those who are in Christ Jesus.", ref:"Romans 8:1", url:"romans/8-1.htm" } },
+   truer:"Needing help is the ordinary human condition, not a failure of it." },
 
  { id:"personalizing", name:"It's my fault",
    sub:"Something went wrong nearby, so it must be about you.",
    says:"The group project fell apart. I should have carried it.",
    exwhy:"Four people, one deadline, and somehow all of it landed on you.",
    truer:"Your part is yours. The rest belongs to other people and to things you didn't control.",
-   v:{ text:"If possible, so far as it depends on you, live peaceably with all.", ref:"Romans 12:18", url:"romans/12-18.htm" } },
+   v:{ text:"If possible, so far as it depends on you, live peaceably with all.", ref:"Romans 12:18", url:"romans/12-18.htm",
+       ctx:"One line in Paul's practical instructions for how believers treat outsiders — 'so far as it depends on you' is doing the work here." } },
 
  { id:"emotional-reasoning", name:"I feel it, so it must be true",
    sub:"The feeling gets treated as evidence.",
    says:"I feel worthless. So I must be worthless.",
    exwhy:"Swap in any other feeling and the problem shows: I feel cold, so it must be winter.",
    truer:"Feelings report the weather, not the verdict. You can feel it fully and still not believe it.",
-   v:{ text:"Why are you cast down, O my soul, and why are you in turmoil within me? Hope in God; for I shall again praise him, my salvation and my God.", ref:"Psalm 42:11", url:"psalms/42-11.htm" } },
+   v:{ text:"Why are you cast down, O my soul, and why are you in turmoil within me? Hope in God; for I shall again praise him, my salvation and my God.", ref:"Psalm 42:11", url:"psalms/42-11.htm",
+       ctx:"David talking to his own soul — the same line repeats three times across Psalms 42–43 because saying it once didn't make it stick." } },
 
  { id:"comparing", name:"Everyone else is doing better than me",
    sub:"Your insides measured against other people's outsides.",
    says:"Everyone in my class has it together. I'm the only one drowning.",
    exwhy:"You're comparing what it feels like to be you with what it looks like to be them.",
    truer:"The real question isn't whether you're ahead of them. It's whether you're doing your own work well.",
-   v:{ text:"But let each one test his own work, and then his reason to boast will be in himself alone and not in his neighbor.", ref:"Galatians 6:4", url:"galatians/6-4.htm" } },
+   v:{ text:"But let each one test his own work, and then his reason to boast will be in himself alone and not in his neighbor.", ref:"Galatians 6:4", url:"galatians/6-4.htm",
+       ctx:"Paul telling a divided church to examine their own work, in the middle of instructions about carrying one another's burdens, not competing over them." } },
 
  { id:"labeling", name:"I feel completely worthless",
    sub:"One hard moment gets turned into a verdict on everything you are.",
    says:"He didn't text back for two days. I'm worthless — nobody actually wants me around.",
    exwhy:"Listen for the jump from one moment to a whole-self verdict — 'completely,' 'worthless,' 'nobody.' A single hard interaction became a permanent label on you, not just a comment on what happened.",
    truer:"Something happened that hurt, and I feel awful about it right now. That's a feeling about a moment, not a fact about my worth.",
-   v:{ text:"I praise you, for I am fearfully and wonderfully made. Wonderful are your works; my soul knows it very well.", ref:"Psalm 139:14", url:"psalms/139-14.htm" } }
+   v:{ text:"I praise you, for I am fearfully and wonderfully made. Wonderful are your works; my soul knows it very well.", ref:"Psalm 139:14", url:"psalms/139-14.htm",
+       ctx:"David marveling at being made by God in detail — a few lines before the psalm turns to God already knowing his thoughts before he thinks them." } }
 ];
 
 var FEELINGS = [
@@ -579,49 +592,72 @@ var FEELINGS = [
 
 var VERSES = {
  afraid:{ title:"When you're afraid", items:[
-  {text:"fear not, for I am with you; be not dismayed, for I am your God; I will strengthen you, I will help you, I will uphold you with my righteous right hand.",ref:"Isaiah 41:10",url:"isaiah/41-10.htm"},
-  {text:"do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts and your minds in Christ Jesus.",ref:"Philippians 4:6–7",url:"philippians/4-6.htm"},
-  {text:"Humble yourselves, therefore, under the mighty hand of God so that at the proper time he may exalt you, casting all your anxieties on him, because he cares for you.",ref:"1 Peter 5:6–7",url:"1_peter/5-7.htm"},
-  {text:"In all circumstances take up the shield of faith, with which you can extinguish all the flaming darts of the evil one;",ref:"Ephesians 6:16",url:"ephesians/6-16.htm"}
+  {text:"fear not, for I am with you; be not dismayed, for I am your God; I will strengthen you, I will help you, I will uphold you with my righteous right hand.",ref:"Isaiah 41:10",url:"isaiah/41-10.htm",
+   ctx:"Spoken to Israel in exile, afraid of being erased as a people, not to an individual originally — used here the way the New Testament often reapplies these corporate promises personally."},
+  {text:"do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts and your minds in Christ Jesus.",ref:"Philippians 4:6–7",url:"philippians/4-6.htm",
+   ctx:"Paul's instruction from prison on what to do with anxiety, not just an order to stop feeling it."},
+  {text:"Humble yourselves, therefore, under the mighty hand of God so that at the proper time he may exalt you, casting all your anxieties on him, because he cares for you.",ref:"1 Peter 5:6–7",url:"1_peter/5-7.htm",
+   ctx:"Written to Christians under real persecution — telling them where their fear actually belongs."},
+  {text:"In all circumstances take up the shield of faith, with which you can extinguish all the flaming darts of the evil one;",ref:"Ephesians 6:16",url:"ephesians/6-16.htm",
+   ctx:"Part of Paul's 'armor of God' passage — faith pictured as a shield against attacks aimed at the mind."}
  ]},
  notenough:{ title:"When you're not enough", items:[
-  {text:"I praise you, for I am fearfully and wonderfully made. Wonderful are your works; my soul knows it very well.",ref:"Psalm 139:14",url:"psalms/139-14.htm"},
-  {text:"For we are his workmanship, created in Christ Jesus for good works, which God prepared beforehand, that we should walk in them.",ref:"Ephesians 2:10",url:"ephesians/2-10.htm"},
-  {text:"For the LORD sees not as man sees: man looks on the outward appearance, but the LORD looks on the heart.",ref:"1 Samuel 16:7",url:"1_samuel/16-7.htm"}
+  {text:"I praise you, for I am fearfully and wonderfully made. Wonderful are your works; my soul knows it very well.",ref:"Psalm 139:14",url:"psalms/139-14.htm",
+   ctx:"David reflecting on being personally, intricately made — not a statement about performance or achievement."},
+  {text:"For we are his workmanship, created in Christ Jesus for good works, which God prepared beforehand, that we should walk in them.",ref:"Ephesians 2:10",url:"ephesians/2-10.htm",
+   ctx:"Paul, right after saying salvation can't be earned by works, adding that meaningful work is still what a person is made for."}
  ]},
  failing:{ title:"After you've failed at something", items:[
-  {text:"for the righteous falls seven times and rises again, but the wicked stumble in times of calamity.",ref:"Proverbs 24:16",url:"proverbs/24-16.htm"},
-  {text:"There is therefore now no condemnation for those who are in Christ Jesus.",ref:"Romans 8:1",url:"romans/8-1.htm"},
-  {text:"Rejoice not over me, O my enemy; when I fall, I shall rise; when I sit in darkness, the LORD will be a light to me.",ref:"Micah 7:8",url:"micah/7-8.htm"}
+  {text:"for the righteous falls seven times and rises again, but the wicked stumble in times of calamity.",ref:"Proverbs 24:16",url:"proverbs/24-16.htm",
+   ctx:"A proverb about the righteous, not the perfect — the promise is about getting back up, not never falling."}
  ]},
  worn:{ title:"When you're worn out", items:[
-  {text:"Come to me, all who labor and are heavy laden, and I will give you rest. Take my yoke upon you, and learn from me, for I am gentle and lowly in heart, and you will find rest for your souls. For my yoke is easy, and my burden is light.",ref:"Matthew 11:28–30",url:"matthew/11-28.htm"},
-  {text:"but they who wait for the LORD shall renew their strength; they shall mount up with wings like eagles; they shall run and not be weary; they shall walk and not faint.",ref:"Isaiah 40:31",url:"isaiah/40-31.htm"},
-  {text:"And let us not grow weary of doing good, for in due season we will reap, if we do not give up.",ref:"Galatians 6:9",url:"galatians/6-9.htm"},
-  {text:"And after the earthquake a fire, but the LORD was not in the fire. And after the fire the sound of a low whisper.",ref:"1 Kings 19:12",url:"1_kings/19-12.htm"},
-  {text:"Hear my cry, O God, listen to my prayer; from the end of the earth I call to you when my heart is faint. Lead me to the rock that is higher than I,",ref:"Psalm 61:1–2",url:"psalms/61-2.htm"}
+  {text:"Come to me, all who labor and are heavy laden, and I will give you rest. Take my yoke upon you, and learn from me, for I am gentle and lowly in heart, and you will find rest for your souls. For my yoke is easy, and my burden is light.",ref:"Matthew 11:28–30",url:"matthew/11-28.htm",
+   ctx:"Jesus speaking to people worn down by religious rules that promised rest but added burden."},
+  {text:"but they who wait for the LORD shall renew their strength; they shall mount up with wings like eagles; they shall run and not be weary; they shall walk and not faint.",ref:"Isaiah 40:31",url:"isaiah/40-31.htm",
+   ctx:"Written to exiles who felt forgotten by God — the strength promised here is for waiting, not for achieving."},
+  {text:"And let us not grow weary of doing good, for in due season we will reap, if we do not give up.",ref:"Galatians 6:9",url:"galatians/6-9.htm",
+   ctx:"Paul, mid-instruction on doing good for others, naming the exact moment that good work starts to feel pointless."},
+  {text:"And after the earthquake a fire, but the LORD was not in the fire. And after the fire the sound of a low whisper.",ref:"1 Kings 19:12",url:"1_kings/19-12.htm",
+   ctx:"Elijah, suicidal and hiding in a cave after a huge spiritual victory — God shows up in the quiet, not the dramatic sign he expected."},
+  {text:"Hear my cry, O God, listen to my prayer; from the end of the earth I call to you when my heart is faint. Lead me to the rock that is higher than I,",ref:"Psalm 61:1–2",url:"psalms/61-2.htm",
+   ctx:"David praying from 'the end of the earth' — distant from where he wants to be, geographically or otherwise."}
  ]},
  alone:{ title:"When you feel alone", items:[
-  {text:"Be strong and courageous. Do not fear or be in dread of them, for it is the LORD your God who goes with you. He will not leave you or forsake you.",ref:"Deuteronomy 31:6",url:"deuteronomy/31-6.htm"},
-  {text:"The LORD is near to the brokenhearted and saves the crushed in spirit.",ref:"Psalm 34:18",url:"psalms/34-18.htm"},
-  {text:"When you pass through the waters, I will be with you; and through the rivers, they shall not overwhelm you; when you walk through fire you shall not be burned, and the flame shall not consume you.",ref:"Isaiah 43:2",url:"isaiah/43-2.htm"}
+  {text:"Be strong and courageous. Do not fear or be in dread of them, for it is the LORD your God who goes with you. He will not leave you or forsake you.",ref:"Deuteronomy 31:6",url:"deuteronomy/31-6.htm",
+   ctx:"Moses' send-off to Israel before entering unfamiliar territory without him — corporate originally, later applied to individual believers at Hebrews 13:5."},
+  {text:"The LORD is near to the brokenhearted and saves the crushed in spirit.",ref:"Psalm 34:18",url:"psalms/34-18.htm",
+   ctx:"David, having just faked insanity to survive an enemy king, writing about God's nearness in the aftermath."},
+  {text:"When you pass through the waters, I will be with you; and through the rivers, they shall not overwhelm you; when you walk through fire you shall not be burned, and the flame shall not consume you.",ref:"Isaiah 43:2",url:"isaiah/43-2.htm",
+   ctx:"God's promise to Israel in exile — that hardship would come, but wouldn't be the end of the story."}
  ]},
  comparing:{ title:"When you're comparing", items:[
-  {text:"But let each one test his own work, and then his reason to boast will be in himself alone and not in his neighbor. For each will have to bear his own load.",ref:"Galatians 6:4–5",url:"galatians/6-4.htm"},
-  {text:"But as it is, God arranged the members in the body, each one of them, as he chose.",ref:"1 Corinthians 12:18",url:"1_corinthians/12-18.htm"}
+  {text:"But let each one test his own work, and then his reason to boast will be in himself alone and not in his neighbor. For each will have to bear his own load.",ref:"Galatians 6:4–5",url:"galatians/6-4.htm",
+   ctx:"Paul's instruction to test your own work rather than measure it against someone else's."},
+  {text:"But as it is, God arranged the members in the body, each one of them, as he chose.",ref:"1 Corinthians 12:18",url:"1_corinthians/12-18.htm",
+   ctx:"About the body of Christ having different parts on purpose — an arrangement, not a ranking."}
  ]},
  ashamed:{ title:"When you're ashamed", items:[
-  {text:"If we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.",ref:"1 John 1:9",url:"1_john/1-9.htm"},
-  {text:"as far as the east is from the west, so far does he remove our transgressions from us.",ref:"Psalm 103:12",url:"psalms/103-12.htm"}
+  {text:"If we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.",ref:"1 John 1:9",url:"1_john/1-9.htm",
+   ctx:"Written to reassure Christians who worried that ongoing sin meant they'd lost their standing with God."},
+  {text:"as far as the east is from the west, so far does he remove our transgressions from us.",ref:"Psalm 103:12",url:"psalms/103-12.htm",
+   ctx:"Part of a psalm entirely about what God does with sin once it's forgiven — the distance described is the whole point."},
+  {text:"Come now, let us reason together, says the LORD: though your sins are like scarlet, they shall be as white as snow; though they are red like crimson, they shall become like wool.",ref:"Isaiah 1:18",url:"isaiah/1-18.htm",
+   ctx:"God's opening argument in a courtroom scene against Israel — even inside an indictment, the offer is real, though the verses right after attach real conditions."}
  ]},
  angry:{ title:"When you're angry", items:[
-  {text:"Be angry, and do not sin; ponder in your own hearts on your beds, and be silent.",ref:"Psalm 4:4",url:"psalms/4-4.htm"},
-  {text:"Know this, my beloved brothers: let every person be quick to hear, slow to speak, slow to anger;",ref:"James 1:19",url:"james/1-19.htm"}
+  {text:"Be angry, and do not sin; ponder in your own hearts on your beds, and be silent.",ref:"Psalm 4:4",url:"psalms/4-4.htm",
+   ctx:"David, likely written while being slandered — allowing the anger without letting it turn into sin."},
+  {text:"Know this, my beloved brothers: let every person be quick to hear, slow to speak, slow to anger;",ref:"James 1:19",url:"james/1-19.htm",
+   ctx:"Practical instruction from a letter mostly concerned with controlling speech and temper."}
  ]},
  courage:{ title:"When you need courage", items:[
-  {text:"for God gave us a spirit not of fear but of power and love and self-control.",ref:"2 Timothy 1:7",url:"2_timothy/1-7.htm"},
-  {text:"The LORD is my light and my salvation; whom shall I fear? The LORD is the stronghold of my life; of whom shall I be afraid?",ref:"Psalm 27:1",url:"psalms/27-1.htm"},
-  {text:"Have I not commanded you? Be strong and courageous. Do not be frightened, and do not be dismayed, for the LORD your God is with you wherever you go.",ref:"Joshua 1:9",url:"joshua/1-9.htm"}
+  {text:"for God gave us a spirit not of fear but of power and love and self-control.",ref:"2 Timothy 1:7",url:"2_timothy/1-7.htm",
+   ctx:"Paul writing to Timothy, a young leader who seems to have been genuinely afraid of his responsibilities."},
+  {text:"The LORD is my light and my salvation; whom shall I fear? The LORD is the stronghold of my life; of whom shall I be afraid?",ref:"Psalm 27:1",url:"psalms/27-1.htm",
+   ctx:"David, likely written under a real physical threat, not a metaphorical one."},
+  {text:"Have I not commanded you? Be strong and courageous. Do not be frightened, and do not be dismayed, for the LORD your God is with you wherever you go.",ref:"Joshua 1:9",url:"joshua/1-9.htm",
+   ctx:"God commissioning Joshua specifically for the conquest of Canaan — used constantly for exams and interviews, further from its original job than almost anything else here."}
  ]}
 };
 var GROUP_ORDER = ["afraid","notenough","failing","worn","alone","comparing","ashamed","angry","courage"];
@@ -643,7 +679,8 @@ var PROMPTS = [
 var STEPS = [
  { kicker:"One", title:"What&rsquo;s going on",
    lede:"Two parts, and either can stay empty. First what happened, then the sentence your head is saying about it. Doing this on paper works just as well &mdash; the questions are the useful part.",
-   v:{text:"Search me, O God, and know my heart! Try me and know my thoughts!",ref:"Psalm 139:23",url:"psalms/139-23.htm"},
+   v:{text:"Search me, O God, and know my heart! Try me and know my thoughts!",ref:"Psalm 139:23",url:"psalms/139-23.htm",
+      ctx:"David, after naming enemies and violent men in the verses just before, asking God to examine him too — not fear of being caught, an invitation to be truly known."},
    body:'<div class="example"><div class="exlabel">For example</div>'+
         '<p><strong>What happened:</strong> Got the organic chem exam back. 74. Two people behind me said it was easy.</p>'+
         '<p><strong>The sentence in my head:</strong> <em>&ldquo;I&rsquo;m not smart enough to be here. Everyone else gets it and I&rsquo;m faking it.&rdquo;</em></p>'+
@@ -657,7 +694,8 @@ var STEPS = [
 
  { kicker:"Two", title:"Describe the mixture of what you&rsquo;re feeling",
    lede:"Feelings almost never come one at a time, and they rarely have a single name. Tap everything that fits. There is no wrong set.",
-   v:{text:"Trust in him at all times, O people; pour out your heart before him; God is a refuge for us.",ref:"Psalm 62:8",url:"psalms/62-8.htm"},
+   v:{text:"Trust in him at all times, O people; pour out your heart before him; God is a refuge for us.",ref:"Psalm 62:8",url:"psalms/62-8.htm",
+      ctx:"David, worn down by people actively trying to bring him down, telling the whole community watching where safety actually is."},
    body:'<div class="whymatters"><b>Why this part matters</b>Naming a feeling is the first thing that takes the edge off it — that is a real effect, not a nice idea. It also gives you a reading to compare against at the end. And over weeks, looking back, you&rsquo;ll see which feelings keep returning: those are the ones worth going deeper into.</div>'+
         '<div class="field"><span class="field-label">Tap everything that fits</span><div class="chips" id="u-chips"></div></div>'+
         '<div class="field"><span class="field-label">How heavy is it right now?</span>'+
@@ -667,12 +705,14 @@ var STEPS = [
 
  { kicker:"Three", title:"What is that thought doing?",
    lede:"Hard thoughts come in shapes. Each one below is named as the sentence itself, the way it actually shows up in your head — find the one that sounds like yours. This isn&rsquo;t a fault in you. Nobody thinks straight while they&rsquo;re hurting.",
-   v:{text:"We destroy arguments and every lofty opinion raised against the knowledge of God, and take every thought captive to obey Christ,",ref:"2 Corinthians 10:5",url:"2_corinthians/10-5.htm"},
+   v:{text:"We destroy arguments and every lofty opinion raised against the knowledge of God, and take every thought captive to obey Christ,",ref:"2 Corinthians 10:5",url:"2_corinthians/10-5.htm",
+      ctx:"Paul defending his ministry against critics who said he was bold in letters but weak in person — the phrase has since become shorthand for exactly what this page is asking of a hard thought."},
    body:'<div class="example" id="u-recap" hidden></div><div class="shapes" id="u-shapes"></div>' },
 
  { kicker:"Four", title:"An honest review for a healthier me",
    lede:"Not thinking positive. Thinking accurately. A true thought can stand up to questions — and most of these can&rsquo;t.",
-   v:{text:"Do not despise prophecies, but test everything; hold fast what is good.",ref:"1 Thessalonians 5:20–21",url:"1_thessalonians/5-21.htm"},
+   v:{text:"Do not despise prophecies, but test everything; hold fast what is good.",ref:"1 Thessalonians 5:20–21",url:"1_thessalonians/5-21.htm",
+      ctx:"Paul's closing instructions to a young church — test claims rather than swallow or dismiss them whole, the same move this page is asking of a hard thought."},
    body:'<label class="field" for="f-provable"><span class="field-label">What part of this is provable?</span>'+
         '<span class="field-hint">Facts only — not assumptions, not predictions, not your opinion of yourself. If it wouldn&rsquo;t hold up as evidence, it doesn&rsquo;t belong here. Usually what&rsquo;s left is much smaller than the thought.</span>'+
         '<textarea id="f-provable" rows="2" placeholder="I scored 74. I couldn&rsquo;t finish the last mechanism."></textarea></label>'+
@@ -779,7 +819,7 @@ function renderStep(){
   $("stepwrap").innerHTML =
     '<div class="vhead"><div class="kicker">Step '+s.kicker.toLowerCase()+' of four</div>'+
     '<h2>'+s.title+'</h2><p class="lede">'+s.lede+'</p></div>'+
-    (step === 4 ? '' : '<div class="margin-note"><blockquote>&ldquo;'+esc(s.v.text)+'&rdquo;</blockquote>'+refLink(s.v.ref+" · ESV", s.v.url)+'</div>')+
+    (step === 4 ? '' : '<div class="margin-note"><blockquote>&ldquo;'+esc(s.v.text)+'&rdquo;</blockquote>'+refLink(s.v.ref+" · ESV", s.v.url)+vctx(s.v.ctx)+'</div>')+
     s.body+
     (step === 4 ? '' : '') +
     '<div class="actions">'+
@@ -812,7 +852,7 @@ function renderStep(){
     var head = $("stepwrap").querySelector(".vhead");
     var note = document.createElement("div");
     note.className = "margin-note";
-    note.innerHTML = '<blockquote>&ldquo;'+esc(s.v.text)+'&rdquo;</blockquote>'+refLink(s.v.ref+" · ESV", s.v.url);
+    note.innerHTML = '<blockquote>&ldquo;'+esc(s.v.text)+'&rdquo;</blockquote>'+refLink(s.v.ref+" · ESV", s.v.url)+vctx(s.v.ctx);
     head.insertAdjacentElement("afterend", note);
     renderVersePicks(); bindRange("f-after","afterVal");
   }
@@ -870,7 +910,7 @@ function shapeHTML(s, interactive){
       '<p class="says">&ldquo;'+esc(s.says)+'&rdquo;</p>'+
       '<p class="exwhy">'+esc(s.exwhy)+'</p>'+
       '<p class="truer"><b>The reframe</b>'+esc(s.truer)+'</p>'+
-      '<p><span style="font-family:var(--serif);font-style:italic;color:var(--ink-2)">&ldquo;'+esc(s.v.text)+'&rdquo;</span> '+refLink(s.v.ref, s.v.url)+'</p>'+
+      (s.v ? '<p><span style="font-family:var(--serif);font-style:italic;color:var(--ink-2)">&ldquo;'+esc(s.v.text)+'&rdquo;</span> '+refLink(s.v.ref, s.v.url)+vctx(s.v.ctx)+'</p>' : '')+
     '</div></div>';
 }
 function paintShapes(hostId, interactive){
@@ -907,7 +947,7 @@ function renderVerseGroups(){
   $("verseGroups").innerHTML = GROUP_ORDER.map(function(g){
     var grp = VERSES[g];
     return '<section class="vg"><h3>'+esc(grp.title)+'</h3><ul>'+grp.items.map(function(v){
-      return '<li>&ldquo;'+esc(v.text)+'&rdquo;'+refLink(v.ref, v.url)+'</li>'; }).join("")+'</ul></section>';
+      return '<li>&ldquo;'+esc(v.text)+'&rdquo;'+refLink(v.ref, v.url)+vctx(v.ctx)+'</li>'; }).join("")+'</ul></section>';
   }).join("");
 }
 

@@ -50,21 +50,21 @@ Downloads can be inert inside an embedding iframe (see the Claude-artifact note 
 
 ---
 
-## Still open — two decisions from Michelle
+## Still open — one decision from Michelle, plus a fuller docket
 
-### 1. The verse docket
+### 1. The verse docket — partially worked through
 
-See `docs/scripture-decisions.md`. Several pairings were flagged where the devotional use and the passage's own context pull apart. They are all still **in place as written** — publishing ships them as-is.
+See `docs/scripture-decisions.md` for the full record. As of 2026-09-15, Michelle has ruled on nine items (title verse kept; Jeremiah 29:11 → Psalm 31:15 and Galatians 1:10 → Proverbs 29:25 both swapped; Romans 8:1 cut from both its spots; 1 Samuel 16:7 and Micah 7:8 cut outright; Joshua 1:9 kept despite overlap; Isaiah 1:18 restored; 2 Corinthians 10:12 left out) and every verse in the app now carries a one-line context caption.
 
 The live review sheet is a Claude artifact called **The Verse Docket** at
 `https://claude.ai/artifact/GFV9R7Fwn8gsfAd6hs6V21`
-Its decisions are stored in that artifact's database at collection `review`, document `decisions` — readable with the Artifact tool's `read_db`. Michelle has recorded a Keep on the title verse; the rest were unmarked as of this handoff.
+Its decisions are stored in that artifact's database at collection `review`, document `decisions` — readable with the Artifact tool's `read_db`, writable with `write_db`. It goes deeper than what's been ruled on so far: it has grammar/context flags on nearly every verse in the app, four things pulled from Michelle's own comments that haven't been actioned (promoting Philippians 4:6 into the step flow itself, a Galatians 6:8-vs-6:9 wording check, showing the fuller Ephesians 6 armor passage, and a dedicated 1 Kings 19 — Elijah at Horeb — panel), and the framing question below. **Note the docket's own "spine" section describes a six-step flow; the app has had four steps for a while now, so that section is stale relative to the live app — read it for the verse-level notes, not the step structure.**
 
 ### 2. The framing question
 
 Michelle wrote: *"the attack of our minds is the enemy trying to confuse and discourage us,"* and asked for Ephesians 6:16 (the shield of faith, now in the "when you're afraid" group). Whether the tool should **say** that — name a negative thought as spiritual attack — is undecided.
 
-The tension, in her words and mine: naming it as attack has real force and is where Ephesians 6 leads. It also has a cost — if a thought is an attack, a bad day can start to feel like a spiritual failure, and for a student already prone to self-blame that adds a second layer. Exhaustion, a chemical imbalance and a brutal semester are not the enemy, and a tool that implies otherwise can talk someone out of getting help. The standing recommendation is to name it plainly **once**, in an opening note, and let the six steps stay practical. **Her call, not yours.**
+The tension, in her words and mine: naming it as attack has real force and is where Ephesians 6 leads. It also has a cost — if a thought is an attack, a bad day can start to feel like a spiritual failure, and for a student already prone to self-blame that adds a second layer. Exhaustion, a chemical imbalance and a brutal semester are not the enemy, and a tool that implies otherwise can talk someone out of getting help. The standing recommendation is to name it plainly **once**, in an opening note, and let the four steps stay practical. **Her call, not yours.**
 
 ---
 
