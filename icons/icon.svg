@@ -8,17 +8,8 @@
 
   <rect x="0" y="0" width="512" height="512" rx="96" fill="url(#bg)"/>
 
-  <!-- feather, built in a 200x200 local frame then transformed -->
-  <g transform="translate(256 266) rotate(28) scale(1.55) translate(-100 -100)">
-    <path d="M100 8
-             C 138 22, 166 60, 171 108
-             C 176 156, 160 194, 126 206
-             C 119 190, 112 170, 105 154
-             C 91 170, 79 188, 71 204
-             C 52 190, 40 158, 43 118
-             C 46 74, 68 34, 100 8 Z"
-          fill="#FFF3F6"/>
-    <path d="M100 12 C 95 68, 90 138, 82 210"
-          fill="none" stroke="#C22C63" stroke-width="7" stroke-linecap="round"/>
-  </g>
+  <!-- breath pulse: a still frame of the in-app breath circle mid-expand -->
+  <circle cx="256" cy="256" r="176" fill="none" stroke="#FFF3F6" stroke-width="14" opacity="0.35"/>
+  <circle cx="256" cy="256" r="128" fill="none" stroke="#FFF3F6" stroke-width="16" opacity="0.6"/>
+  <circle cx="256" cy="256" r="56" fill="#FFF3F6"/>
 </svg>

@@ -22,7 +22,7 @@ Underneath: everything you've written, the eleven shapes a hard thought takes, a
 
 Four colour settings in the top corner — match my device, Rose, Harbor, Dusk. Rose is the default until you pick something else; it remembers whichever you chose.
 
-It has its own icon — a feather — for the browser tab and for "Add to Home Screen" (iOS Safari) or "Install app" (Android/Chrome), so it opens full-screen like an app rather than a browser tab.
+It has its own icon — three rings pulsing out from a centre, a still frame of the breath-circle grounding tool — for the browser tab and for "Add to Home Screen" (iOS Safari) or "Install app" (Android/Chrome), so it opens full-screen like an app rather than a browser tab.
 
 ## Privacy
 
@@ -53,7 +53,7 @@ Then in the repository: **Settings → Pages → Build and deployment → Source
 | `qa/qa.py` | Playwright test suite across flows, palettes and widths — run it for the current check count. |
 | `docs/scripture-decisions.md` | The verses still awaiting a ruling. |
 | `manifest.json` | Web app manifest so browsers offer "Install" / "Add to Home Screen" with the app's own icon. |
-| `icons/icon.svg` | Source vector for the feather app icon. Edit this, not the PNGs. |
+| `icons/icon.svg` | Source vector for the app icon (breath pulse rings). Edit this, not the PNGs. |
 | `icons/*.png` | Generated from `icon.svg` — the home-screen icon (`apple-touch-icon.png`), manifest icons, and the tab favicon. See `HANDOFF.md` for how to regenerate them after editing the SVG. |
 
 Edit `page.html` and run `./build.sh`, or edit `index.html` directly if you're only ever using the GitHub version.

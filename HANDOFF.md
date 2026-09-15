@@ -40,6 +40,7 @@ Underneath: the journal, the eleven shapes as a reference, and the verse library
 - **The tool pairs with a paper journal** rather than replacing one — said on the home screen and on the writing pages.
 - **The 988 line stays in the footer**, and the tool never claims to be therapy.
 - **No login, no account, no server-side storage.** Proposed (a way to keep entries past 90 days / across devices) and turned down: a server means someone — host, breach, subpoena — could read a struggling teenager's worst thoughts, which is a real cost even with good intentions, and it turns a free static site into something with ongoing hosting and auth to maintain. The durability problem is solved instead with a manual, local backup file (see below) — same zero-server guarantee, no new attack surface.
+- **The app icon is a breath pulse, not a feather.** A feather/quill/cupped-hands round was shown first and rejected outright as the wrong motif — not a color or boldness problem, the symbol itself. Breath (the counted-breath grounding circle, already the app's first door) was Michelle's redirect, tested as three options — pulse rings, a wave curve, and the same rings in Harbor blue — and she picked the Rose pulse rings. **If you're asked to touch the icon again, don't default back to a feather.**
 
 ### Backup files
 
@@ -78,8 +79,8 @@ The tension, in her words and mine: naming it as attack has real force and is wh
 | `qa/qa.py` | The Playwright test suite. |
 | `docs/scripture-decisions.md` | The open verse questions. |
 | `.nojekyll` | Stops GitHub Pages running the files through Jekyll. |
-| `manifest.json` | Web app manifest — name, theme colour, and the two PNG icons — so Chrome/Android offer "Install app" / "Add to Home Screen" with the feather icon rather than a screenshot of the page. |
-| `icons/icon.svg` | Source vector for the app icon — a feather (ties to the 🪶 favicon already used for the Claude-artifact copy, and to "take every thought captive"). Edit this, then regenerate the PNGs (see below). |
+| `manifest.json` | Web app manifest — name, theme colour, and the two PNG icons — so Chrome/Android offer "Install app" / "Add to Home Screen" with the app's own icon rather than a screenshot of the page. |
+| `icons/icon.svg` | Source vector for the app icon — three concentric rings around a solid centre, a still frame of the in-app breath circle mid-expand (the counted-breath grounding tool, not a borrowed metaphor). Went through two review rounds with Michelle first — a feather/quill/cupped-hands round was rejected outright as the wrong motif; breath was her direction, and this ring pairing ("Pulse, Rose") was her pick over a wave-curve and a Harbor-blue recolour. Edit this, then regenerate the PNGs (see below). |
 | `icons/icon-512.png`, `icons/icon-192.png` | Rasters of `icon.svg` for `manifest.json`. |
 | `icons/apple-touch-icon.png` | 180×180 raster for iOS "Add to Home Screen" — Safari looks for this via the `<link rel="apple-touch-icon">` in `page.html`, not the manifest. |
 | `icons/favicon-32.png` | Browser-tab favicon. |
