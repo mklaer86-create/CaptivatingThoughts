@@ -3,7 +3,7 @@
 Every verse in the app is **ESV, quoted whole**, pulled verse-by-verse from Bible Hub, with each reference linking to its page there. That part is settled.
 
 The interactive version is the Claude artifact **The Verse Docket**
-`https://claude.ai/artifact/GFV9R7Fwn8gsfAd6hs6V21` — decisions are stored in its database at `review/decisions`. That docket goes deeper than this file: it has per-verse grammar/context flags across the whole app, four things Michelle asked to add on her own (Philippians 4:6 promoted into the spine, a question about Galatians 6:8 vs. 6:9, the fuller Ephesians 6 armor passage, and an Elijah-at-Horeb panel from 1 Kings 19), and one open framing question — whether to name a hard thought as spiritual attack — that isn't a verse call at all. **That larger list hasn't been worked through with Michelle yet; only the items below have.**
+`https://claude.ai/artifact/GFV9R7Fwn8gsfAd6hs6V21` — decisions are stored in its database at `review/decisions`. It also has assorted per-verse grammar flags across the whole app that have never been brought to Michelle for a ruling.
 
 ---
 
@@ -29,15 +29,24 @@ The interactive version is the Claude artifact **The Verse Docket**
 
 **One-line context under every verse.** Every verse across the shapes, the four-step flow, the grounding page, and the verse library now carries a short line naming who it was originally spoken to and in what situation — including a plain note on the verses addressed corporately to Israel (Isaiah 41:10, Isaiah 43:2, Deuteronomy 31:6, Isaiah 40:31) rather than to an individual. Written from general biblical knowledge, not re-verified against Bible Hub the way the verse text itself was — worth a skim for anything that reads off.
 
+**Philippians 4:6–7** — Michelle's suggestion to promote it into the step-by-step flow was, on discussion, actually about the "overwhelmed"/"anxious" feeling tags. **ADDED** to the "worn out" verse-library group (it was already in "afraid"); step two stays Psalm 62:8, unchanged.
+
+**Galatians 6:8–9** — Michelle referenced 6:8 for "worn out," but the "not growing weary" line is 6:9; 6:8 is the sowing-flesh-vs-Spirit verse just before it. **EXPANDED** to show both verses together.
+
+**Romans 12:1–2**, step four's closing verse (previously 12:2 alone). **EXPANDED** to the fuller 12:1–2 Michelle sent — "I appeal to you therefore, brothers, by the mercies of God, to present your bodies as a living sacrifice..." now precedes "Do not be conformed to this world..."
+
+**Romans 5:3–5** — new addition, not from the original docket; Michelle read it during her own devotional time and said "also good." **ADDED** to both "after you've failed" and "need courage" — she explicitly OK'd using it in both groups, despite the Romans 8:1 double-duty concern above.
+
+**Matthew 5:3** — also a new addition. **ADDED** to "when you're not enough" — reframes feeling inadequate as blessed rather than shameful.
+
 ---
 
 ## Still open
 
-The Verse Docket has more in it than got covered above:
-
-- **Michelle's own four additions** — whether to promote Philippians 4:6 into the step-by-step flow itself (not just the library), a wording check on Galatians 6:8 vs. 6:9, whether to show the fuller Ephesians 6 armor passage around 6:16, and building a dedicated panel for 1 Kings 19 (Elijah at Horeb) rather than a single verse.
-- **The framing question**: whether to name a hard thought as spiritual attack, once, in an opening note — raised by Michelle, explicitly not a verse decision, still hers to make.
-- Assorted per-verse grammar flags in the docket (verses that start mid-sentence, end on a comma, or run into a neighboring verse) that were never brought to Michelle for a ruling.
+- **Ephesians 6:16 → the fuller armor passage (6:11–16).** Scope decided — waiting on Michelle to paste the exact ESV text for vv. 11–15 before this can be built (the current environment can't reach Bible Hub directly).
+- **A new fourth home-screen door built around 1 Kings 19 (Elijah at Horeb).** Decided: separate from the existing grounding door, breathing exercise before the story starts, and the story runs all the way through God's response and instructions (vv. 15–18), not stopping at the whisper. Waiting on the exact ESV text for the full passage (roughly vv. 3–18) and on door copy (title, subtitle) before this can be built.
+- **The framing question**: whether to name a hard thought as spiritual attack, once, in an opening note. Michelle asked to log this and come back to it later — deferred, not decided.
+- Assorted per-verse grammar flags in the docket (verses that start mid-sentence, end on a comma, or run into a neighboring verse) that have never been brought to Michelle for a ruling.
 
 ## If you add a verse
 
