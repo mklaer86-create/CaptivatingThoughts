@@ -869,7 +869,6 @@ function renderStep(){
         : '<button class="btn" type="button" id="saveRecord">Keep this</button>')+
       (step < 4 ? '<button class="btn quiet" type="button" data-step="'+(step+1)+'">Skip this</button>' : '')+
       (step === 1 ? '<button class="btn quiet" type="button" id="loadExample">Fill it in for me</button>' : '')+
-      '<span class="flash hidden" id="recordFlash"></span>'+
     '</div>';
   if(step === 1 && s.v){
     /* step one keeps its verse under the heading; already inserted above */
@@ -1160,11 +1159,6 @@ document.addEventListener("click", function(ev){
 
   if(t.id === "saveRecord"){
     capture();
-    if(!draft.thought && !draft.reframe && !draft.situation){
-      var f = $("recordFlash");
-      f.textContent = "Write one line first — anything at all."; f.style.color = "var(--accent)"; f.classList.remove("hidden");
-      return;
-    }
     var names = draft.shapes.map(function(id){ var s = SHAPES.filter(function(x){ return x.id === id; })[0]; return s ? s.name : id; });
     entries.push({ id:"e"+Date.now(), ts:Date.now(), kind:"record",
       situation:draft.situation.trim(), thought:draft.thought.trim(),

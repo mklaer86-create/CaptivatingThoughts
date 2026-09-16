@@ -260,6 +260,21 @@ with sync_playwright() as pw:
     else: ok("save","entry saved with the next-time line")
     check_contrast(p,"journal-filled@390")
 
+    # --- skip everything, still must save (regression: this dead-ended before)
+    p.click("#homeBtn"); p.wait_for_timeout(200)
+    before_entries = p.eval_on_selector_all(".entry","e=>e.length")
+    p.click('[data-view="untangle"]'); p.wait_for_timeout(300)
+    p.click('.btn.quiet[data-step="2"]'); p.wait_for_timeout(200)
+    p.click('.btn.quiet[data-step="3"]'); p.wait_for_timeout(200)
+    p.click('.btn.quiet[data-step="4"]'); p.wait_for_timeout(250)
+    p.click("#saveRecord"); p.wait_for_timeout(400)
+    if not p.is_visible("#v-journal"):
+        fail("save","skipping every field on all four pages got stuck instead of reaching the journal")
+    else:
+        after_entries = p.eval_on_selector_all(".entry","e=>e.length")
+        if after_entries != before_entries + 1: fail("save", f"skip-everything entry not saved: {before_entries} -> {after_entries}")
+        else: ok("save","skipping every field on all four pages still saves successfully")
+
     # example filler
     p.click("#homeBtn"); p.wait_for_timeout(200)
     p.click('[data-view="untangle"]'); p.wait_for_timeout(250)
@@ -282,10 +297,10 @@ with sync_playwright() as pw:
     ok("journal","copy path ran")
     p.reload(); p.wait_for_timeout(1600)
     p.click('[data-view="journal"]'); p.wait_for_timeout(300)
-    if p.eval_on_selector_all(".entry","e=>e.length") != 2: fail("persist","entries lost on reload")
+    if p.eval_on_selector_all(".entry","e=>e.length") != 3: fail("persist","entries lost on reload")
     else: ok("persist","entries survive reload")
     p.click(".entry .btn.quiet"); p.wait_for_timeout(300)
-    if p.eval_on_selector_all(".entry","e=>e.length") != 1: fail("journal","delete failed")
+    if p.eval_on_selector_all(".entry","e=>e.length") != 2: fail("journal","delete failed")
     else: ok("journal","delete works")
 
     # --- backup / restore
