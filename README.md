@@ -22,6 +22,8 @@ Underneath: everything you've written, the eleven shapes your inner voice takes 
 
 There's also a small **Quick Remap** button below the three doors — not a fourth door, just a shortcut for when you already know the shape and want the reframe without the four pages: every shape's thought, its truer sentence, and a verse, all on one page.
 
+A language switcher in the top corner — English or Español. It translates everything the app says; Bible verses stay in English (ESV) in both languages until a real named Spanish translation is added, rather than a machine translation of scripture. Your choice is remembered.
+
 Four colour settings in the top corner — match my device, Rose, Harbor, Dusk. Rose is the default until you pick something else; it remembers whichever you chose.
 
 It has its own icon — three rings pulsing out from a centre, a still frame of the breath-circle grounding tool — for the browser tab and for "Add to Home Screen" (iOS Safari) or "Install app" (Android/Chrome), so it opens full-screen like an app rather than a browser tab.
@@ -62,13 +64,14 @@ Edit `page.html` and run `./build.sh`, or edit `index.html` directly if you're o
 
 ## Making it yours
 
-Everything worth changing lives near the top of the `<script>` block in one place:
+Everything worth changing lives near the top of the `<script>` block in one place. Each of these exists as an `_EN` and an `_ES` array (same shape and order in both); `SHAPES`/`FEELINGS`/`VERSES`/`STEPS`/`PROMPTS` are the bindings the rest of the app actually reads, swapped by the language switcher:
 
 - `SHAPES` — the eleven shapes, each named as the sentence a person actually thinks, with an example, a note on why it's the example, and the reframe.
 - `FEELINGS` — the feeling chips, each tagged with a verse group.
-- `VERSES` — the verse library. Add groups, reorder them, swap the translation.
+- `VERSES` — the verse library. Add groups, reorder them, swap the translation. Verse text/reference/link stay English (ESV) in both languages — only the app-authored context caption is translated.
 - `STEPS` — the four pages: heading, opening line, margin verse, and the fields.
 - `PROMPTS` — the writing prompts.
+- `STRINGS.en` / `STRINGS.es` — every other piece of fixed UI text (buttons, headings, messages), looked up with `T(key)`.
 
 Colours are CSS custom properties at the top of the `<style>` block: one block per palette (`[data-skin="rose"]`, `"harbor"`, `"dusk"`), plus the no-attribute default that follows the device. Add a fourth palette by copying a block and adding a swatch button.
 

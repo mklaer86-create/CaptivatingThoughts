@@ -97,7 +97,7 @@ button{font:inherit;color:inherit}
 
 /* ---------- top bar ---------- */
 .topbar{
-  display:flex;align-items:center;gap:.75rem;padding-block:1rem;
+  display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .75rem;padding-block:1rem;
   border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--paper);z-index:10;
 }
 .navbtn{
@@ -118,6 +118,11 @@ button{font:inherit;color:inherit}
 .swatch[data-skin="dusk"]{background:linear-gradient(135deg,#211A2E 50%,#F0A860 50%)}
 .swatch[data-skin="auto"]{background:linear-gradient(135deg,#EEF2F5 50%,#15171B 50%)}
 .swatch[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:2px}
+.lang-select{
+  font:inherit;font-size:.8125rem;color:var(--ink-2);background:var(--panel);
+  border:1px solid var(--rule);border-radius:5px;padding:.3rem .5rem;cursor:pointer;
+}
+.lang-select:hover{border-color:var(--rule-2);color:var(--ink)}
 
 /* ---------- home ---------- */
 .home{padding-block:2.75rem 0;display:flex;flex-direction:column;gap:2rem}
@@ -318,7 +323,14 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
     <button class="navbtn" type="button" id="backBtn" hidden>&larr; Back</button>
     <button class="navbtn" type="button" id="homeBtn" hidden>Home</button>
     <span class="wordmark" id="wordmark">Holding Your Thoughts Captive</span>
-    <div class="skins" role="group" aria-label="Colour">
+    <div class="skins" role="group" aria-label="Language">
+      <label for="langSelect" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)" id="langSelectLabel">Language</label>
+      <select class="lang-select" id="langSelect" aria-label="Language">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+      </select>
+    </div>
+    <div class="skins" role="group" aria-label="Colour" style="margin-left:0">
       <button class="swatch" type="button" data-skin="auto" aria-pressed="false" aria-label="Match my device" title="Match my device"></button>
       <button class="swatch" type="button" data-skin="rose" aria-pressed="true" aria-label="Rose" title="Rose"></button>
       <button class="swatch" type="button" data-skin="harbor" aria-pressed="false" aria-label="Harbor" title="Harbor"></button>
@@ -329,50 +341,50 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   <!-- =============== HOME =============== -->
   <section class="home" id="v-home">
     <div>
-      <h1>Holding Your Thoughts Captive</h1>
-      <p class="opening">You don&rsquo;t have to explain yourself to start, and you don&rsquo;t have to know what&rsquo;s wrong. Pick whichever one is closest to true right now.</p>
+      <h1 id="homeH1">Holding Your Thoughts Captive</h1>
+      <p class="opening" id="homeOpening">You don&rsquo;t have to explain yourself to start, and you don&rsquo;t have to know what&rsquo;s wrong. Pick whichever one is closest to true right now.</p>
     </div>
 
     <div class="doors">
       <button class="door" type="button" data-view="steady">
-        <span class="dtitle">I&rsquo;m crashing &mdash; I need grounding</span>
-        <span class="dsub">Nothing to figure out yet. Just help me come down.</span>
+        <span class="dtitle" id="door1Title">I&rsquo;m crashing &mdash; I need grounding</span>
+        <span class="dsub" id="door1Sub">Nothing to figure out yet. Just help me come down.</span>
       </button>
       <button class="door" type="button" data-view="untangle">
-        <span class="dtitle">I&rsquo;m struggling with my thoughts</span>
-        <span class="dsub">I can&rsquo;t shake this and it isn&rsquo;t helping me. Walk me through it.</span>
+        <span class="dtitle" id="door2Title">I&rsquo;m struggling with my thoughts</span>
+        <span class="dsub" id="door2Sub">I can&rsquo;t shake this and it isn&rsquo;t helping me. Walk me through it.</span>
       </button>
       <button class="door" type="button" data-view="write">
-        <span class="dtitle">I just want to dump where I&rsquo;m at</span>
-        <span class="dsub">No structure. Say it however it comes out.</span>
+        <span class="dtitle" id="door3Title">I just want to dump where I&rsquo;m at</span>
+        <span class="dsub" id="door3Sub">No structure. Say it however it comes out.</span>
       </button>
     </div>
 
     <div class="remap-row">
       <button class="remap-pill" type="button" data-view="remap">
-        <span class="remap-pill-label">Quick Remap</span>
-        <span class="remap-pill-note">Skip straight to the reframes</span>
+        <span class="remap-pill-label" id="remapLabel">Quick Remap</span>
+        <span class="remap-pill-note" id="remapNote">Skip straight to the reframes</span>
       </button>
     </div>
 
     <div class="howitworks">
-      <p><strong>Use any of these, in any order.</strong> Start with grounding and stop there. Walk through the thoughts and skip half the questions. Open it three times in a day or once in a month. There is no right way and nothing is left unfinished.</p>
-      <p><strong>It works with a paper journal, not instead of one.</strong> If you keep one, use these pages as the prompts and write your answers by hand &mdash; the questions are the useful part. Every screen can be copied or printed, so you can paste it into whatever you already keep.</p>
+      <p id="howItWorks1P"><strong>Use any of these, in any order.</strong> Start with grounding and stop there. Walk through the thoughts and skip half the questions. Open it three times in a day or once in a month. There is no right way and nothing is left unfinished.</p>
+      <p id="howItWorks2P"><strong>It works with a paper journal, not instead of one.</strong> If you keep one, use these pages as the prompts and write your answers by hand &mdash; the questions are the useful part. Every screen can be copied or printed, so you can paste it into whatever you already keep.</p>
     </div>
 
     <nav class="quietnav" aria-label="More">
-      <button class="qlink" type="button" data-view="journal">Everything you&rsquo;ve written</button>
-      <button class="qlink" type="button" data-view="shapes">When your inner voice turns on you</button>
-      <button class="qlink" type="button" data-view="verses">Verses for the hard days</button>
+      <button class="qlink" type="button" data-view="journal" id="navJournal">Everything you&rsquo;ve written</button>
+      <button class="qlink" type="button" data-view="shapes" id="navShapes">When your inner voice turns on you</button>
+      <button class="qlink" type="button" data-view="verses" id="navVerses">Verses for the hard days</button>
     </nav>
   </section>
 
   <!-- =============== GROUNDING =============== -->
   <section class="view steady" id="v-steady" hidden>
     <div class="vhead" style="align-items:center">
-      <div class="kicker">Before anything else</div>
-      <h2>Stay here a minute</h2>
-      <p class="lede">Nothing on this page needs figuring out. You don&rsquo;t have to feel better by the end of it.</p>
+      <div class="kicker" id="steadyKicker">Before anything else</div>
+      <h2 id="steadyH2">Stay here a minute</h2>
+      <p class="lede" id="steadyLede">Nothing on this page needs figuring out. You don&rsquo;t have to feel better by the end of it.</p>
     </div>
 
     <div class="breathbox">
@@ -381,7 +393,7 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
         <span class="breathnum" id="breathNum">4</span>
       </div>
       <div class="breathmeta" id="breathMeta">Breath 1 of 8</div>
-      <p class="small" style="max-width:22rem">Follow the circle. In as it grows, out as it shrinks. Eight breaths and it&rsquo;s done &mdash; you can stop before that.</p>
+      <p class="small" style="max-width:22rem" id="breathFollow">Follow the circle. In as it grows, out as it shrinks. Eight breaths and it&rsquo;s done &mdash; you can stop before that.</p>
       <div class="actions" id="breathDone" hidden style="justify-content:center">
         <button class="btn ghost" type="button" id="breathAgain">Eight more</button>
       </div>
@@ -394,27 +406,27 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
     </div>
 
     <div class="praise">
-      <h3>Find one thing to praise Him for</h3>
-      <p>Not because you feel like it. The psalmist didn&rsquo;t either &mdash; he asks his own soul why it&rsquo;s in turmoil and then says he will praise God anyway. <strong>You can be downcast and still sing.</strong></p>
-      <p>It can be small. The day ends. There is water. Someone texted back. He hasn&rsquo;t left.</p>
+      <h3 id="praiseH3">Find one thing to praise Him for</h3>
+      <p id="praiseP1">Not because you feel like it. The psalmist didn&rsquo;t either &mdash; he asks his own soul why it&rsquo;s in turmoil and then says he will praise God anyway. <strong>You can be downcast and still sing.</strong></p>
+      <p id="praiseP2">It can be small. The day ends. There is water. Someone texted back. He hasn&rsquo;t left.</p>
       <blockquote>&ldquo;Why are you cast down, O my soul, and why are you in turmoil within me? Hope in God; for I shall again praise him, my salvation and my God. My soul is cast down within me; therefore I remember you from the land of Jordan and of Hermon, from Mount Mizar.&rdquo;</blockquote>
       <span class="ref"><a href="https://biblehub.com/esv/psalms/42-5.htm" target="_blank" rel="noopener">Psalm 42:5&ndash;6 &middot; ESV</a></span>
       <span class="vctx">Written while displaced from Jerusalem, likely in the region of Mount Hermon &mdash; homesick as much as anything else.</span>
     </div>
 
     <div class="holds">
-      <p class="field-label" style="margin-bottom:.2rem">Small things, while you sit</p>
-      <div class="hold-item"><span>Put both feet flat on the floor and let them be heavy.</span></div>
-      <div class="hold-item"><span>Unclench your jaw. Drop your shoulders.</span></div>
-      <div class="hold-item"><span>Drink some water, even a mouthful.</span></div>
-      <div class="hold-item"><span>Name five things you can see from where you&rsquo;re sitting.</span></div>
-      <div class="hold-item"><span>Say one true sentence to God. It can be &ldquo;I can&rsquo;t do this.&rdquo;</span></div>
+      <p class="field-label" style="margin-bottom:.2rem" id="holdsLabel">Small things, while you sit</p>
+      <div class="hold-item"><span id="hold1">Put both feet flat on the floor and let them be heavy.</span></div>
+      <div class="hold-item"><span id="hold2">Unclench your jaw. Drop your shoulders.</span></div>
+      <div class="hold-item"><span id="hold3">Drink some water, even a mouthful.</span></div>
+      <div class="hold-item"><span id="hold4">Name five things you can see from where you&rsquo;re sitting.</span></div>
+      <div class="hold-item"><span id="hold5">Say one true sentence to God. It can be &ldquo;I can&rsquo;t do this.&rdquo;</span></div>
     </div>
 
     <div class="actions" style="justify-content:center">
-      <button class="btn" type="button" data-view="untangle">I&rsquo;m ready to look at the thought</button>
-      <button class="btn ghost" type="button" data-view="write">I&rsquo;d rather just write</button>
-      <button class="btn quiet" type="button" data-view="home">That&rsquo;s enough for now</button>
+      <button class="btn" type="button" data-view="untangle" id="steadyBtn1">I&rsquo;m ready to look at the thought</button>
+      <button class="btn ghost" type="button" data-view="write" id="steadyBtn2">I&rsquo;d rather just write</button>
+      <button class="btn quiet" type="button" data-view="home" id="steadyBtn3">That&rsquo;s enough for now</button>
     </div>
   </section>
 
@@ -427,9 +439,9 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   <!-- =============== WRITE =============== -->
   <section class="view" id="v-write" hidden>
     <div class="vhead">
-      <div class="kicker">A page of your own</div>
-      <h2>Dump where you&rsquo;re at</h2>
-      <p class="lede">No one is reading this. It doesn&rsquo;t have to make sense, be fair, or reach a conclusion. Half a sentence counts. If you&rsquo;d rather write it in a paper journal, use the prompt below and close this.</p>
+      <div class="kicker" id="writeKicker">A page of your own</div>
+      <h2 id="writeH2">Dump where you&rsquo;re at</h2>
+      <p class="lede" id="writeLede">No one is reading this. It doesn&rsquo;t have to make sense, be fair, or reach a conclusion. Half a sentence counts. If you&rsquo;d rather write it in a paper journal, use the prompt below and close this.</p>
     </div>
 
     <div class="field">
@@ -441,13 +453,13 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
     </div>
 
     <div class="field">
-      <span class="field-label">If you want to mark how it feels &mdash; optional</span>
+      <span class="field-label" id="writeChipsLabel">If you want to mark how it feels &mdash; optional</span>
       <div class="chips" id="w-chips"></div>
     </div>
 
     <div class="actions">
       <button class="btn" type="button" id="saveWrite">Keep this</button>
-      <button class="btn ghost" type="button" data-view="home">Home</button>
+      <button class="btn ghost" type="button" data-view="home" id="writeHomeBtn">Home</button>
       <span class="flash hidden" id="writeFlash">Kept.</span>
     </div>
   </section>
@@ -456,8 +468,8 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   <section class="view" id="v-journal" hidden>
     <div class="jhead">
       <div>
-        <h2 style="font-size:1.7rem">Everything you&rsquo;ve written</h2>
-        <p class="small" style="margin-top:.35rem;max-width:30rem">Kept in this browser, on this device. Not sent anywhere, not visible to anyone else. Copy or print it now and then so you always have it &mdash; and so it can go in a paper journal if that&rsquo;s where you keep things. Save a backup file every so often too, especially on an iPhone or iPad, which can quietly clear this after the page has sat closed for about a week &mdash; a backup file loads right back in, on this device or a new one.</p>
+        <h2 style="font-size:1.7rem" id="journalH2">Everything you&rsquo;ve written</h2>
+        <p class="small" style="margin-top:.35rem;max-width:30rem" id="journalIntro">Kept in this browser, on this device. Not sent anywhere, not visible to anyone else. Copy or print it now and then so you always have it &mdash; and so it can go in a paper journal if that&rsquo;s where you keep things. Save a backup file every so often too, especially on an iPhone or iPad, which can quietly clear this after the page has sat closed for about a week &mdash; a backup file loads right back in, on this device or a new one.</p>
       </div>
       <div class="actions" style="padding-top:0">
         <button class="btn ghost" type="button" id="copyAll">Copy all</button>
@@ -475,9 +487,9 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   <!-- =============== SHAPES =============== -->
   <section class="view" id="v-shapes" hidden>
     <div class="vhead">
-      <div class="kicker">Eleven of them</div>
-      <h2>When your inner voice turns on you</h2>
-      <p class="lede">You&rsquo;d probably call this negative self-talk &mdash; talking down to yourself, or feeling like your own mind has turned against you. It isn&rsquo;t random. It comes in patterns, the same handful of them, and each one shows up as an actual sentence in your head. Find the one below that sounds like yours. Naming it isn&rsquo;t finding a fault in you; nobody thinks straight while they&rsquo;re hurting.</p>
+      <div class="kicker" id="shapesKicker">Eleven of them</div>
+      <h2 id="shapesH2">When your inner voice turns on you</h2>
+      <p class="lede" id="shapesLede">You&rsquo;d probably call this negative self-talk &mdash; talking down to yourself, or feeling like your own mind has turned against you. It isn&rsquo;t random. It comes in patterns, the same handful of them, and each one shows up as an actual sentence in your head. Find the one below that sounds like yours. Naming it isn&rsquo;t finding a fault in you; nobody thinks straight while they&rsquo;re hurting.</p>
     </div>
     <div class="shapes" id="shapeList"></div>
   </section>
@@ -485,9 +497,9 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   <!-- =============== VERSES =============== -->
   <section class="view" id="v-verses" hidden>
     <div class="vhead">
-      <div class="kicker">English Standard Version</div>
-      <h2>Verses for the hard days</h2>
-      <p class="lede">Grouped by what actually hurts, not by book order. Each reference links to Bible Hub so you can read the chapter it lives in &mdash; a verse alone always says less than a verse in its own paragraph.</p>
+      <div class="kicker" id="versesKicker">English Standard Version</div>
+      <h2 id="versesH2">Verses for the hard days</h2>
+      <p class="lede" id="versesLede">Grouped by what actually hurts, not by book order. Each reference links to Bible Hub so you can read the chapter it lives in &mdash; a verse alone always says less than a verse in its own paragraph.</p>
     </div>
     <div class="vgroups" id="verseGroups"></div>
   </section>
@@ -495,17 +507,17 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   <!-- =============== QUICK REMAP =============== -->
   <section class="view" id="v-remap" hidden>
     <div class="vhead">
-      <div class="kicker">The eleven, fast</div>
-      <h2>Quick Remap</h2>
-      <p class="lede">No steps, nothing to fill in &mdash; just the thought, the truer sentence, and a verse to carry, side by side. Come here when you already know the shape and just need the reframe.</p>
+      <div class="kicker" id="remapKicker">The eleven, fast</div>
+      <h2 id="remapH2">Quick Remap</h2>
+      <p class="lede" id="remapLede">No steps, nothing to fill in &mdash; just the thought, the truer sentence, and a verse to carry, side by side. Come here when you already know the shape and just need the reframe.</p>
     </div>
     <div id="remapList"></div>
   </section>
 
   <footer class="footer">
-    <p>Scripture quotations are from the ESV&reg; Bible (The Holy Bible, English Standard Version&reg;), copyright &copy; 2001 by Crossway.</p>
-    <p>This is built on the thought record from cognitive behavioral therapy. It is not therapy and it can&rsquo;t be. If the thoughts are constant, if they&rsquo;re about hurting yourself, or if you just can&rsquo;t get out from under them &mdash; please tell a real person today. A friend, your campus counseling center, your doctor. In the US you can call or text <strong>988</strong> any hour of any day, and you don&rsquo;t have to be in crisis to do it.</p>
-    <p>Made with love, to be shared freely.</p>
+    <p id="footer1">Scripture quotations are from the ESV&reg; Bible (The Holy Bible, English Standard Version&reg;), copyright &copy; 2001 by Crossway.</p>
+    <p id="footer2">This is built on the thought record from cognitive behavioral therapy. It is not therapy and it can&rsquo;t be. If the thoughts are constant, if they&rsquo;re about hurting yourself, or if you just can&rsquo;t get out from under them &mdash; please tell a real person today. A friend, your campus counseling center, your doctor. In the US you can call or text <strong>988</strong> any hour of any day, and you don&rsquo;t have to be in crisis to do it.</p>
+    <p id="footer3">Made with love, to be shared freely.</p>
   </footer>
 </div>
 
@@ -523,7 +535,7 @@ function vctx(c){ return c ? '<span class="vctx">'+esc(c)+'</span>' : ''; }
 /* Each shape is named as the sentence a person actually thinks, so it is
    recognised rather than categorised. Then: the example, why it is the
    example, and the reframe.                                            */
-var SHAPES = [
+var SHAPES_EN = [
  { id:"catastrophizing", name:"This is going to ruin everything",
    sub:"One bad thing becomes the whole future.",
    says:"I bombed the quiz. So I'll fail the class, wreck my GPA, and never get in anywhere.",
@@ -611,7 +623,97 @@ var SHAPES = [
        ctx:"David marveling at being made by God in detail — a few lines before the psalm turns to God already knowing his thoughts before he thinks them." } }
 ];
 
-var FEELINGS = [
+/* Spanish. Verse text/ref/url stay in English (ESV) on purpose — see HANDOFF.md.
+   ctx captions ARE translated (they're app-authored commentary, not scripture). */
+var SHAPES_ES = [
+ { id:"catastrophizing", name:"Esto va a arruinarlo todo",
+   sub:"Una sola cosa mala se convierte en todo el futuro.",
+   says:"Reprobé el examen. Así que voy a reprobar la clase, arruinar mi promedio, y no voy a entrar a ningún lado.",
+   exwhy:"Un examen se convirtió en cuatro años en unos dos segundos. El salto es la señal — cuidado con la palabra 'así que'.",
+   truer:"Me fue mal en un examen. Ese es el tamaño real de esto. Los problemas de mañana pueden esperar a mañana.",
+   v:{ text:"Therefore do not be anxious about tomorrow, for tomorrow will be anxious for itself. Sufficient for the day is its own trouble.", ref:"Matthew 6:34", url:"matthew/6-34.htm",
+       ctx:"Parte de la enseñanza de Jesús sobre la preocupación, dirigida a personas ansiosas por comida y ropa — supervivencia real, no solo una mala calificación." } },
+
+ { id:"all-or-nothing", name:"Si no es perfecto, es un fracaso",
+   sub:"Solo dos opciones — perfecto, o inútil.",
+   says:"Saqué A menos. Mejor ni me hubiera esforzado.",
+   exwhy:"Aquí no hay una escala, solo un precipicio. Cualquier cosa que no sea lo máximo se archiva hasta el fondo.",
+   truer:"Casi toda una vida real ocurre en el medio. Estar a medio camino sigue siendo estar en camino.",
+   v:{ text:"But he said to me, “My grace is sufficient for you, for my power is made perfect in weakness.” Therefore I will boast all the more gladly of my weaknesses, so that the power of Christ may rest upon me.", ref:"2 Corinthians 12:9", url:"2_corinthians/12-9.htm",
+       ctx:"Pablo, después de pedir tres veces que le quitaran un sufrimiento físico real y recibir un no — esta 'debilidad' es un sufrimiento de verdad, no una nota baja." } },
+
+ { id:"overgeneralizing", name:"Esto siempre me pasa a mí",
+   sub:"Una sola vez se convierte en una regla permanente sobre ti.",
+   says:"Me quedé congelado en la presentación. Siempre me congelo. Nunca voy a poder hacer esto.",
+   exwhy:"Presta atención a 'siempre' y 'nunca'. Convierten un mal martes en una cadena perpetua.",
+   truer:"Pasó esta vez. 'Siempre' es un sentimiento disfrazado de hecho.",
+   v:{ text:"The steadfast love of the LORD never ceases; his mercies never come to an end; they are new every morning; great is your faithfulness.", ref:"Lamentations 3:22–23", url:"lamentations/3-22.htm",
+       ctx:"Del libro que llora la destrucción de Jerusalén — esta esperanza se dice desde dentro de lo peor que había pasado, no después de que pasara." } },
+
+ { id:"filtering", name:"Solo puedo ver lo que salió mal",
+   sub:"Nueve cosas salieron bien. La décima es todo lo que queda.",
+   says:"La presentación salió bien, pero me trabé en una diapositiva. Es lo único en lo que puedo pensar.",
+   exwhy:"La palabra 'pero' hizo todo el trabajo. Todo lo anterior se borró en silencio.",
+   truer:"Ambas cosas son reales. Tienes permiso de contar las nueve.",
+   v:{ text:"Finally, brothers, whatever is true, whatever is honorable, whatever is just, whatever is pure, whatever is lovely, whatever is commendable, if there is any excellence, if there is anything worthy of praise, think about these things.", ref:"Philippians 4:8", url:"philippians/4-8.htm",
+       ctx:"La instrucción de Pablo sobre en qué pensar, escrita desde la prisión a una iglesia que amaba." } },
+
+ { id:"mind-reading", name:"Sé lo que están pensando de mí",
+   sub:"Decides qué hay en la cabeza de alguien más, y luego reaccionas a tu propia suposición.",
+   says:"Me dejó en visto. Cree que soy tonta.",
+   exwhy:"Aquí hay un solo hecho — no respondió — y encima se construyó todo un veredicto.",
+   truer:"En realidad no lo sabes. Las personas casi siempre están ocupadas, no disgustadas.",
+   v:{ text:"The fear of man lays a snare, but whoever trusts in the LORD is safe.", ref:"Proverbs 29:25", url:"proverbs/29-25.htm",
+       ctx:"Literatura de sabiduría, de aplicación general — trata exactamente de esta trampa de preocuparse por lo que piensan los demás." } },
+
+ { id:"fortune-telling", name:"Ya sé cómo va a terminar esto",
+   sub:"Ya viste el final, y es malo.",
+   says:"No tiene caso aplicar. No me van a aceptar.",
+   exwhy:"Este es engañoso porque se siente como ser realista. Es una predicción disfrazada de hecho.",
+   truer:"Eso es una predicción, no un hecho. La única forma de saberlo es seguir en el proceso.",
+   v:{ text:"My times are in your hand; rescue me from the hand of my enemies and from my persecutors!", ref:"Psalm 31:15", url:"psalms/31-15.htm",
+       ctx:"En primera persona, dicho desde dentro de la angustia y no como una promesa dicha desde afuera — responde a 'ya sé cómo termina esto' sin afirmar conocer el final." } },
+
+ { id:"shoulds", name:"Debería estar manejando esto mejor",
+   sub:"Una regla que nunca aceptaste, aplicada solo contra ti.",
+   says:"Todos los demás manejan esta carga de trabajo. Yo no debería necesitar ayuda.",
+   exwhy:"Busca la palabra 'debería' y pregúntate quién escribió esa regla. Casi nunca es alguien de quien recibirías órdenes.",
+   truer:"Necesitar ayuda es la condición humana normal, no un fracaso." },
+
+ { id:"personalizing", name:"Es mi culpa",
+   sub:"Algo salió mal cerca de ti, así que debe ser sobre ti.",
+   says:"El proyecto en equipo se cayó a pedazos. Debí haberlo cargado yo.",
+   exwhy:"Cuatro personas, una fecha límite, y de alguna manera todo cayó sobre ti.",
+   truer:"Tu parte es tuya. El resto le pertenece a otras personas y a cosas que no controlaste.",
+   v:{ text:"If possible, so far as it depends on you, live peaceably with all.", ref:"Romans 12:18", url:"romans/12-18.htm",
+       ctx:"Una línea dentro de las instrucciones prácticas de Pablo sobre cómo tratar a los de afuera — 'en cuanto dependa de ti' es la parte clave." } },
+
+ { id:"emotional-reasoning", name:"Lo siento, así que debe ser verdad",
+   sub:"El sentimiento se trata como si fuera evidencia.",
+   says:"Me siento inútil. Así que debo ser inútil.",
+   exwhy:"Cambia el sentimiento por cualquier otro y se nota el problema: siento frío, así que debe ser invierno.",
+   truer:"Los sentimientos reportan el clima, no el veredicto. Puedes sentirlo por completo y aun así no creerlo.",
+   v:{ text:"Why are you cast down, O my soul, and why are you in turmoil within me? Hope in God; for I shall again praise him, my salvation and my God.", ref:"Psalm 42:11", url:"psalms/42-11.htm",
+       ctx:"David hablándole a su propia alma — la misma línea se repite tres veces en los Salmos 42–43 porque decirlo una vez no bastó." } },
+
+ { id:"comparing", name:"Todos los demás les va mejor que a mí",
+   sub:"Tu interior medido contra el exterior de otras personas.",
+   says:"Todos en mi clase la tienen resuelta. Soy la única que se está ahogando.",
+   exwhy:"Estás comparando lo que se siente ser tú con lo que aparenta ser ellos.",
+   truer:"La pregunta real no es si vas adelante de ellos. Es si estás haciendo bien tu propio trabajo.",
+   v:{ text:"But let each one test his own work, and then his reason to boast will be in himself alone and not in his neighbor.", ref:"Galatians 6:4", url:"galatians/6-4.htm",
+       ctx:"Pablo le dice a una iglesia dividida que examine su propio trabajo, en medio de instrucciones sobre llevar las cargas de los demás, no competir por ellas." } },
+
+ { id:"labeling", name:"Me siento completamente inútil",
+   sub:"Un momento difícil se convierte en un veredicto sobre todo lo que eres.",
+   says:"No me contestó por dos días. Soy inútil — a nadie le importo de verdad.",
+   exwhy:"Presta atención al salto de un momento a un veredicto sobre toda tu persona — 'completamente,' 'inútil,' 'a nadie.' Una sola interacción difícil se convirtió en una etiqueta permanente sobre ti, no solo en un comentario sobre lo que pasó.",
+   truer:"Pasó algo que dolió, y me siento fatal por eso ahora mismo. Eso es un sentimiento sobre un momento, no un hecho sobre mi valor.",
+   v:{ text:"I praise you, for I am fearfully and wonderfully made. Wonderful are your works; my soul knows it very well.", ref:"Psalm 139:14", url:"psalms/139-14.htm",
+       ctx:"David maravillado de haber sido hecho por Dios con tanto detalle — unas líneas antes de que el salmo hable de que Dios ya conocía sus pensamientos antes de pensarlos." } }
+];
+
+var FEELINGS_EN = [
  {l:"Anxious",g:"afraid"},{l:"Afraid",g:"afraid"},{l:"Panicked",g:"afraid"},{l:"Dreading it",g:"courage"},
  {l:"Overwhelmed",g:"worn"},{l:"Exhausted",g:"worn"},{l:"Numb",g:"worn"},{l:"Can't start",g:"worn"},
  {l:"Ashamed",g:"ashamed"},{l:"Guilty",g:"ashamed"},{l:"Embarrassed",g:"ashamed"},
@@ -621,8 +723,18 @@ var FEELINGS = [
  {l:"Envious",g:"comparing"},{l:"Behind",g:"comparing"},
  {l:"Angry",g:"angry"},{l:"Frustrated",g:"angry"}
 ];
+var FEELINGS_ES = [
+ {l:"Ansiosa",g:"afraid"},{l:"Con miedo",g:"afraid"},{l:"En pánico",g:"afraid"},{l:"Con pavor",g:"courage"},
+ {l:"Abrumada",g:"worn"},{l:"Exhausta",g:"worn"},{l:"Entumecida",g:"worn"},{l:"No puedo empezar",g:"worn"},
+ {l:"Avergonzada",g:"ashamed"},{l:"Con culpa",g:"ashamed"},{l:"Apenada",g:"ashamed"},
+ {l:"Inútil",g:"notenough"},{l:"Insuficiente",g:"notenough"},{l:"Tonta",g:"notenough"},
+ {l:"Derrotada",g:"failing"},{l:"Desanimada",g:"failing"},{l:"Como un fracaso",g:"failing"},
+ {l:"Sola",g:"alone"},{l:"Invisible",g:"alone"},{l:"Triste",g:"alone"},{l:"Con nostalgia",g:"alone"},
+ {l:"Envidiosa",g:"comparing"},{l:"Atrasada",g:"comparing"},
+ {l:"Enojada",g:"angry"},{l:"Frustrada",g:"angry"}
+];
 
-var VERSES = {
+var VERSES_EN = {
  afraid:{ title:"When you're afraid", items:[
   {text:"fear not, for I am with you; be not dismayed, for I am your God; I will strengthen you, I will help you, I will uphold you with my righteous right hand.",ref:"Isaiah 41:10",url:"isaiah/41-10.htm",
    ctx:"Spoken to Israel in exile, afraid of being erased as a people, not to an individual originally — used here the way the New Testament often reapplies these corporate promises personally."},
@@ -700,9 +812,90 @@ var VERSES = {
    ctx:"God commissioning Joshua specifically for the conquest of Canaan — used constantly for exams and interviews, further from its original job than almost anything else here."}
  ]}
 };
+
+/* Spanish. Verse text/ref/url stay English (ESV) on purpose — see HANDOFF.md.
+   Group titles and ctx captions ARE translated. */
+var VERSES_ES = {
+ afraid:{ title:"Cuando tienes miedo", items:[
+  {text:"fear not, for I am with you; be not dismayed, for I am your God; I will strengthen you, I will help you, I will uphold you with my righteous right hand.",ref:"Isaiah 41:10",url:"isaiah/41-10.htm",
+   ctx:"Dicho a Israel en el exilio, con miedo de desaparecer como pueblo, no originalmente a una persona — usado aquí como el Nuevo Testamento suele reaplicar estas promesas colectivas de forma personal."},
+  {text:"do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts and your minds in Christ Jesus.",ref:"Philippians 4:6–7",url:"philippians/4-6.htm",
+   ctx:"La instrucción de Pablo desde la prisión sobre qué hacer con la ansiedad, no solo una orden de dejar de sentirla."},
+  {text:"Humble yourselves, therefore, under the mighty hand of God so that at the proper time he may exalt you, casting all your anxieties on him, because he cares for you.",ref:"1 Peter 5:6–7",url:"1_peter/5-7.htm",
+   ctx:"Escrito a cristianos bajo persecución real — diciéndoles dónde pertenece de verdad su miedo."},
+  {text:"In all circumstances take up the shield of faith, with which you can extinguish all the flaming darts of the evil one;",ref:"Ephesians 6:16",url:"ephesians/6-16.htm",
+   ctx:"Parte del pasaje de Pablo sobre 'la armadura de Dios' — la fe representada como un escudo contra ataques dirigidos a la mente."}
+ ]},
+ notenough:{ title:"Cuando sientes que no eres suficiente", items:[
+  {text:"I praise you, for I am fearfully and wonderfully made. Wonderful are your works; my soul knows it very well.",ref:"Psalm 139:14",url:"psalms/139-14.htm",
+   ctx:"David reflexionando sobre haber sido hecho con detalle y a propósito — no es una declaración sobre logros o desempeño."},
+  {text:"For we are his workmanship, created in Christ Jesus for good works, which God prepared beforehand, that we should walk in them.",ref:"Ephesians 2:10",url:"ephesians/2-10.htm",
+   ctx:"Pablo, justo después de decir que la salvación no se gana con obras, añade que el trabajo con propósito sigue siendo para lo que fuiste hecho."},
+  {text:"Blessed are the poor in spirit, for theirs is the kingdom of heaven.",ref:"Matthew 5:3",url:"matthew/5-3.htm",
+   ctx:"La primera línea de las Bienaventuranzas — Jesús llama bendita a la pobreza espiritual antes de nombrar cualquier otra cosa."}
+ ]},
+ failing:{ title:"Después de haber fallado en algo", items:[
+  {text:"for the righteous falls seven times and rises again, but the wicked stumble in times of calamity.",ref:"Proverbs 24:16",url:"proverbs/24-16.htm",
+   ctx:"Un proverbio sobre los justos, no sobre los perfectos — la promesa es sobre levantarse de nuevo, no sobre nunca caer."},
+  {text:"Not only that, but we rejoice in our sufferings, knowing that suffering produces endurance, and endurance produces character, and character produces hope, and hope does not put us to shame, because God's love has been poured into our hearts through the Holy Spirit who has been given to us.",ref:"Romans 5:3–5",url:"romans/5-3.htm",
+   ctx:"Pablo en medio de explicar la justificación por la fe — el sufrimiento del que habla es la dificultad ordinaria de seguir a Cristo, no un fracaso específico."}
+ ]},
+ worn:{ title:"Cuando estás agotada", items:[
+  {text:"Come to me, all who labor and are heavy laden, and I will give you rest. Take my yoke upon you, and learn from me, for I am gentle and lowly in heart, and you will find rest for your souls. For my yoke is easy, and my burden is light.",ref:"Matthew 11:28–30",url:"matthew/11-28.htm",
+   ctx:"Jesús hablándole a personas agotadas por reglas religiosas que prometían descanso pero añadían carga."},
+  {text:"but they who wait for the LORD shall renew their strength; they shall mount up with wings like eagles; they shall run and not be weary; they shall walk and not faint.",ref:"Isaiah 40:31",url:"isaiah/40-31.htm",
+   ctx:"Escrito a exiliados que sentían que Dios los había olvidado — la fuerza prometida aquí es para esperar, no para lograr."},
+  {text:"For the one who sows to his own flesh will from the flesh reap corruption, but the one who sows to the Spirit will from the Spirit reap eternal life. And let us not grow weary of doing good, for in due season we will reap, if we do not give up.",ref:"Galatians 6:8–9",url:"galatians/6-8.htm",
+   ctx:"La imagen de sembrar y cosechar de Pablo justo antes de la línea de 'no se cansen' — el cansancio es sobre la espera entre sembrar y cosechar, no sobre el trabajo en sí."},
+  {text:"And after the earthquake a fire, but the LORD was not in the fire. And after the fire the sound of a low whisper.",ref:"1 Kings 19:12",url:"1_kings/19-12.htm",
+   ctx:"Elías, con deseos de morir y escondido en una cueva después de una gran victoria espiritual — Dios se muestra en la calma, no en la señal dramática que esperaba."},
+  {text:"Hear my cry, O God, listen to my prayer; from the end of the earth I call to you when my heart is faint. Lead me to the rock that is higher than I,",ref:"Psalm 61:1–2",url:"psalms/61-2.htm",
+   ctx:"David orando desde 'el fin de la tierra' — lejos de donde quiere estar, geográfica o emocionalmente."},
+  {text:"do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts and your minds in Christ Jesus.",ref:"Philippians 4:6–7",url:"philippians/4-6.htm",
+   ctx:"La instrucción de Pablo desde la prisión sobre qué hacer con la ansiedad, no solo una orden de dejar de sentirla."}
+ ]},
+ alone:{ title:"Cuando te sientes sola", items:[
+  {text:"Be strong and courageous. Do not fear or be in dread of them, for it is the LORD your God who goes with you. He will not leave you or forsake you.",ref:"Deuteronomy 31:6",url:"deuteronomy/31-6.htm",
+   ctx:"La despedida de Moisés a Israel antes de entrar a un territorio desconocido sin él — colectiva originalmente, aplicada después a creyentes individuales en Hebreos 13:5."},
+  {text:"The LORD is near to the brokenhearted and saves the crushed in spirit.",ref:"Psalm 34:18",url:"psalms/34-18.htm",
+   ctx:"David, justo después de fingir locura para sobrevivir ante un rey enemigo, escribiendo sobre la cercanía de Dios después de todo eso."},
+  {text:"When you pass through the waters, I will be with you; and through the rivers, they shall not overwhelm you; when you walk through fire you shall not be burned, and the flame shall not consume you.",ref:"Isaiah 43:2",url:"isaiah/43-2.htm",
+   ctx:"La promesa de Dios a Israel en el exilio — que vendría la dificultad, pero no sería el final de la historia."}
+ ]},
+ comparing:{ title:"Cuando te comparas", items:[
+  {text:"But let each one test his own work, and then his reason to boast will be in himself alone and not in his neighbor. For each will have to bear his own load.",ref:"Galatians 6:4–5",url:"galatians/6-4.htm",
+   ctx:"La instrucción de Pablo de examinar tu propio trabajo en lugar de medirlo contra el de alguien más."},
+  {text:"But as it is, God arranged the members in the body, each one of them, as he chose.",ref:"1 Corinthians 12:18",url:"1_corinthians/12-18.htm",
+   ctx:"Sobre el cuerpo de Cristo teniendo partes distintas a propósito — un orden, no una jerarquía."}
+ ]},
+ ashamed:{ title:"Cuando sientes vergüenza", items:[
+  {text:"If we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.",ref:"1 John 1:9",url:"1_john/1-9.htm",
+   ctx:"Escrito para tranquilizar a cristianos que temían que seguir pecando significara haber perdido su lugar delante de Dios."},
+  {text:"as far as the east is from the west, so far does he remove our transgressions from us.",ref:"Psalm 103:12",url:"psalms/103-12.htm",
+   ctx:"Parte de un salmo dedicado por completo a lo que Dios hace con el pecado una vez perdonado — la distancia descrita es todo el punto."},
+  {text:"Come now, let us reason together, says the LORD: though your sins are like scarlet, they shall be as white as snow; though they are red like crimson, they shall become like wool.",ref:"Isaiah 1:18",url:"isaiah/1-18.htm",
+   ctx:"El argumento inicial de Dios en una escena de juicio contra Israel — incluso dentro de una acusación, la oferta es real, aunque los versículos siguientes ponen condiciones reales."}
+ ]},
+ angry:{ title:"Cuando estás enojada", items:[
+  {text:"Be angry, and do not sin; ponder in your own hearts on your beds, and be silent.",ref:"Psalm 4:4",url:"psalms/4-4.htm",
+   ctx:"David, probablemente escrito mientras era calumniado — permite el enojo sin dejar que se convierta en pecado."},
+  {text:"Know this, my beloved brothers: let every person be quick to hear, slow to speak, slow to anger;",ref:"James 1:19",url:"james/1-19.htm",
+   ctx:"Instrucción práctica de una carta enfocada sobre todo en controlar el habla y el temperamento."}
+ ]},
+ courage:{ title:"Cuando necesitas valor", items:[
+  {text:"for God gave us a spirit not of fear but of power and love and self-control.",ref:"2 Timothy 1:7",url:"2_timothy/1-7.htm",
+   ctx:"Pablo escribiéndole a Timoteo, un líder joven que parece haber tenido miedo genuino de sus responsabilidades."},
+  {text:"Not only that, but we rejoice in our sufferings, knowing that suffering produces endurance, and endurance produces character, and character produces hope, and hope does not put us to shame, because God's love has been poured into our hearts through the Holy Spirit who has been given to us.",ref:"Romans 5:3–5",url:"romans/5-3.htm",
+   ctx:"El mismo pasaje que en 'después de haber fallado' — la perseverancia y la esperanza como base del valor, no solo para recuperarse."},
+  {text:"The LORD is my light and my salvation; whom shall I fear? The LORD is the stronghold of my life; of whom shall I be afraid?",ref:"Psalm 27:1",url:"psalms/27-1.htm",
+   ctx:"David, probablemente escrito bajo una amenaza física real, no una metafórica."},
+  {text:"Have I not commanded you? Be strong and courageous. Do not be frightened, and do not be dismayed, for the LORD your God is with you wherever you go.",ref:"Joshua 1:9",url:"joshua/1-9.htm",
+   ctx:"Dios encomendando a Josué específicamente para la conquista de Canaán — usado constantemente para exámenes y entrevistas, más lejos de su propósito original que casi cualquier otra cosa aquí."}
+ ]}
+};
 var GROUP_ORDER = ["afraid","notenough","failing","worn","alone","comparing","ashamed","angry","courage"];
 
-var PROMPTS = [
+var PROMPTS_EN = [
  "What's the heaviest part of today?",
  "What are you afraid is going to happen?",
  "Where do you feel it in your body?",
@@ -714,9 +907,21 @@ var PROMPTS = [
  "If tomorrow were one degree easier, what would be different about it?",
  "What would you say to God right now, in your own words, if nothing had to sound right?"
 ];
+var PROMPTS_ES = [
+ "¿Cuál es la parte más pesada del día de hoy?",
+ "¿Qué es lo que temes que va a pasar?",
+ "¿Dónde lo sientes en tu cuerpo?",
+ "¿Qué le dirías a alguien que amas si estuviera cargando esto?",
+ "¿Qué es algo que fue verdad hoy y que no fue terrible?",
+ "¿Qué necesitas que no le has pedido a nadie?",
+ "¿Qué estás cargando que no te corresponde a ti?",
+ "¿Qué lograste hoy por lo que no te estás dando ningún crédito?",
+ "Si mañana fuera un grado más fácil, ¿qué sería diferente?",
+ "¿Qué le dirías a Dios ahora mismo, con tus propias palabras, si no tuviera que sonar bien?"
+];
 
 /* ---- four pages ---- */
-var STEPS = [
+var STEPS_EN = [
  { kicker:"One", title:"What&rsquo;s going on",
    lede:"Two parts, and either can stay empty. First what happened, then the sentence your head is saying about it. Doing this on paper works just as well &mdash; the questions are the useful part.",
    v:{text:"Search me, O God, and know my heart! Try me and know my thoughts!",ref:"Psalm 139:23",url:"psalms/139-23.htm",
@@ -786,6 +991,350 @@ var STEPS = [
         refLink("Romans 12:1–2 · ESV","romans/12-1.htm")+vctx("Paul's appeal right after eleven chapters explaining God's mercy toward us — the ‘therefore’ points all the way back to that.")+'</div>' }
 ];
 
+/* Spanish. Verse text/ref/url stay English (ESV) on purpose — see HANDOFF.md. */
+var STEPS_ES = [
+ { kicker:"Uno", title:"Qué está pasando",
+   lede:"Dos partes, y cualquiera puede quedar vacía. Primero qué pasó, luego la frase que tu cabeza está diciendo sobre eso. Hacer esto en papel funciona igual de bien &mdash; las preguntas son la parte útil.",
+   v:{text:"Search me, O God, and know my heart! Try me and know my thoughts!",ref:"Psalm 139:23",url:"psalms/139-23.htm",
+      ctx:"David, después de nombrar enemigos y hombres violentos en los versículos justo antes, pidiéndole a Dios que lo examine a él también — no es miedo a ser descubierto, es una invitación a ser conocido de verdad."},
+   body:'<div class="example"><div class="exlabel">Por ejemplo</div>'+
+        '<p><strong>Qué pasó:</strong> Recibí el examen de química orgánica. 74. Dos personas detrás de mí dijeron que estuvo fácil.</p>'+
+        '<p><strong>La frase en mi cabeza:</strong> <em>&ldquo;No soy lo suficientemente inteligente para estar aquí. Todos los demás lo entienden y yo estoy fingiendo.&rdquo;</em></p>'+
+        '<p class="exwhy">Nota la diferencia: lo primero es lo que una cámara habría visto. Lo segundo es lo que tú añadiste.</p></div>'+
+        '<label class="field" for="f-situation"><span class="field-label">Qué pasó</span>'+
+        '<span class="field-hint">Solo los hechos, tal como los habría captado una cámara.</span>'+
+        '<textarea id="f-situation" rows="3" placeholder="Salí del examen. Dos personas detrás de mí dijeron que estuvo fácil."></textarea></label>'+
+        '<label class="field" for="f-thought"><span class="field-label">La frase en tu cabeza</span>'+
+        '<span class="field-hint">Palabra por palabra, con las partes crueles incluidas, sin limpiarla. No es noticia para Dios, y no se puede responder mientras está escondida.</span>'+
+        '<textarea id="f-thought" rows="3" placeholder="No soy lo suficientemente inteligente para estar aquí. Todos los demás lo entienden y yo estoy fingiendo."></textarea></label>' },
+
+ { kicker:"Dos", title:"Describe la mezcla de lo que sientes",
+   lede:"Los sentimientos casi nunca llegan de uno en uno, y rara vez tienen un solo nombre. Toca todo lo que aplique. No hay un conjunto equivocado.",
+   v:{text:"Trust in him at all times, O people; pour out your heart before him; God is a refuge for us.",ref:"Psalm 62:8",url:"psalms/62-8.htm",
+      ctx:"David, agotado por personas que activamente intentaban destruirlo, diciéndole a toda la comunidad que observaba dónde está realmente la seguridad."},
+   body:'<div class="whymatters"><b>Por qué importa esta parte</b>Nombrar un sentimiento es lo primero que le quita el filo — eso es un efecto real, no solo una idea bonita. También te da una referencia con la cual comparar al final. Y con las semanas, mirando hacia atrás, verás qué sentimientos siguen regresando: esos son los que vale la pena explorar más a fondo.</div>'+
+        '<div class="field"><span class="field-label">Toca todo lo que aplique</span><div class="chips" id="u-chips"></div></div>'+
+        '<div class="field"><span class="field-label">¿Qué tan pesado es ahora mismo?</span>'+
+        '<div class="slider-row"><div><input type="range" id="f-before" min="0" max="100" step="5" value="70" aria-label="Qué tan pesado se siente ahora">'+
+        '<div class="scale-ends"><span>Puedo cargarlo</span><span>Es todo lo que soy</span></div></div>'+
+        '<div class="readout" id="beforeVal">70</div></div></div>' },
+
+ { kicker:"Tres", title:"Cuando tu voz interior se vuelve contra ti",
+   lede:"Probablemente le llamarías a esto autocrítica negativa &mdash; hablarte mal a ti misma, o sentir que tu propia mente se ha vuelto en tu contra. No es al azar. Viene en patrones, los mismos de siempre, y cada uno aparece como una frase real en tu cabeza. Encuentra abajo el que suene como el tuyo. Nombrarlo no es encontrar una falla en ti; nadie piensa con claridad mientras está sufriendo.",
+   v:{text:"We destroy arguments and every lofty opinion raised against the knowledge of God, and take every thought captive to obey Christ,",ref:"2 Corinthians 10:5",url:"2_corinthians/10-5.htm",
+      ctx:"Pablo defendiendo su ministerio contra críticos que decían que era audaz por carta pero débil en persona — la frase se ha convertido desde entonces en la manera de nombrar exactamente lo que esta página le pide a esa voz interior."},
+   body:'<div class="example" id="u-recap" hidden></div><div class="shapes" id="u-shapes"></div>' },
+
+ { kicker:"Cuatro", title:"Una revisión honesta para un yo más sano",
+   lede:"No se trata de pensar en positivo. Se trata de pensar con precisión. Un pensamiento verdadero puede resistir preguntas &mdash; y la mayoría de estos no puede.",
+   v:{text:"Do not despise prophecies, but test everything; hold fast what is good.",ref:"1 Thessalonians 5:20–21",url:"1_thessalonians/5-21.htm",
+      ctx:"Las instrucciones finales de Pablo a una iglesia joven — pon a prueba las afirmaciones en lugar de tragarlas o rechazarlas por completo, el mismo movimiento que esta página le pide a esa voz interior."},
+   body:'<label class="field" for="f-provable"><span class="field-label">¿Qué parte de esto se puede comprobar?</span>'+
+        '<span class="field-hint">Solo hechos &mdash; no suposiciones, no predicciones, no tu opinión sobre ti misma. Si no resistiría como evidencia, no va aquí. Por lo general lo que queda es mucho más pequeño que el pensamiento.</span>'+
+        '<textarea id="f-provable" rows="2" placeholder="Saqué 74. No pude terminar el último mecanismo."></textarea></label>'+
+        '<label class="field" for="f-leftout"><span class="field-label">¿Qué dejó fuera el sentimiento?</span>'+
+        '<span class="field-hint">Siempre hay más en la historia, y cuando estamos mal las partes buenas son las primeras en desaparecer. ¿Qué te ha salido bien aquí? ¿Qué hiciste bien? ¿En qué eres realmente buena? Eso también cuenta como evidencia.</span>'+
+        '<textarea id="f-leftout" rows="3" placeholder="Pasé los últimos dos. El promedio fue 68. Soy buena en el laboratorio. Esta vez pedí ayuda en lugar de esconderme."></textarea></label>'+
+        '<label class="field" for="f-friend"><span class="field-label">Si alguien que te ama pudiera hablarte ahora mismo, ¿qué te diría?</span>'+
+        '<span class="field-hint">Y dale la vuelta: si ellos dijeran esto sobre sí mismos, ¿qué les responderías? Ya sabes cómo ser amable. Esto solo se trata de dirigirlo hacia ti misma.</span>'+
+        '<textarea id="f-friend" rows="2" placeholder="Mi mamá diría que un examen no es un veredicto, y lo diría en serio."></textarea></label>'+
+
+        '<div class="subhead">Ahora dilo más verdadero</div>'+
+        '<label class="field" for="f-reframe"><span class="field-label">La frase más verdadera</span>'+
+        '<span class="field-hint">No más brillante &mdash; más verdadera. Una frase que sostenga la parte difícil y todo lo demás también.</span>'+
+        '<textarea id="f-reframe" rows="3" placeholder="Ese examen fue difícil y no me fue tan bien como quería. Eso es un resultado, no un veredicto sobre si pertenezco aquí."></textarea></label>'+
+        '<label class="field" for="f-nexttime"><span class="field-label">La próxima vez que aparezca este pensamiento, ¿qué te vas a decir?</span>'+
+        '<span class="field-hint">Esta es la parte que te vas a quedar. Escríbela como algo que de verdad podrías decirte a las 11pm &mdash; lo bastante corta para recordarla.</span>'+
+        '<textarea id="f-nexttime" rows="2" placeholder="Una calificación es información, no un veredicto. Revisa qué te faltó, y luego ve a dormir."></textarea></label>'+
+        '<label class="field" for="f-step"><span class="field-label">Un pequeño siguiente paso</span>'+
+        '<span class="field-hint">Lo bastante pequeño para hacerlo antes de mañana en la noche. Ir a dormir cuenta. Pedir ayuda también.</span>'+
+        '<input type="text" id="f-step" placeholder="Enviarle un correo al asistente sobre la pregunta 4."></label>'+
+        '<div class="field"><span class="field-label">Un versículo para llevar</span>'+
+        '<span class="field-hint">Elegido según lo que dijiste que sentías. Toma uno, o ninguno.</span>'+
+        '<div class="pick-list" id="versePicks"></div>'+
+        '<div><button class="btn quiet" type="button" id="shuffleVerses">Muéstrame otros</button></div></div>'+
+        '<div class="field"><span class="field-label">¿Qué tan pesado es ahora?</span>'+
+        '<div class="slider-row"><div><input type="range" id="f-after" min="0" max="100" step="5" value="45" aria-label="Qué tan pesado se siente después">'+
+        '<div class="scale-ends"><span>Puedo cargarlo</span><span>Es todo lo que soy</span></div></div>'+
+        '<div class="readout" id="afterVal">45</div></div>'+
+        '<span class="field-hint">No tiene que haberse movido. Si no lo ha hecho, eso es información, no un fracaso &mdash; y vale la pena contárselo a alguien.</span></div>'+
+        '<div class="margin-note"><blockquote>&ldquo;I appeal to you therefore, brothers, by the mercies of God, to present your bodies as a living sacrifice, holy and acceptable to God, which is your spiritual worship. Do not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect.&rdquo;</blockquote>'+
+        refLink("Romans 12:1–2 · ESV","romans/12-1.htm")+vctx("La petición de Pablo justo después de once capítulos explicando la misericordia de Dios hacia nosotros &mdash; el 'por lo tanto' apunta hasta allá.")+'</div>' }
+];
+
+/* ======================================================== language === */
+var LKEY = "tet.lang";
+var LANG = "en";
+var SHAPES = SHAPES_EN, STEPS = STEPS_EN, VERSES = VERSES_EN, FEELINGS = FEELINGS_EN, PROMPTS = PROMPTS_EN;
+
+/* Every fixed UI string outside the data arrays above. Verse text itself is
+   never in here — scripture stays ESV/English regardless of LANG; see
+   HANDOFF.md for why. */
+var STRINGS = {
+en: {
+  wordmark:"Holding Your Thoughts Captive", backBtn:"← Back", homeBtn:"Home",
+  homeTitle:"Holding Your Thoughts Captive",
+  homeOpening:"You don’t have to explain yourself to start, and you don’t have to know what’s wrong. Pick whichever one is closest to true right now.",
+  door1Title:"I’m crashing — I need grounding", door1Sub:"Nothing to figure out yet. Just help me come down.",
+  door2Title:"I’m struggling with my thoughts", door2Sub:"I can’t shake this and it isn’t helping me. Walk me through it.",
+  door3Title:"I just want to dump where I’m at", door3Sub:"No structure. Say it however it comes out.",
+  remapLabel:"Quick Remap", remapNote:"Skip straight to the reframes",
+  howItWorks1Strong:"Use any of these, in any order.", howItWorks1:"Start with grounding and stop there. Walk through the thoughts and skip half the questions. Open it three times in a day or once in a month. There is no right way and nothing is left unfinished.",
+  howItWorks2Strong:"It works with a paper journal, not instead of one.", howItWorks2:"If you keep one, use these pages as the prompts and write your answers by hand — the questions are the useful part. Every screen can be copied or printed, so you can paste it into whatever you already keep.",
+  navJournal:"Everything you’ve written", navShapes:"When your inner voice turns on you", navVerses:"Verses for the hard days",
+
+  steadyKicker:"Before anything else", steadyTitle:"Stay here a minute", steadyLede:"Nothing on this page needs figuring out. You don’t have to feel better by the end of it.",
+  breathFollow:"Follow the circle. In as it grows, out as it shrinks. Eight breaths and it’s done — you can stop before that.",
+  breathAgain:"Eight more",
+  breathIn:"Breathe in", breathHold:"Hold", breathOut:"Breathe out", breathDoneWord:"Eight breaths", breathDoneMeta:"Done — or keep going",
+  breathMetaOf:"Breath {n} of {t}",
+  praiseH3:"Find one thing to praise Him for",
+  praiseP1a:"Not because you feel like it. The psalmist didn’t either — he asks his own soul why it’s in turmoil and then says he will praise God anyway.", praiseP1b:"You can be downcast and still sing.",
+  praiseP2:"It can be small. The day ends. There is water. Someone texted back. He hasn’t left.",
+  holdsLabel:"Small things, while you sit",
+  hold1:"Put both feet flat on the floor and let them be heavy.", hold2:"Unclench your jaw. Drop your shoulders.",
+  hold3:"Drink some water, even a mouthful.", hold4:"Name five things you can see from where you’re sitting.",
+  hold5:"Say one true sentence to God. It can be “I can’t do this.”",
+  steadyBtn1:"I’m ready to look at the thought", steadyBtn2:"I’d rather just write", steadyBtn3:"That’s enough for now",
+
+  writeKicker:"A page of your own", writeTitle:"Dump where you’re at",
+  writeLede:"No one is reading this. It doesn’t have to make sense, be fair, or reach a conclusion. Half a sentence counts. If you’d rather write it in a paper journal, use the prompt below and close this.",
+  writePlaceholder:"Start anywhere.", writePromptBtn:"Give me something to answer",
+  writeChipsLabel:"If you want to mark how it feels — optional",
+  writeSave:"Keep this", writeHome:"Home", writeKept:"Kept.", writeNothing:"Nothing to keep yet.",
+
+  journalTitle:"Everything you’ve written",
+  journalIntro:"Kept in this browser, on this device. Not sent anywhere, not visible to anyone else. Copy or print it now and then so you always have it — and so it can go in a paper journal if that’s where you keep things. Save a backup file every so often too, especially on an iPhone or iPad, which can quietly clear this after the page has sat closed for about a week — a backup file loads right back in, on this device or a new one.",
+  copyAll:"Copy all", printAll:"Print", saveBackup:"Save a backup file", loadBackup:"Load a backup file",
+  journalEmpty:"Nothing here yet. Whatever you write — a full walk-through or three words on a bad night — lands on this page, newest first, so you can look back and see that the heavy days did pass.",
+  entryPage:"Page", entryRecord:"Worked through", entryDelete:"Delete this",
+  entryLeftOut:"It left out:", entryNextStep:"Next step:", entryNextTime:"Next time, tell yourself",
+  copyBlocked:"Copying was blocked here — select this and copy it by hand:", copied:"Copied",
+  backupFallback:"If a file didn’t download just now, copy this instead and save it somewhere you trust:",
+  backupCantRead:"Couldn’t read that file. Nothing was changed.",
+  backupBadJson:"That didn’t look like a backup file. Nothing was changed.",
+  backupNoEntries:"That file didn’t have any entries in it. Nothing was changed.",
+  backupAddedOne:"Added 1 entry from that file.", backupAddedMany:"Added {n} entries from that file.",
+  backupNothingNew:"Nothing new in that file — you already had everything in it.",
+
+  shapesKicker:"Eleven of them", shapesTitle:"When your inner voice turns on you",
+  shapesLede:"You’d probably call this negative self-talk — talking down to yourself, or feeling like your own mind has turned against you. It isn’t random. It comes in patterns, the same handful of them, and each one shows up as an actual sentence in your head. Find the one below that sounds like yours. Naming it isn’t finding a fault in you; nobody thinks straight while they’re hurting.",
+  reframeLabel:"The reframe",
+
+  versesKicker:"English Standard Version", versesTitle:"Verses for the hard days",
+  versesLede:"Grouped by what actually hurts, not by book order. Each reference links to Bible Hub so you can read the chapter it lives in — a verse alone always says less than a verse in its own paragraph.",
+
+  remapKicker:"The eleven, fast", remapTitle:"Quick Remap",
+  remapLede:"No steps, nothing to fill in — just the thought, the truer sentence, and a verse to carry, side by side. Come here when you already know the shape and just need the reframe.",
+  remapTruer:"Truer",
+
+  footer1:"Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), copyright © 2001 by Crossway.",
+  footer2a:"This is built on the thought record from cognitive behavioral therapy. It is not therapy and it can’t be. If the thoughts are constant, if they’re about hurting yourself, or if you just can’t get out from under them — please tell a real person today. A friend, your campus counseling center, your doctor. In the US you can call or text",
+  footer2b:"any hour of any day, and you don’t have to be in crisis to do it.",
+  footer3:"Made with love, to be shared freely.",
+
+  stepOf:"Step {k} of four", stepBack:"Back", stepNext:"Next", stepKeep:"Keep this", stepSkip:"Skip this", stepFillIn:"Fill it in for me",
+  recapLabel:"What you wrote on step one",
+  shuffleVerses:"Show me different ones",
+  langLabel:"Language",
+  txtHappened:"What happened:", txtFeeling:"Feeling:", txtThought:"The thought:", txtDoing:"What it was doing:",
+  txtProvable:"Provable:", txtFriend:"Someone who loves me would say:", txtTruer:"Truer:", txtVerse:"Verse:"
+},
+es: {
+  wordmark:"Cautivos Todo Pensamiento", backBtn:"← Atrás", homeBtn:"Inicio",
+  homeTitle:"Cautivos Todo Pensamiento",
+  homeOpening:"No tienes que explicarte para empezar, y no tienes que saber qué está mal. Elige lo que se sienta más cierto ahora mismo.",
+  door1Title:"Estoy en crisis — necesito calmarme", door1Sub:"Nada que resolver todavía. Solo ayúdame a calmarme.",
+  door2Title:"Estoy luchando con mis pensamientos", door2Sub:"No puedo quitarme esto de encima y no me está ayudando. Guíame paso a paso.",
+  door3Title:"Solo quiero desahogarme", door3Sub:"Sin estructura. Dilo como te salga.",
+  remapLabel:"Mapa Rápido", remapNote:"Ve directo a los replanteamientos",
+  howItWorks1Strong:"Usa cualquiera de estos, en el orden que sea.", howItWorks1:"Empieza con calmarte y quédate ahí si quieres. Recorre los pensamientos y salta la mitad de las preguntas. Ábrelo tres veces al día o una vez al mes. No hay una forma correcta y nada queda sin terminar.",
+  howItWorks2Strong:"Funciona junto con un diario en papel, no en su lugar.", howItWorks2:"Si llevas uno, usa estas páginas como guía y escribe tus respuestas a mano — las preguntas son la parte útil. Cada pantalla se puede copiar o imprimir, para que la pegues en lo que ya uses.",
+  navJournal:"Todo lo que has escrito", navShapes:"Cuando tu voz interior se vuelve contra ti", navVerses:"Versículos para los días difíciles",
+
+  steadyKicker:"Antes que nada", steadyTitle:"Quédate aquí un minuto", steadyLede:"Nada en esta página necesita resolverse. No tienes que sentirte mejor al final.",
+  breathFollow:"Sigue el círculo. Inhala mientras crece, exhala mientras se encoge. Ocho respiraciones y ya — puedes parar antes si quieres.",
+  breathAgain:"Ocho más",
+  breathIn:"Inhala", breathHold:"Sostén", breathOut:"Exhala", breathDoneWord:"Ocho respiraciones", breathDoneMeta:"Listo — o sigue si quieres",
+  breathMetaOf:"Respiración {n} de {t}",
+  praiseH3:"Encuentra algo por qué alabarlo",
+  praiseP1a:"No porque tengas ganas. El salmista tampoco las tenía — le pregunta a su propia alma por qué está en tumulto y aun así dice que alabará a Dios.", praiseP1b:"Puedes estar abatida y aun así cantar.",
+  praiseP2:"Puede ser algo pequeño. El día termina. Hay agua. Alguien te respondió. Él no se ha ido.",
+  holdsLabel:"Cosas pequeñas, mientras te sientas",
+  hold1:"Pon ambos pies planos en el suelo y déjalos pesados.", hold2:"Afloja la mandíbula. Baja los hombros.",
+  hold3:"Bebe algo de agua, aunque sea un trago.", hold4:"Nombra cinco cosas que puedas ver desde donde estás sentada.",
+  hold5:"Dile a Dios una frase verdadera. Puede ser “No puedo con esto.”",
+  steadyBtn1:"Estoy lista para ver el pensamiento", steadyBtn2:"Prefiero solo escribir", steadyBtn3:"Es suficiente por ahora",
+
+  writeKicker:"Una página tuya", writeTitle:"Desahógate aquí",
+  writeLede:"Nadie está leyendo esto. No tiene que tener sentido, ser justo, o llegar a una conclusión. Media frase cuenta. Si prefieres escribirlo en un diario de papel, usa la sugerencia de abajo y cierra esto.",
+  writePlaceholder:"Empieza donde quieras.", writePromptBtn:"Dame algo que responder",
+  writeChipsLabel:"Si quieres marcar cómo te sientes — opcional",
+  writeSave:"Guardar esto", writeHome:"Inicio", writeKept:"Guardado.", writeNothing:"Aún no hay nada que guardar.",
+
+  journalTitle:"Todo lo que has escrito",
+  journalIntro:"Guardado en este navegador, en este dispositivo. No se envía a ningún lado, nadie más lo puede ver. Cópialo o imprímelo de vez en cuando para tenerlo siempre — y para que pueda ir en un diario de papel si ahí es donde guardas las cosas. Guarda un archivo de respaldo cada tanto también, especialmente en un iPhone o iPad, que puede borrar esto sin avisar después de que la página lleve como una semana cerrada — un archivo de respaldo se vuelve a cargar sin problema, en este dispositivo o en uno nuevo.",
+  copyAll:"Copiar todo", printAll:"Imprimir", saveBackup:"Guardar archivo de respaldo", loadBackup:"Cargar archivo de respaldo",
+  journalEmpty:"Todavía no hay nada aquí. Lo que sea que escribas — un recorrido completo o tres palabras en una mala noche — aparece en esta página, lo más reciente primero, para que puedas ver que los días pesados sí pasaron.",
+  entryPage:"Página", entryRecord:"Trabajado paso a paso", entryDelete:"Eliminar esto",
+  entryLeftOut:"Dejó fuera:", entryNextStep:"Siguiente paso:", entryNextTime:"La próxima vez, dite a ti misma",
+  copyBlocked:"Copiar fue bloqueado aquí — selecciona esto y cópialo a mano:", copied:"Copiado",
+  backupFallback:"Si un archivo no se descargó ahora, copia esto y guárdalo en un lugar de confianza:",
+  backupCantRead:"No se pudo leer ese archivo. No se cambió nada.",
+  backupBadJson:"Eso no parecía un archivo de respaldo. No se cambió nada.",
+  backupNoEntries:"Ese archivo no tenía ninguna entrada. No se cambió nada.",
+  backupAddedOne:"Se agregó 1 entrada de ese archivo.", backupAddedMany:"Se agregaron {n} entradas de ese archivo.",
+  backupNothingNew:"No había nada nuevo en ese archivo — ya tenías todo lo que tenía.",
+
+  shapesKicker:"Once en total", shapesTitle:"Cuando tu voz interior se vuelve contra ti",
+  shapesLede:"Probablemente le llamarías a esto autocrítica negativa — hablarte mal a ti misma, o sentir que tu propia mente se ha vuelto en tu contra. No es al azar. Viene en patrones, los mismos de siempre, y cada uno aparece como una frase real en tu cabeza. Encuentra abajo el que suene como el tuyo. Nombrarlo no es encontrar una falla en ti; nadie piensa con claridad mientras está sufriendo.",
+  reframeLabel:"El replanteamiento",
+
+  versesKicker:"Versión en inglés (ESV)", versesTitle:"Versículos para los días difíciles",
+  versesLede:"Agrupados por lo que realmente duele, no por orden de libros. Cada referencia enlaza a Bible Hub para que puedas leer el capítulo completo — un versículo solo siempre dice menos que un versículo en su propio párrafo. Los versículos siguen en inglés (ESV) por ahora — la traducción al español viene después.",
+
+  remapKicker:"Los once, rápido", remapTitle:"Mapa Rápido",
+  remapLede:"Sin pasos, nada que llenar — solo el pensamiento, la frase más verdadera, y un versículo para llevar, uno junto al otro. Ven aquí cuando ya sepas cuál es el patrón y solo necesites el replanteamiento.",
+  remapTruer:"Más verdadero",
+
+  footer1:"Las citas bíblicas son de la Biblia ESV® (The Holy Bible, English Standard Version®), copyright © 2001 por Crossway. Los versículos se muestran en inglés por ahora.",
+  footer2a:"Esto está basado en el registro de pensamientos de la terapia cognitivo-conductual. No es terapia y no puede serlo. Si los pensamientos son constantes, si son sobre hacerte daño, o si simplemente no puedes salir de debajo de ellos — por favor cuéntaselo hoy a una persona real. Un amigo, el centro de consejería de tu universidad, tu médico. En EE.UU. puedes llamar o enviar un mensaje de texto al",
+  footer2b:"a cualquier hora de cualquier día, y no tienes que estar en crisis para hacerlo.",
+  footer3:"Hecho con amor, para compartirse libremente.",
+
+  stepOf:"Paso {k} de cuatro", stepBack:"Atrás", stepNext:"Siguiente", stepKeep:"Guardar esto", stepSkip:"Saltar esto", stepFillIn:"Llénalo por mí",
+  recapLabel:"Lo que escribiste en el paso uno",
+  shuffleVerses:"Muéstrame otros",
+  langLabel:"Idioma",
+  txtHappened:"Qué pasó:", txtFeeling:"Sentimiento:", txtThought:"El pensamiento:", txtDoing:"Qué estaba haciendo:",
+  txtProvable:"Comprobable:", txtFriend:"Alguien que me quiere diría:", txtTruer:"Más verdadero:", txtVerse:"Versículo:"
+}
+};
+function T(k){ var d = STRINGS[LANG] || STRINGS.en; return (d[k] != null ? d[k] : (STRINGS.en[k] != null ? STRINGS.en[k] : k)); }
+function tpl(s, vars){ return s.replace(/\{(\w+)\}/g, function(_, k){ return vars[k] != null ? vars[k] : ""; }); }
+
+function applyChrome(){
+  document.documentElement.lang = LANG;
+  $("wordmark").textContent = T("wordmark");
+  $("backBtn").textContent = T("backBtn");
+  $("homeBtn").textContent = T("homeBtn");
+  $("langSelectLabel").textContent = T("langLabel");
+
+  $("homeH1").textContent = T("homeTitle");
+  $("homeOpening").textContent = T("homeOpening");
+  $("door1Title").textContent = T("door1Title"); $("door1Sub").textContent = T("door1Sub");
+  $("door2Title").textContent = T("door2Title"); $("door2Sub").textContent = T("door2Sub");
+  $("door3Title").textContent = T("door3Title"); $("door3Sub").textContent = T("door3Sub");
+  $("remapLabel").textContent = T("remapLabel"); $("remapNote").textContent = T("remapNote");
+  $("howItWorks1P").innerHTML = "<strong>"+T("howItWorks1Strong")+"</strong> "+T("howItWorks1");
+  $("howItWorks2P").innerHTML = "<strong>"+T("howItWorks2Strong")+"</strong> "+T("howItWorks2");
+  $("navJournal").textContent = T("navJournal");
+  $("navShapes").textContent = T("navShapes");
+  $("navVerses").textContent = T("navVerses");
+
+  $("steadyKicker").textContent = T("steadyKicker");
+  $("steadyH2").textContent = T("steadyTitle");
+  $("steadyLede").textContent = T("steadyLede");
+  $("breathFollow").textContent = T("breathFollow");
+  $("breathAgain").textContent = T("breathAgain");
+  $("praiseH3").textContent = T("praiseH3");
+  $("praiseP1").innerHTML = T("praiseP1a")+" <strong>"+T("praiseP1b")+"</strong>";
+  $("praiseP2").textContent = T("praiseP2");
+  $("holdsLabel").textContent = T("holdsLabel");
+  $("hold1").textContent = T("hold1"); $("hold2").textContent = T("hold2");
+  $("hold3").textContent = T("hold3"); $("hold4").textContent = T("hold4"); $("hold5").textContent = T("hold5");
+  $("steadyBtn1").textContent = T("steadyBtn1"); $("steadyBtn2").textContent = T("steadyBtn2"); $("steadyBtn3").textContent = T("steadyBtn3");
+
+  $("writeKicker").textContent = T("writeKicker");
+  $("writeH2").textContent = T("writeTitle");
+  $("writeLede").textContent = T("writeLede");
+  $("w-text").setAttribute("placeholder", T("writePlaceholder"));
+  $("promptBtn").textContent = T("writePromptBtn");
+  $("writeChipsLabel").textContent = T("writeChipsLabel");
+  $("saveWrite").textContent = T("writeSave");
+  $("writeHomeBtn").textContent = T("writeHome");
+  $("writeFlash").textContent = T("writeKept");
+
+  $("journalH2").textContent = T("journalTitle");
+  $("journalIntro").textContent = T("journalIntro");
+  $("copyAll").textContent = T("copyAll");
+  $("printAll").textContent = T("printAll");
+  $("saveBackup").textContent = T("saveBackup");
+  $("loadBackup").textContent = T("loadBackup");
+
+  $("shapesKicker").textContent = T("shapesKicker");
+  $("shapesH2").textContent = T("shapesTitle");
+  $("shapesLede").textContent = T("shapesLede");
+
+  $("versesKicker").textContent = T("versesKicker");
+  $("versesH2").textContent = T("versesTitle");
+  $("versesLede").textContent = T("versesLede");
+
+  $("remapKicker").textContent = T("remapKicker");
+  $("remapH2").textContent = T("remapTitle");
+  $("remapLede").textContent = T("remapLede");
+
+  $("footer1").textContent = T("footer1");
+  $("footer2").innerHTML = T("footer2a")+" <strong>988</strong> "+T("footer2b");
+  $("footer3").textContent = T("footer3");
+}
+
+function remapDraftFeelings(labels, newLang, oldLang){
+  var oldF = (oldLang === "es") ? FEELINGS_ES : FEELINGS_EN;
+  var newF = (newLang === "es") ? FEELINGS_ES : FEELINGS_EN;
+  return labels.map(function(label){
+    var was = oldF.filter(function(f){ return f.l === label; })[0];
+    if(!was) return label;
+    var now = newF.filter(function(f){ return f.g === was.g; })[0];
+    return now ? now.l : label;
+  });
+}
+function remapChosenVerse(v, newVerses){
+  if(!v) return v;
+  for(var g in newVerses){
+    var items = newVerses[g].items || [];
+    for(var i=0;i<items.length;i++){
+      if(items[i].ref === v.ref && items[i].text === v.text) return items[i];
+    }
+  }
+  return v;
+}
+function reflectAndRepaintChips(hostId){
+  var host = $(hostId); if(!host) return;
+  var groups = [];
+  host.querySelectorAll('.chip[aria-pressed="true"]').forEach(function(c){ groups.push(c.getAttribute("data-group")); });
+  paintChips(hostId);
+  host.querySelectorAll(".chip").forEach(function(c){
+    if(groups.indexOf(c.getAttribute("data-group")) > -1) c.setAttribute("aria-pressed","true");
+  });
+}
+function bindLangData(lang){
+  SHAPES = (lang === "es") ? SHAPES_ES : SHAPES_EN;
+  STEPS = (lang === "es") ? STEPS_ES : STEPS_EN;
+  VERSES = (lang === "es") ? VERSES_ES : VERSES_EN;
+  FEELINGS = (lang === "es") ? FEELINGS_ES : FEELINGS_EN;
+  PROMPTS = (lang === "es") ? PROMPTS_ES : PROMPTS_EN;
+}
+function setLang(lang){
+  if(STRINGS[lang] == null) lang = "en";
+  if(lang === LANG) return;
+  if(view === "untangle") capture();
+  var oldLang = LANG;
+  LANG = lang;
+  bindLangData(lang);
+  draft.feelings = remapDraftFeelings(draft.feelings, lang, oldLang);
+  chosenVerse = remapChosenVerse(chosenVerse, VERSES);
+  try{ localStorage.setItem(LKEY, lang); }catch(e){}
+  $("langSelect").value = lang;
+  applyChrome();
+  reflectAndRepaintChips("w-chips");
+  paintShapes("shapeList", false);
+  renderRemap();
+  renderVerseGroups();
+  renderEntries();
+  if(view === "untangle") renderStep();
+}
+
 /* ============================================================= state === */
 var EKEY = "tet.entries.v2", SKEY = "tet.skin";
 var entries = [], step = 1, chosenVerse = null, shuffle = 0, view = "home", stack = [];
@@ -832,19 +1381,19 @@ function tickBreath(){
   if(idx >= TOTAL){
     stopBreath();
     $("breathCircle").classList.add("paused");
-    $("breathWord").textContent = "Eight breaths";
+    $("breathWord").textContent = T("breathDoneWord");
     $("breathNum").textContent = "·";
-    $("breathMeta").textContent = "Done — or keep going";
+    $("breathMeta").textContent = T("breathDoneMeta");
     $("breathDone").hidden = false;
     return;
   }
   var t = el % CYCLE, word, num;
-  if(t < IN_MS){ word = "Breathe in"; num = Math.ceil((IN_MS - t)/1000); }
-  else if(t < HOLD_MS){ word = "Hold"; num = Math.ceil((HOLD_MS - t)/1000); }
-  else { word = "Breathe out"; num = Math.ceil((CYCLE - t)/1000); }
+  if(t < IN_MS){ word = T("breathIn"); num = Math.ceil((IN_MS - t)/1000); }
+  else if(t < HOLD_MS){ word = T("breathHold"); num = Math.ceil((HOLD_MS - t)/1000); }
+  else { word = T("breathOut"); num = Math.ceil((CYCLE - t)/1000); }
   $("breathWord").textContent = word;
   $("breathNum").textContent = num;
-  $("breathMeta").textContent = "Breath " + (idx+1) + " of " + TOTAL;
+  $("breathMeta").textContent = tpl(T("breathMetaOf"), {n:idx+1, t:TOTAL});
 }
 
 /* ============================================================== steps == */
@@ -857,18 +1406,18 @@ function renderStep(){
   var s = STEPS[step-1];
   renderProgress();
   $("stepwrap").innerHTML =
-    '<div class="vhead"><div class="kicker">Step '+s.kicker.toLowerCase()+' of four</div>'+
+    '<div class="vhead"><div class="kicker">'+tpl(T("stepOf"), {k:s.kicker.toLowerCase()})+'</div>'+
     '<h2>'+s.title+'</h2><p class="lede">'+s.lede+'</p></div>'+
     (step === 4 ? '' : '<div class="margin-note"><blockquote>&ldquo;'+esc(s.v.text)+'&rdquo;</blockquote>'+refLink(s.v.ref+" · ESV", s.v.url)+vctx(s.v.ctx)+'</div>')+
     s.body+
     (step === 4 ? '' : '') +
     '<div class="actions">'+
-      '<button class="btn ghost" type="button" id="stepBack">Back</button>'+
+      '<button class="btn ghost" type="button" id="stepBack">'+T("stepBack")+'</button>'+
       (step < 4
-        ? '<button class="btn" type="button" data-step="'+(step+1)+'">Next</button>'
-        : '<button class="btn" type="button" id="saveRecord">Keep this</button>')+
-      (step < 4 ? '<button class="btn quiet" type="button" data-step="'+(step+1)+'">Skip this</button>' : '')+
-      (step === 1 ? '<button class="btn quiet" type="button" id="loadExample">Fill it in for me</button>' : '')+
+        ? '<button class="btn" type="button" data-step="'+(step+1)+'">'+T("stepNext")+'</button>'
+        : '<button class="btn" type="button" id="saveRecord">'+T("stepKeep")+'</button>')+
+      (step < 4 ? '<button class="btn quiet" type="button" data-step="'+(step+1)+'">'+T("stepSkip")+'</button>' : '')+
+      (step === 1 ? '<button class="btn quiet" type="button" id="loadExample">'+T("stepFillIn")+'</button>' : '')+
     '</div>';
   if(step === 1 && s.v){
     /* step one keeps its verse under the heading; already inserted above */
@@ -878,7 +1427,7 @@ function renderStep(){
     var recap = $("u-recap");
     if(draft.situation || draft.thought){
       recap.hidden = false;
-      recap.innerHTML = '<div class="exlabel">What you wrote on step one</div>'+
+      recap.innerHTML = '<div class="exlabel">'+T("recapLabel")+'</div>'+
         (draft.situation ? '<p>'+esc(draft.situation)+'</p>' : '')+
         (draft.thought ? '<p><em>&ldquo;'+esc(draft.thought)+'&rdquo;</em></p>' : '');
     } else {
@@ -948,7 +1497,7 @@ function shapeHTML(s, interactive){
     '<div class="shape-body"'+(interactive?" hidden":"")+'>'+
       '<p class="says">&ldquo;'+esc(s.says)+'&rdquo;</p>'+
       '<p class="exwhy">'+esc(s.exwhy)+'</p>'+
-      '<p class="truer"><b>The reframe</b>'+esc(s.truer)+'</p>'+
+      '<p class="truer"><b>'+T("reframeLabel")+'</b>'+esc(s.truer)+'</p>'+
       (s.v ? '<p><span style="font-family:var(--serif);font-style:italic;color:var(--ink-2)">&ldquo;'+esc(s.v.text)+'&rdquo;</span> '+refLink(s.v.ref, s.v.url)+vctx(s.v.ctx)+'</p>' : '')+
     '</div></div>';
 }
@@ -958,7 +1507,7 @@ function paintShapes(hostId, interactive){
 function remapHTML(s){
   return '<article class="remap-item">'+
     '<p class="remap-says">&ldquo;'+esc(s.says)+'&rdquo;</p>'+
-    '<div class="remap-arrow">Truer</div>'+
+    '<div class="remap-arrow">'+T("remapTruer")+'</div>'+
     '<p class="remap-truer">'+esc(s.truer)+'</p>'+
     (s.v ? '<p class="remap-verse">&ldquo;'+esc(s.v.text)+'&rdquo; '+refLink(s.v.ref, s.v.url)+'</p>' : '')+
   '</article>';
@@ -1010,7 +1559,7 @@ function entryHTML(e){
   var moved = (typeof e.before === "number" && typeof e.after === "number");
   return '<article class="entry" data-eid="'+esc(e.id)+'">'+
     '<div class="etop"><div class="edate">'+esc(fmtDate(e.ts))+
-      '<span class="tag">'+(e.kind === "page" ? "Page" : "Worked through") 
+      '<span class="tag">'+(e.kind === "page" ? T("entryPage") : T("entryRecord"))
       +'</span></div>'+
       (moved ? '<div class="delta"><span class="bar"><span style="width:'+e.before+'%"></span></span>'+e.before+
         ' <span aria-hidden="true">&rarr;</span> <span class="bar calm"><span style="width:'+e.after+'%"></span></span>'+
@@ -1024,17 +1573,17 @@ function entryHTML(e){
         (e.feelings||[]).map(function(f){ return '<span class="minitag">'+esc(f)+'</span>'; }).join("")+
         (e.shapes||[]).map(function(s){ return '<span class="minitag" style="color:var(--accent);border-color:var(--accent)">'+esc(s)+'</span>'; }).join("")+
       '</div>' : '')+
-    (e.leftOut ? '<p class="small" style="margin-top:.6rem"><strong style="color:var(--ink-2)">It left out:</strong> '+esc(e.leftOut)+'</p>' : '')+
+    (e.leftOut ? '<p class="small" style="margin-top:.6rem"><strong style="color:var(--ink-2)">'+T("entryLeftOut")+'</strong> '+esc(e.leftOut)+'</p>' : '')+
     (e.reframe ? '<p class="ereframe">'+esc(e.reframe)+'</p>' : '')+
-    (e.nextTime ? '<p class="enext"><b>Next time, tell yourself</b>'+esc(e.nextTime)+'</p>' : '')+
-    (e.nextStep ? '<p class="small" style="margin-top:.5rem"><strong style="color:var(--ink-2)">Next step:</strong> '+esc(e.nextStep)+'</p>' : '')+
+    (e.nextTime ? '<p class="enext"><b>'+T("entryNextTime")+'</b>'+esc(e.nextTime)+'</p>' : '')+
+    (e.nextStep ? '<p class="small" style="margin-top:.5rem"><strong style="color:var(--ink-2)">'+T("entryNextStep")+'</strong> '+esc(e.nextStep)+'</p>' : '')+
     (e.verse ? '<p class="everse">&ldquo;'+esc(e.verse.text)+'&rdquo; '+refLink(e.verse.ref, e.verse.url||"")+'</p>' : '')+
-    '<div class="actions"><button class="btn quiet" type="button" data-del="'+esc(e.id)+'">Delete this</button></div>'+
+    '<div class="actions"><button class="btn quiet" type="button" data-del="'+esc(e.id)+'">'+T("entryDelete")+'</button></div>'+
   '</article>';
 }
 function renderEntries(){
   if(!entries.length){
-    $("entries").innerHTML = '<p class="empty">Nothing here yet. Whatever you write — a full walk-through or three words on a bad night — lands on this page, newest first, so you can look back and see that the heavy days did pass.</p>';
+    $("entries").innerHTML = '<p class="empty">'+esc(T("journalEmpty"))+'</p>';
     return;
   }
   $("entries").innerHTML = entries.slice().sort(function(a,b){ return b.ts - a.ts; }).map(entryHTML).join("");
@@ -1059,35 +1608,35 @@ function restoreFromText(text){
   var data;
   try{ data = JSON.parse(text); }
   catch(e){
-    $("backupOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">That didn&rsquo;t look like a backup file. Nothing was changed.</p>';
+    $("backupOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">'+esc(T("backupBadJson"))+'</p>';
     return;
   }
   var imported = Array.isArray(data) ? data : (data && Array.isArray(data.entries) ? data.entries : null);
   if(!imported){
-    $("backupOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">That file didn&rsquo;t have any entries in it. Nothing was changed.</p>';
+    $("backupOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">'+esc(T("backupNoEntries"))+'</p>';
     return;
   }
   var added = mergeEntries(imported);
   persist(); renderEntries();
   $("backupOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">'+
-    (added ? "Added " + added + (added === 1 ? " entry" : " entries") + " from that file." : "Nothing new in that file &mdash; you already had everything in it.")+
+    esc(added ? (added === 1 ? T("backupAddedOne") : tpl(T("backupAddedMany"), {n:added})) : T("backupNothingNew"))+
     '</p>';
 }
 function toText(){
-  return "Holding Your Thoughts Captive — journal\n\n" + entries.slice().sort(function(a,b){ return b.ts-a.ts; }).map(function(e){
-    var L = ["## " + fmtDate(e.ts) + (e.kind === "page" ? " (page)" : "")];
-    if(e.situation) L.push("What happened: " + e.situation);
+  return T("wordmark") + " — " + T("journalTitle") + "\n\n" + entries.slice().sort(function(a,b){ return b.ts-a.ts; }).map(function(e){
+    var L = ["## " + fmtDate(e.ts) + (e.kind === "page" ? " (" + T("entryPage").toLowerCase() + ")" : "")];
+    if(e.situation) L.push(T("txtHappened") + " " + e.situation);
     if(e.text) L.push(e.text);
-    if(e.feelings && e.feelings.length) L.push("Feeling: " + e.feelings.join(", ") + (typeof e.before === "number" ? "  — heaviness " + e.before + (typeof e.after === "number" ? " → " + e.after : "") : ""));
-    if(e.thought) L.push("The thought: “" + e.thought + "”");
-    if(e.shapes && e.shapes.length) L.push("What it was doing: " + e.shapes.join("; "));
-    if(e.provable) L.push("Provable: " + e.provable);
-    if(e.leftOut) L.push("It left out: " + e.leftOut);
-    if(e.friend) L.push("Someone who loves me would say: " + e.friend);
-    if(e.reframe) L.push("Truer: " + e.reframe);
-    if(e.nextTime) L.push("Next time, tell yourself: " + e.nextTime);
-    if(e.nextStep) L.push("Next step: " + e.nextStep);
-    if(e.verse) L.push("Verse: “" + e.verse.text + "” — " + e.verse.ref + " (ESV)");
+    if(e.feelings && e.feelings.length) L.push(T("txtFeeling") + " " + e.feelings.join(", ") + (typeof e.before === "number" ? "  — " + e.before + (typeof e.after === "number" ? " → " + e.after : "") : ""));
+    if(e.thought) L.push(T("txtThought") + " “" + e.thought + "”");
+    if(e.shapes && e.shapes.length) L.push(T("txtDoing") + " " + e.shapes.join("; "));
+    if(e.provable) L.push(T("txtProvable") + " " + e.provable);
+    if(e.leftOut) L.push(T("entryLeftOut") + " " + e.leftOut);
+    if(e.friend) L.push(T("txtFriend") + " " + e.friend);
+    if(e.reframe) L.push(T("txtTruer") + " " + e.reframe);
+    if(e.nextTime) L.push(T("entryNextTime") + " " + e.nextTime);
+    if(e.nextStep) L.push(T("entryNextStep") + " " + e.nextStep);
+    if(e.verse) L.push(T("txtVerse") + " “" + e.verse.text + "” — " + e.verse.ref + " (ESV)");
     return L.join("\n\n");
   }).join("\n\n---\n\n") + "\n";
 }
@@ -1178,7 +1727,7 @@ document.addEventListener("click", function(ev){
     var txt = $("w-text").value.trim();
     if(!txt){
       var wf = $("writeFlash");
-      wf.textContent = "Nothing to keep yet."; wf.style.color = "var(--accent)"; wf.classList.remove("hidden");
+      wf.textContent = T("writeNothing"); wf.style.color = "var(--accent)"; wf.classList.remove("hidden");
       return;
     }
     var feels = [];
@@ -1195,12 +1744,12 @@ document.addEventListener("click", function(ev){
     var fallback = function(){
       var ta = document.createElement("textarea");
       ta.rows = 12; ta.value = text; ta.readOnly = true;
-      $("copyOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">Copying was blocked here — select this and copy it by hand:</p>';
+      $("copyOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">'+esc(T("copyBlocked"))+'</p>';
       $("copyOut").appendChild(ta); ta.focus(); ta.select();
     };
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(text).then(function(){
-        var o = btn.textContent; btn.textContent = "Copied"; setTimeout(function(){ btn.textContent = o; }, 1500);
+        var o = btn.textContent; btn.textContent = T("copied"); setTimeout(function(){ btn.textContent = o; }, 1500);
       }).catch(fallback);
     } else fallback();
   }
@@ -1219,7 +1768,7 @@ document.addEventListener("click", function(ev){
     }catch(e){}
     var ta = document.createElement("textarea");
     ta.rows = 6; ta.readOnly = true; ta.value = payload;
-    $("backupOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">If a file didn&rsquo;t download just now, copy this instead and save it somewhere you trust:</p>';
+    $("backupOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">'+esc(T("backupFallback"))+'</p>';
     $("backupOut").appendChild(ta);
   }
 
@@ -1233,7 +1782,7 @@ $("backupFile").addEventListener("change", function(ev){
   var reader = new FileReader();
   reader.onload = function(){ restoreFromText(String(reader.result)); };
   reader.onerror = function(){
-    $("backupOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">Couldn&rsquo;t read that file. Nothing was changed.</p>';
+    $("backupOut").innerHTML = '<p class="small" style="margin:.75rem 0 .4rem">'+esc(T("backupCantRead"))+'</p>';
   };
   reader.readAsText(f);
 });
@@ -1246,7 +1795,17 @@ try{
     b.setAttribute("aria-pressed", b.getAttribute("data-skin") === sk0 ? "true" : "false"); });
 }catch(e){}
 
+try{
+  var lg0 = localStorage.getItem(LKEY) || "en";
+  if(STRINGS[lg0] == null) lg0 = "en";
+  LANG = lg0;
+}catch(e){}
+bindLangData(LANG);
+$("langSelect").value = LANG;
+$("langSelect").addEventListener("change", function(){ setLang(this.value); });
+
 load();
+applyChrome();
 paintChips("w-chips");
 paintShapes("shapeList", false);
 renderRemap();

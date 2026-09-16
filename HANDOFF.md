@@ -44,6 +44,21 @@ Also on the home screen, but deliberately not a fourth door — a small dashed p
 - **The 988 line stays in the footer**, and the tool never claims to be therapy.
 - **No login, no account, no server-side storage.** Proposed (a way to keep entries past 90 days / across devices) and turned down: a server means someone — host, breach, subpoena — could read a struggling teenager's worst thoughts, which is a real cost even with good intentions, and it turns a free static site into something with ongoing hosting and auth to maintain. The durability problem is solved instead with a manual, local backup file (see below) — same zero-server guarantee, no new attack surface.
 - **The app icon is a breath pulse, not a feather.** A feather/quill/cupped-hands round was shown first and rejected outright as the wrong motif — not a color or boldness problem, the symbol itself. Breath (the counted-breath grounding circle, already the app's first door) was Michelle's redirect, tested as three options — pulse rings, a wave curve, and the same rings in Harbor blue — and she picked the Rose pulse rings. **If you're asked to touch the icon again, don't default back to a feather.**
+- **Scripture stays English (ESV) regardless of the language switcher.** Michelle's explicit call when the Spanish translation was scoped: ship the UI translated now, leave the verse text/reference/link untouched until a real named Spanish Bible translation is sourced (never machine-translated scripture). See "Language switcher" below.
+
+### Language switcher
+
+A `<select id="langSelect">` in the topbar (English / Español) translates every piece of app-authored copy — home screen, grounding page, the four-step flow, journal, shapes reference, verse-library headers, Quick Remap, footer, and every dynamic message (breath timer, backup/restore text, empty-journal state, flash messages). **Scripture verse text, reference, and Bible Hub link stay English/ESV in both languages on purpose** — see the locked-in decision above. Only the one-line context caption under each verse (`ctx`, app-authored commentary) is translated.
+
+**Portuguese is scoped but deliberately not built yet** — Michelle's own sequencing ("Spanish first, then Portuguese"). Do not add a `pt` option to `#langSelect` or a `STRINGS.pt`/`*_PT` data array until that phase is actually done; a half-built language in the dropdown would repeat the exact "every option needs a successful ending" mistake the `saveRecord` bug taught (see the bugs list below) — someone could pick it and land on English/undefined text.
+
+Architecture, in `page.html`:
+- `SHAPES_EN`/`SHAPES_ES`, `FEELINGS_EN`/`FEELINGS_ES`, `VERSES_EN`/`VERSES_ES`, `PROMPTS_EN`/`PROMPTS_ES`, `STEPS_EN`/`STEPS_ES` — parallel data arrays, identical shape and order in both languages. `SHAPES`/`FEELINGS`/`VERSES`/`PROMPTS`/`STEPS` are mutable bindings reassigned by `bindLangData(lang)`; every existing render function reads the binding, not the language-specific array, so nothing else had to change.
+- `STRINGS.en`/`STRINGS.es` — a flat dictionary of every fixed UI string outside the data arrays, looked up with `T(key)` (falls back to English on a missing key, never to the raw key). `tpl(str, vars)` fills in the handful of strings with a `{placeholder}` (e.g. `"Step {k} of four"`, `"Breath {n} of {t}"`).
+- `setLang(lang)` — the only place that changes the active language after load. Reassigns the data bindings, remaps `draft.feelings` and `chosenVerse` from the outgoing language to the incoming one (so an in-progress flow doesn't lose a feelings-chip selection or silently mismatch a verse's caption — see the bug below), persists the choice to `localStorage` under `tet.lang`, and re-renders everything currently affected (chrome text, shapes list, remap list, verse groups, journal, and the active step if mid-flow). If `view === "untangle"`, it calls `capture()` first so an unsaved chip click or shape toggle isn't lost when the step re-renders.
+- Language persists the same way the colour skin does — read from `localStorage` on load, defaults to English for a first-time visitor.
+
+If you add a language, add its `_XX` data arrays and a `STRINGS.xx` block with the exact same key set as `en`/`es`, then add its `<option>` to `#langSelect` — only after the language is actually complete. Don't add the option first "to see how it looks."
 
 ### Backup files
 
@@ -53,7 +68,7 @@ Downloads can be inert inside an embedding iframe (see the Claude-artifact note 
 
 ---
 
-## Still open — two builds waiting on scripture text, one deferred decision
+## Still open — two builds waiting on scripture text, one naming confirmation, one deferred decision
 
 ### 1. The verse docket — mostly worked through
 
@@ -70,7 +85,11 @@ Both were pulled from Michelle's own comments in the docket, and both got a scop
 - **Ephesians 6:16 → the fuller armor passage.** Decided range: **6:11–16**. Currently only v.16 is in the app (in "afraid"). Need vv. 11–15's exact text to expand it.
 - **A new fourth home-screen door for 1 Kings 19 (Elijah at Horeb).** Decided: a separate door from the existing "I'm crashing" grounding door (that one is untouched), breathing exercise plays *before* the story starts, and the story runs through God's full response and instructions (**vv. 15–18**), not stopping at the whisper (v.12–13). Need the exact text for the full passage (roughly vv. 3–18) and door copy (title/subtitle, matching the voice of the other three: "I'm crashing," "I'm struggling with my thoughts," "I just want to dump where I'm at").
 
-### 3. The framing question — deferred by Michelle
+### 3. Confirm the Spanish app title with Michelle
+
+The Spanish wordmark/home title is currently **"Cautivos Todo Pensamiento"** (alluding to 2 Corinthians 10:5, "llevando cautivo todo pensamiento" — the same verse the English title comes from). This was chosen as a reasonable Spanish rendering while building the language switcher, but **not run past Michelle** — and she has been deliberate about every other naming decision in this project (the app's own title, "Quick Remap," "When your inner voice turns on you"). Confirm it with her before treating it as final; if she wants something else, it's the `wordmark`/`homeTitle` keys in `STRINGS.es` in `page.html`.
+
+### 4. The framing question — deferred by Michelle
 
 Michelle wrote: *"the attack of our minds is the enemy trying to confuse and discourage us,"* and asked for Ephesians 6:16 (the shield of faith, now in the "when you're afraid" group, soon to be part of the fuller armor passage above). Whether the tool should **say** that — name a negative thought as spiritual attack — is undecided. When asked directly, Michelle said: *"Let's wait and log this and come back later."* **Do not decide this or bring it up unprompted — she'll raise it again when ready.**
 
@@ -159,12 +178,14 @@ The script expects the built standalone page at `/tmp/qa.html`. Generate it with
   | awk 'BEGIN{d=0} /^<\/style>$/ && !d {print; print "</head>"; print "<body>"; d=1; next} {print}' > /tmp/qa.html
 ```
 
-It covers: every button and link in all seven views; the four-page flow forwards, backwards and via Skip, checking that text, chips, sliders and shape selections survive navigation both ways; that the four-page save succeeds even when every single field was skipped; the free-write flow's own (intentional) empty-text guard; delete; persistence across reload; all four palettes applying, persisting and re-applying after reload; **WCAG AA contrast on every visible text element across three palettes × six views plus system dark**; no horizontal scroll at 320 / 390 / 1280; keyboard focus rings; `aria-pressed` on every toggle; reduced-motion; a double-click on Next not skipping a page; long input not breaking layout; and every Bible Hub link matching the correct URL shape.
+It covers: every button and link in all seven views; the four-page flow forwards, backwards and via Skip, checking that text, chips, sliders and shape selections survive navigation both ways; that the four-page save succeeds even when every single field was skipped; the free-write flow's own (intentional) empty-text guard; delete; persistence across reload; all four palettes applying, persisting and re-applying after reload; **WCAG AA contrast on every visible text element across three palettes × six views plus system dark**; no horizontal scroll at 320 / 390 / 1280; keyboard focus rings; `aria-pressed` on every toggle; reduced-motion; a double-click on Next not skipping a page; long input not breaking layout; every Bible Hub link matching the correct URL shape; and the language switcher — present and limited to English/Spanish only, home and shapes content translating (with scripture text staying English/ESV), a feelings-chip selection surviving a mid-flow language switch, saving still working after a mid-flow switch, no topbar overflow at 320px with both nav buttons and the switcher visible, and the choice persisting across reload.
 
 **Bugs it has already caught, so keep it in the loop:**
 1. A dark-mode rule repainted the outlined buttons the same colour as the background — every secondary button was invisible in Dusk. Fixed with an `--on-accent` token rather than a per-theme override; don't reintroduce `.btn { color: ... }` overrides inside a theme block.
 2. `--ink-3` failed AA in all three palettes, including the footer that carries the 988 line.
 3. **`saveRecord` (step four's "Keep this") silently refused to save and dead-ended if `draft.thought`, `draft.reframe`, and `draft.situation` were all empty** — showing "Write one line first — anything at all.," text copy-pasted from the unrelated free-write flow, on a page with eight different fields, none of which named which one to fill in. This directly contradicted "every field is skippable" and "nothing is left unfinished." Found by an actual friend of Michelle's getting stuck testing the app. **Fixed by removing the guard entirely** — `saveRecord` now always saves, same as the app's own stated design. Don't reintroduce a blocking validation on this handler without checking it against "every field is skippable" first. The free-write flow's own guard (`saveWrite`, "Nothing to keep yet.") is fine to leave as-is — that page has exactly one field, and Home is always one tap away if someone wants to leave without writing anything.
+4. **The topbar overflowed at 320/390px once the language `<select>` was added** — `back`, `home`, the language select, and the four colour swatches together no longer fit on one line on a sub-view (where both nav buttons show). Fixed with `flex-wrap: wrap` on `.topbar`; don't go back to a strict one-line flex row there without re-checking narrow widths.
+5. **Switching language mid-step lost an uncaptured feelings-chip selection** — clicking a chip only ever updated the DOM (`aria-pressed`), not `draft.feelings`, until `capture()` ran on navigation; `setLang` rebuilt the step's HTML from `draft` before that capture happened, silently dropping the click. Fixed by having `setLang` call `capture()` first when `view === "untangle"`, then remapping the captured feelings labels (and `chosenVerse`) from the outgoing language to the incoming one. If you add more per-step live-DOM state, make sure a language switch captures it too before re-rendering.
 
 Google Fonts is blocked inside the Anthropic sandbox, so local test runs render with fallback faces. The layout holds either way, but webfont rendering has never been verified in an automated run — check it by eye on the live URL.
 

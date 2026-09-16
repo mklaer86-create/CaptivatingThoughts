@@ -415,6 +415,76 @@ with sync_playwright() as pw:
     if bad: [fail("links","malformed: "+l) for l in bad]
     else: ok("links", f"{len(set(links))} scripture links well-formed")
 
+    # --- language switcher (Spanish)
+    p.goto(URL); p.wait_for_timeout(1400)
+    if not p.is_visible("#langSelect"): fail("lang","language switcher missing from the topbar")
+    else: ok("lang","language switcher present in the topbar")
+    opts = p.eval_on_selector_all("#langSelect option","els=>els.map(e=>e.value)")
+    if "pt" in opts: fail("lang","Portuguese option present before it has been built — should not be selectable yet")
+    if sorted(opts) != ["en","es"]: fail("lang", f"unexpected language options: {opts}")
+    else: ok("lang","only English and Spanish are selectable (Portuguese correctly deferred)")
+
+    p.select_option("#langSelect","es"); p.wait_for_timeout(250)
+    if "Cautivos" not in p.inner_text("#v-home"): fail("lang","home did not translate to Spanish")
+    else: ok("lang","home translates to Spanish")
+    if p.evaluate("()=>document.documentElement.lang") != "es": fail("lang","<html lang> not updated to es")
+    else: ok("lang","<html lang> updated on switch")
+    if p.evaluate("()=>localStorage.getItem('tet.lang')") != "es": fail("lang","language choice not persisted to localStorage")
+    else: ok("lang","language choice persisted")
+
+    p.click('[data-view="shapes"]'); p.wait_for_timeout(300)
+    shsp = p.inner_text("#shapeList")
+    if "Esto va a arruinarlo todo" not in shsp: fail("lang","shape names not translated to Spanish")
+    else: ok("lang","shape names translate to Spanish")
+    if "Therefore do not be anxious" not in shsp: fail("lang","scripture text was translated — it must stay English/ESV")
+    else: ok("lang","scripture text correctly stays English (ESV) under Spanish")
+    check_overflow(p, "shapes-es@390"); check_contrast(p, "shapes-es@390")
+    p.click("#homeBtn"); p.wait_for_timeout(200)
+
+    before_lang_entries = p.eval_on_selector_all(".entry","e=>e.length")
+    p.click('[data-view="untangle"]'); p.wait_for_timeout(300)
+    if "de cuatro" not in p.inner_text("#v-untangle .kicker").lower(): fail("lang","step-of-four kicker not translated")
+    else: ok("lang","step-of-four kicker translates")
+    p.click('.btn[data-step="2"]'); p.wait_for_timeout(250)
+    chip_label_es = p.eval_on_selector("#u-chips .chip", "e=>e.textContent")
+    p.click("#u-chips .chip"); p.wait_for_timeout(100)
+    # switching languages mid-flow must not silently drop an uncaptured selection
+    p.select_option("#langSelect","en"); p.wait_for_timeout(250)
+    pressed_en = p.eval_on_selector_all('#u-chips .chip[aria-pressed="true"]',"els=>els.map(e=>e.textContent)")
+    if len(pressed_en) != 1: fail("lang", f"feelings chip lost when switching language mid-flow (was '{chip_label_es}')")
+    else: ok("lang","a feelings chip selected before a language switch survives the switch")
+    # measured after the switch to English: the switch itself re-renders every existing entry's tag too
+    before_worked_tags = p.eval_on_selector_all(".entry .tag","els=>els.filter(e=>e.textContent==='Worked through').length")
+
+    # every field still skippable under a language switch mid-flow (same invariant as the English regression test)
+    p.click('.btn.quiet[data-step="3"]'); p.wait_for_timeout(200)
+    p.click('.btn.quiet[data-step="4"]'); p.wait_for_timeout(250)
+    p.click("#saveRecord"); p.wait_for_timeout(400)
+    if not p.is_visible("#v-journal"): fail("lang","saving after a mid-flow language switch got stuck instead of reaching the journal")
+    else:
+        after_lang_entries = p.eval_on_selector_all(".entry","e=>e.length")
+        after_worked_tags = p.eval_on_selector_all(".entry .tag","els=>els.filter(e=>e.textContent==='Worked through').length")
+        if after_lang_entries != before_lang_entries + 1: fail("lang", f"entry not saved after mid-flow language switch: {before_lang_entries} -> {after_lang_entries}")
+        elif after_worked_tags != before_worked_tags + 1: fail("lang","saved entry not tagged 'Worked through' in the now-active language")
+        else: ok("lang","saving still works, in English, after switching languages mid-flow")
+
+    if "Cautivos" in p.inner_text("#v-journal"): fail("lang","switching back to English left Spanish text behind")
+    p.click("#homeBtn"); p.wait_for_timeout(150)
+    if "I’m crashing" not in p.inner_text("#v-home"): fail("lang","switching back to English did not restore English home copy")
+    else: ok("lang","switching back to English fully restores English copy")
+
+    # nav buttons + language select + colour swatches together must not overflow narrow widths (topbar regression)
+    cxn = b.new_context(viewport={"width":320,"height":800})
+    pn = cxn.new_page(); pn.goto(URL); pn.wait_for_timeout(1200)
+    pn.select_option("#langSelect","es"); pn.wait_for_timeout(200)
+    pn.click('[data-view="untangle"]'); pn.wait_for_timeout(300)
+    check_overflow(pn, "untangle-es@320")
+    cxn.close()
+
+    p.reload(); p.wait_for_timeout(1600)
+    if p.eval_on_selector("#langSelect","e=>e.value") != "en": fail("lang","language choice did not persist across reload")
+    else: ok("lang","language choice persists across reload")
+
     # focus + aria
     p.goto(URL); p.wait_for_timeout(1400)
     p.keyboard.press("Tab")
