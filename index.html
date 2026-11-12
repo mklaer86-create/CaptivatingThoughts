@@ -96,12 +96,12 @@ button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:3px}
 
 /* ---------- tactile feedback ---------- */
-.btn,.chip,.door,.swatch,.qlink,.remap-pill,.pick,.wbpart,.hdot,.shape-head{transition:transform .12s ease,border-color .15s ease,opacity .15s ease,color .15s ease}
-.btn:active,.chip:active,.door:active,.swatch:active,.remap-pill:active,.pick:active,.wbpart:active,.hdot:active,.shape-head:active{transform:scale(.97)}
+.btn,.chip,.door,.swatch,.qlink,.remap-pill,.pick,.wbpart,.shape-head{transition:transform .12s ease,border-color .15s ease,opacity .15s ease,color .15s ease}
+.btn:active,.chip:active,.door:active,.swatch:active,.remap-pill:active,.pick:active,.wbpart:active,.shape-head:active{transform:scale(.97)}
 .door:hover,.wbpart:hover{transform:translateY(-1px)}
 .door:active,.wbpart:active{transform:translateY(0) scale(.985)}
-@media (prefers-reduced-motion:reduce){.btn,.chip,.door,.swatch,.qlink,.remap-pill,.pick,.wbpart,.hdot,.shape-head{transition:none!important}
-  .btn:active,.chip:active,.door:active,.swatch:active,.remap-pill:active,.pick:active,.wbpart:active,.hdot:active,.shape-head:active,.door:hover,.wbpart:hover{transform:none!important}}
+@media (prefers-reduced-motion:reduce){.btn,.chip,.door,.swatch,.qlink,.remap-pill,.pick,.wbpart,.shape-head{transition:none!important}
+  .btn:active,.chip:active,.door:active,.swatch:active,.remap-pill:active,.pick:active,.wbpart:active,.shape-head:active,.door:hover,.wbpart:hover{transform:none!important}}
 
 /* ---------- screen transitions ---------- */
 @keyframes screenin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
@@ -328,8 +328,6 @@ details.wbfold[open]>summary{color:var(--ink)}
 .habit b{font-family:var(--mono);font-size:.625rem;letter-spacing:.12em;text-transform:uppercase;color:var(--calm);font-weight:500}
 .habit p{font-size:.9375rem;line-height:1.5}
 .hdots{display:flex;gap:.45rem;flex-wrap:wrap}
-.hdot{width:2.4rem;height:2.4rem;border-radius:50%;border:1px solid var(--rule-2);background:none;cursor:pointer;font-family:var(--mono);font-size:.75rem;color:var(--ink-3);padding:0}
-.hdot[aria-pressed="true"]{background:var(--calm);border-color:var(--calm);color:var(--on-accent)}
 .hcount{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
 .habit .hdot{width:.85rem;height:.85rem;cursor:default}
 .habit .hdot[data-on="1"]{background:var(--calm);border-color:var(--calm)}
@@ -450,6 +448,7 @@ details.wbfold[open]>summary{color:var(--ink)}
       <p class="opening" id="homeOpening">You don&rsquo;t have to explain yourself to start, and you don&rsquo;t have to know what&rsquo;s wrong. Pick whichever one is closest to true right now.</p>
     </div>
 
+    <div class="kicker" id="homeSectionNow" style="margin-bottom:-.35rem">Right now</div>
     <div class="doors">
       <button class="door" type="button" data-view="steady">
         <span class="dtitle" id="door1Title">I&rsquo;m crashing &mdash; I need grounding</span>
@@ -465,6 +464,7 @@ details.wbfold[open]>summary{color:var(--ink)}
       </button>
     </div>
 
+    <div class="kicker" id="homeSectionCalmer" style="margin-bottom:-.35rem">When you&rsquo;re steadier</div>
     <div class="remap-row">
       <button class="remap-pill" type="button" data-view="remap">
         <span class="remap-pill-label" id="remapLabel">Quick Remap</span>
@@ -1210,6 +1210,7 @@ en: {
   wordmark:"Holding Your Thoughts Captive", backBtn:"← Back", homeBtn:"Home",
   homeTitle:"Holding Your Thoughts Captive",
   homeOpening:"You don’t have to explain yourself to start, and you don’t have to know what’s wrong. Pick whichever one is closest to true right now.",
+  homeSectionNow:"Right now", homeSectionCalmer:"When you’re steadier",
   door1Title:"I’m crashing — I need grounding", door1Sub:"Nothing to figure out yet. Just help me come down.",
   door2Title:"I’m struggling with my thoughts", door2Sub:"I can’t shake this and it isn’t helping me. Walk me through it.",
   door3Title:"I just want to dump where I’m at", door3Sub:"No structure. Say it however it comes out.",
@@ -1296,6 +1297,7 @@ es: {
   wordmark:"Cautivos Todo Pensamiento", backBtn:"← Atrás", homeBtn:"Inicio",
   homeTitle:"Cautivos Todo Pensamiento",
   homeOpening:"No tienes que explicarte para empezar, y no tienes que saber qué está mal. Elige lo que se sienta más cierto ahora mismo.",
+  homeSectionNow:"Ahora mismo", homeSectionCalmer:"Cuando estés más tranquila",
   door1Title:"Estoy en crisis — necesito calmarme", door1Sub:"Nada que resolver todavía. Solo ayúdame a calmarme.",
   door2Title:"Estoy luchando con mis pensamientos", door2Sub:"No puedo quitarme esto de encima y no me está ayudando. Guíame paso a paso.",
   door3Title:"Solo quiero desahogarme", door3Sub:"Sin estructura. Dilo como te salga.",
@@ -1391,6 +1393,8 @@ function applyChrome(){
 
   $("homeH1").textContent = T("homeTitle");
   $("homeOpening").textContent = T("homeOpening");
+  $("homeSectionNow").textContent = T("homeSectionNow");
+  $("homeSectionCalmer").textContent = T("homeSectionCalmer");
   $("door1Title").textContent = T("door1Title"); $("door1Sub").textContent = T("door1Sub");
   $("door2Title").textContent = T("door2Title"); $("door2Sub").textContent = T("door2Sub");
   $("door3Title").textContent = T("door3Title"); $("door3Sub").textContent = T("door3Sub");
@@ -1901,7 +1905,14 @@ var WKEY = "tet.workbook.v1";
 var wb = { a:{}, rows:[], tools:{}, habits:{}, done:{}, last:null, practice:[], hlog:{} };
 var wbReturn = false, wbEdit = {};
 var wbS = { mode:"home", p:0, i:0 };
-var wbTimer = null, wbResetArmed = false;
+var wbTimer = null, wbResetArmed = false, wbResetTimer = null;
+function wbDisarmReset(){
+  if(wbResetTimer){ clearTimeout(wbResetTimer); wbResetTimer = null; }
+  if(wbResetArmed){
+    wbResetArmed = false;
+    var rb = $("wbReset"); if(rb) rb.textContent = "Start the workbook over";
+  }
+}
 
 var WB = [
  { id:"p1", name:"Notice", title:"Catch what the voice says",
@@ -1942,7 +1953,7 @@ var WB = [
    verse:{ ref:"Philippians 4:8", url:"philippians/4-8.htm", gist:"Set your mind on what is true, honorable, pure and worth praising." },
    skillT:"Answer back with “I” and with Scripture",
    skill:"The voice says “You…” You answer “I…” and add what God says. Jesus answered every temptation in the wilderness the same way: with what was written.",
-   habit:"Read your three truth statements out loud every morning. Put them on your lock screen.",
+   habit:"Once you’ve written your three truth statements (coming up in this part), read them out loud every morning. Put them on your lock screen.",
    prayer:"Father, help me believe what You say about me more than what I feel about me.",
    screens:[
     { t:"rows" },
@@ -2032,6 +2043,7 @@ function wbTouch(){
 }
 function wbFlush(){ if(wbTimer){ clearTimeout(wbTimer); wbTimer = null; } wbPersist(); }
 function has(k){ return !!String(wb.a[k] || "").trim(); }
+function toolTried(t){ return wb.tools[t.id] || has("p4.tool."+t.id); }
 function rowFilled(r){ return !!(r && ((r.lie||"").trim() || (r.answer||"").trim() || (r.truth||"").trim())); }
 function wbPracticed(){
   return entries.filter(function(e){ return wb.practice.indexOf(e.id) > -1; }).sort(function(a,b){ return a.ts - b.ts; });
@@ -2041,7 +2053,7 @@ function screenFilled(s){
   if(s.t === "q") return has(s.k);
   if(s.t === "multi") return s.fields.some(function(f){ return has(f.k); });
   if(s.t === "rows") return wb.rows.some(rowFilled);
-  if(s.t === "tools") return WB_TOOLS.some(function(t){ return wb.tools[t.id] || has("p4.tool."+t.id); });
+  if(s.t === "tools") return WB_TOOLS.some(toolTried);
   return false;
 }
 function dayKey(t){ var d = t ? new Date(t) : new Date(); return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
@@ -2063,6 +2075,7 @@ function habitNotes(P){
 }
 function partCount(p){ return WB[p].screens.filter(screenFilled).length; }
 function partLen(p){ return WB[p].screens.length + 2; }
+function partStarted(p){ return partCount(p) > 0 || hLog(WB[p]).length > 0; }
 function wbStarted(){
   if(wb.last) return true;
   for(var q = 0; q < WB.length; q++){ if(hLog(WB[q]).length) return true; }
@@ -2070,7 +2083,7 @@ function wbStarted(){
   return false;
 }
 function wbResume(){
-  if(wb.last && WB[wb.last.p]) return { p:wb.last.p, i:Math.min(wb.last.i, partLen(wb.last.p)-1) };
+  if(wb.last && WB[wb.last.p] && !wb.done[WB[wb.last.p].id]) return { p:wb.last.p, i:Math.min(wb.last.i, partLen(wb.last.p)-1) };
   for(var p = 0; p < WB.length; p++){ if(!wb.done[WB[p].id]) return { p:p, i:0 }; }
   return { p:0, i:0 };
 }
@@ -2134,9 +2147,9 @@ function rerenderHabit(P){
   var p = WB.indexOf(P), tmp = document.createElement("div");
   tmp.innerHTML = wbHabit(p, card.getAttribute("data-where")); card.replaceWith(tmp.firstChild);
 }
-function wbNav(primary, extra){
+function wbNav(primary, extra, noBack){
   return '<div class="wbnav">'+primary+
-    '<button class="btn ghost" type="button" data-wb="prev">Back</button>'+
+    (noBack ? '' : '<button class="btn ghost" type="button" data-wb="prev">Back</button>')+
     (extra||"")+
     '<button class="btn quiet" type="button" data-wb="home">Save and stop for today</button>'+
     '<span class="savedtick" id="wbSaved" aria-live="polite">Saved</span></div>';
@@ -2148,22 +2161,12 @@ function wbHomeHTML(){
   var h = '<div class="wbscreen"><div class="vhead"><div class="kicker">The workbook</div>'+
     '<h2>Renewing your mind</h2>'+
     '<p class="lede">Five parts that follow one path: notice the voice in your head, test what it says, replace the lies with what God says is true, quiet the noise, and live like it’s true. Built on Romans 12:2.</p></div>';
+  h += '<p class="small" style="max-width:34rem">Take one part a week, or one screen a day, or all of it out of order — there’s no wrong way to do this.</p>';
   h += '<div class="actions" style="padding-top:0">'+
     (all ? '<button class="btn" type="button" data-view="journal">Read back what you wrote</button>'
-         : '<button class="btn" type="button" data-wb="resume">'+(started ? "Pick up where you left off" : "Start with Part 1")+'</button>')+
+         : '<button class="btn" type="button" data-wb="resume">'+(started ? "Pick up where you left off — Part "+(r.p+1)+" of 5" : "Start with Part 1")+'</button>')+
     '</div>';
   if(started && !all) h += wbHabit(r.p, "home");
-  h += '<div class="wbparts">'+WB.map(function(P, p){
-    var n = partCount(p), tot = P.screens.length, done = !!wb.done[P.id];
-    var hd = hLog(P).length;
-    var stat = done ? "Finished" : (n ? n+" of "+tot+" answered" : "Not started");
-    if(hd) stat += " · "+hd+" habit day"+(hd === 1 ? "" : "s")+" logged";
-    return '<button class="wbpart" type="button" data-wb="part" data-p="'+p+'" data-done="'+(done ? 1 : 0)+'">'+
-      '<span class="wbnum" aria-hidden="true">'+(p+1)+'</span><span>'+
-      '<span class="wbname">'+esc(P.name)+'</span><span class="wbsub">'+esc(P.title)+'</span>'+
-      '<span class="wbstat">'+stat+'</span>'+
-      '<span class="wbbar"><span style="width:'+Math.round(100*n/tot)+'%"></span></span></span></button>';
-  }).join("")+'</div>';
   h += '<details class="wbfold"><summary>First, tell the two voices apart</summary>'+
     '<p class="small" style="margin-top:.6rem;max-width:34rem">The inner critic isn’t your conscience and it isn’t God’s voice. Scripture describes an accuser who lies ('+refLink("John 8:44","john/8-44.htm")+') and a Shepherd whose sheep know His voice ('+refLink("John 10:27","john/10-27.htm")+'). You can learn to tell them apart.</p>'+
     '<div class="voices">'+
@@ -2180,11 +2183,22 @@ function wbHomeHTML(){
     '</div>'+
     '<p class="small" style="margin-top:.75rem;max-width:34rem">Condemnation isn’t for anyone who is in Christ ('+refLink("Romans 8:1","romans/8-1.htm")+'). The goal here isn’t to think highly of yourself. It’s to think truthfully about yourself, which means agreeing with what God says.</p>'+
     '</details>';
+  h += '<div class="wbparts">'+WB.map(function(P, p){
+    var n = partCount(p), tot = P.screens.length, done = !!wb.done[P.id];
+    var hd = hLog(P).length;
+    var stat = done ? "Finished" : (n ? n+" of "+tot+" answered" : (hd ? "No questions answered yet" : "Not started"));
+    if(hd) stat += " · "+hd+" habit day"+(hd === 1 ? "" : "s")+" logged";
+    return '<button class="wbpart" type="button" data-wb="part" data-p="'+p+'" data-done="'+(done ? 1 : 0)+'">'+
+      '<span class="wbnum" aria-hidden="true">'+(p+1)+'</span><span>'+
+      '<span class="wbname">'+esc(P.name)+'</span><span class="wbsub">'+esc(P.title)+'</span>'+
+      '<span class="wbstat">'+stat+'</span>'+
+      '<span class="wbbar"><span style="width:'+Math.round(100*n/tot)+'%"></span></span></span></button>';
+  }).join("")+'</div>';
   h += '<nav class="quietnav" aria-label="Workbook" style="border-top:0;padding-top:0">'+
     '<button class="qlink" type="button" data-view="journal">Read back what you wrote</button>'+
     '<button class="qlink" type="button" data-view="verses">Verses for the hard days</button>'+
     '<button class="qlink" type="button" data-wb="reset" id="wbReset">'+(wbResetArmed ? "Tap again to erase every workbook answer" : "Start the workbook over")+'</button></nav>';
-  h += '<p class="small" style="max-width:34rem">Take one part a week, or one screen a day, or all of it out of order. Your answers save as you type and stay on this device only. Write the hard things honestly, even when every note comes out negative. Getting it out is part of healing: a thought on the page can be seen, prayed over and answered. Having a harsh thought isn’t a sin and doesn’t mean something is wrong with you.</p>';
+  h += '<p class="small" style="max-width:34rem">Your answers save as you type and stay on this device only. Write the hard things honestly, even when every note comes out negative. Getting it out is part of healing: a thought on the page can be seen, prayed over and answered. Having a harsh thought isn’t a sin and doesn’t mean something is wrong with you.</p>';
   return h+'</div>';
 }
 
@@ -2251,7 +2265,9 @@ function wbBodyHTML(P, p, s){
       }).join("")+'</div>';
     }
     h += '<div><button class="btn'+(pr.length ? ' ghost' : '')+'" type="button" data-wb="practice">'+(pr.length ? "Walk another thought through" : "Walk a thought through")+'</button></div>'+
-      '<p class="small">You can also skip this and come back. Next still works.</p>';
+      '<p class="small">'+(pr.length
+        ? "You can also skip this and come back. Next still works."
+        : "This is the actual point of this part — walking one real thought through those four questions. “Next” below will skip it for now; you can always come back to it later.")+'</p>';
   }
   if(s.link) h += '<div><button class="btn quiet" type="button" data-view="'+s.link.view+'">'+esc(s.link.label)+'</button></div>';
   return h;
@@ -2278,7 +2294,7 @@ function wbAnswersHTML(p){
       });
     }
     if(s.t === "tools"){
-      var used = WB_TOOLS.filter(function(t){ return wb.tools[t.id] || has("p4.tool."+t.id); });
+      var used = WB_TOOLS.filter(toolTried);
       if(used.length) out += '<div class="rb"><p class="rbq">Tools you tried</p>'+used.map(function(t){
         return '<p class="rba"><strong>'+esc(t.name)+'</strong>'+(has("p4.tool."+t.id) ? ' — '+esc(wb.a["p4.tool."+t.id]) : '')+'</p>'; }).join("")+'</div>';
     }
@@ -2298,8 +2314,8 @@ function wbPartHTML(){
       '<div class="margin-note"><blockquote>'+esc(P.verse.gist)+'</blockquote>'+refLink(P.verse.ref+" · in short", P.verse.url)+
       '<p class="small">That’s a summary. Tap the reference to read the verse itself.</p></div>'+
       '<div class="whymatters"><b>The skill</b><strong style="color:var(--ink)">'+esc(P.skillT)+'.</strong> '+esc(P.skill)+'</div>'+
-      wbHabit(p)+
-      wbNav('<button class="btn" type="button" data-wb="next">Begin</button>');
+      wbNav('<button class="btn" type="button" data-wb="next">Begin</button>', null, true)+
+      '<details class="wbfold"><summary>Log today’s habit for this part</summary>'+wbHabit(p)+'</details>';
   } else if(i === len-1){
     var ans = wbAnswersHTML(p), last = (p === WB.length-1);
     h += '<div class="vhead"><h2>'+esc(P.name)+', read back</h2>'+
@@ -2311,8 +2327,10 @@ function wbPartHTML(){
       (!wb.done[P.id] ? '<p class="field-hint">Logging today’s habit above does not finish this part on its own — you can come back and log it again tomorrow with “Save and stop for today.” Only the button below actually moves you on.</p>' : '')+
       wbNav('<button class="btn" type="button" data-wb="finish">'+(wb.done[P.id] ? (last ? "Back to the workbook" : "On to Part "+(p+2)) : (last ? "Finish the workbook — all five parts done" : "Finish Part "+(p+1)+" — on to Part "+(p+2)))+'</button>');
   } else {
-    h += wbBodyHTML(P, p, P.screens[i-1])+
-      wbNav('<button class="btn" type="button" data-wb="next">'+(i === len-2 ? "Read it back" : "Next")+'</button>');
+    var curScreen = P.screens[i-1];
+    var nextIsSecondary = curScreen.t === "practice" && !wbPracticed().length;
+    h += wbBodyHTML(P, p, curScreen)+
+      wbNav('<button class="btn'+(nextIsSecondary ? ' ghost' : '')+'" type="button" data-wb="next">'+(i === len-2 ? "Read it back" : "Next")+'</button>');
   }
   return h+'</div>';
 }
@@ -2348,7 +2366,7 @@ function wbText(){
       if(s.t === "rows") wb.rows.filter(rowFilled).forEach(function(r){
         sec.push("The voice says: "+(r.lie||"")+"\nMy answer: "+(r.answer||"")+"\nWhat God says: "+(r.truth||"")); });
       if(s.t === "tools"){
-        var used = WB_TOOLS.filter(function(t){ return wb.tools[t.id] || has("p4.tool."+t.id); });
+        var used = WB_TOOLS.filter(toolTried);
         if(used.length) sec.push("Tools I tried\n"+used.map(function(t){ return t.name+(has("p4.tool."+t.id) ? ": "+wb.a["p4.tool."+t.id] : ""); }).join("\n"));
       }
     });
@@ -2361,15 +2379,18 @@ function wbText(){
 
 function renderWb(){
   var host = $("wbWrap"); if(!host) return;
-  if(wbS.mode === "part"){ wb.last = { p:wbS.p, i:wbS.i }; wbPersist(); host.innerHTML = wbPartHTML(); }
+  if(wbS.mode === "part") host.innerHTML = wbPartHTML();
   else host.innerHTML = wbHomeHTML();
   $("backBtn").hidden = (wbS.mode === "home" && stack.length === 0);
 }
 function wbGo(mode, p, i){
-  wbFlush(); wbResetArmed = false;
+  wbFlush(); wbDisarmReset();
   wbS.mode = mode;
   if(typeof p === "number") wbS.p = p;
   if(typeof i === "number") wbS.i = i;
+  /* only an actual navigation (not a cross-tab display refresh) should
+     claim "this is where she is now" */
+  if(wbS.mode === "part" && !wb.done[WB[wbS.p].id]){ wb.last = { p:wbS.p, i:wbS.i }; wbPersist(); }
   renderWb(); window.scrollTo(0,0);
 }
 function wbBack(){
@@ -2401,16 +2422,32 @@ document.addEventListener("input", function(ev){
   var ri = t.getAttribute("data-row");
   if(ri !== null && wb.rows[+ri]){ wb.rows[+ri][t.getAttribute("data-col")] = t.value; wbTouch(); }
 });
-/* only write on the way out if something is waiting to be saved, so an idle
-   tab never overwrites newer notes written in another tab or window */
+/* an idle tab's own pending debounce never fires late over newer data saved
+   elsewhere, since it flushes on the way out instead of waiting */
 window.addEventListener("pagehide", function(){ if(wbTimer) wbFlush(); });
 document.addEventListener("visibilitychange", function(){ if(document.hidden && wbTimer) wbFlush(); });
+/* a second tab/window writing to the same localStorage would otherwise be
+   invisible here until reload, so a later save from THIS tab could silently
+   overwrite what the other one just wrote. Pick up the other tab's save
+   immediately instead, as long as this tab isn't mid-keystroke on something
+   unsaved of its own (a pending debounce means an edit hasn't reached
+   localStorage yet, so reloading over it would be the data loss, not the fix). */
+window.addEventListener("storage", function(ev){
+  if(ev.key === WKEY && !wbTimer){
+    wbLoad();
+    if(view === "workbook") renderWb();
+  }
+  if(ev.key === EKEY){
+    load();
+    if(view === "journal"){ renderEntries(); renderWbJournal(); }
+  }
+});
 
 document.addEventListener("click", function(ev){
   var t = ev.target.closest ? ev.target.closest("[data-wb]") : null;
   if(!t) return;
   var act = t.getAttribute("data-wb");
-  if(act !== "reset") wbResetArmed = false;
+  if(act !== "reset") wbDisarmReset();
 
   if(act === "open"){ wbS.mode = "home"; show("workbook"); return; }
   if(act === "home"){ wbGo("home"); return; }
@@ -2452,7 +2489,12 @@ document.addEventListener("click", function(ev){
   if(act === "addrow"){ wb.rows.push({ lie:"", answer:"", truth:"" }); wbFlush(); renderWb(); return; }
   if(act === "delrow"){ wb.rows.splice(+t.getAttribute("data-i"), 1); wbFlush(); renderWb(); return; }
   if(act === "reset"){
-    if(!wbResetArmed){ wbResetArmed = true; t.textContent = "Tap again to erase every workbook answer"; return; }
+    if(!wbResetArmed){
+      wbResetArmed = true; t.textContent = "Tap again to erase every workbook answer";
+      wbResetTimer = setTimeout(wbDisarmReset, 8000);
+      return;
+    }
+    if(wbResetTimer){ clearTimeout(wbResetTimer); wbResetTimer = null; }
     wbResetArmed = false;
     wb = { a:{}, rows:[], tools:{}, habits:{}, done:{}, last:null, practice:[], hlog:{} }; wbEdit = {};
     wbPersist(); wbGo("home"); return;
@@ -2496,6 +2538,10 @@ document.addEventListener("click", function(ev){
     var id = t.getAttribute("data-del");
     entries = entries.filter(function(e){ return e.id !== id; });
     persist(); renderEntries();
+    if(wb.practice.indexOf(id) > -1){
+      wb.practice = wb.practice.filter(function(x){ return x !== id; });
+      wbPersist();
+    }
     return;
   }
 });

@@ -501,6 +501,9 @@ with sync_playwright() as pw:
 
     # --- workbook ("Renewing your mind")
     p.goto(URL); p.wait_for_timeout(1400)
+    if p.eval_on_selector_all("#v-home .kicker","els=>els.map(e=>e.textContent)") != ["Right now","When you’re steadier"]:
+        fail("workbook","home screen missing the crisis/calm section labels")
+    else: ok("workbook","home screen groups crisis vs. calmer doors under labeled sections")
     if not p.is_visible('[data-wb="open"]'): fail("workbook","door missing from home screen")
     else: ok("workbook","door present on home screen")
     p.click('[data-wb="open"]'); p.wait_for_timeout(300)
@@ -512,6 +515,11 @@ with sync_playwright() as pw:
 
     p.click('[data-wb="part"][data-p="0"]'); p.wait_for_timeout(250)
     if "Catch what the voice says" not in p.inner_text("#wbWrap"): fail("workbook","Part 1 intro screen did not open")
+    if p.is_visible('.wbnav [data-wb="prev"]'): fail("workbook","intro screen shows a 'Back' that does the same thing as 'Save and stop for today'")
+    else: ok("workbook","intro screen hides the redundant Back button")
+    if p.eval_on_selector("details.wbfold","e=>e.hasAttribute('open')"): fail("workbook","intro screen's habit card isn't collapsed, risks pushing Begin below the fold")
+    if not p.is_visible('[data-wb="next"]'): fail("workbook","Begin button not reachable without expanding the habit card")
+    else: ok("workbook","Begin stays immediately reachable; the habit card is tucked behind a details toggle")
     p.click('[data-wb="next"]'); p.wait_for_timeout(200)
     p.fill('textarea[data-wk="p1.q1"]', "WORKBOOK ANSWER ONE"); p.wait_for_timeout(500)
     check_contrast(p,"workbook-screen@390")
@@ -520,11 +528,24 @@ with sync_playwright() as pw:
     if "read back" not in p.inner_text("#wbWrap").lower(): fail("workbook","did not reach the part's read-back screen")
     if "WORKBOOK ANSWER ONE" not in p.inner_text("#wbWrap"): fail("workbook","read-back screen missing the typed answer")
     else: ok("workbook","a typed answer survives to the part's read-back screen")
+    if "Finish Part 1" not in p.inner_text('[data-wb="finish"]') or "Part 2" not in p.inner_text('[data-wb="finish"]'):
+        fail("workbook","first-time finish button doesn't name where it's taking you")
+    else: ok("workbook","finish button states its own consequence (‘Finish Part 1 — on to Part 2’)")
     p.click('[data-wb="finish"]'); p.wait_for_timeout(250)
     p.click('[data-wb="home"]'); p.wait_for_timeout(250)
     if p.eval_on_selector('[data-wb="part"][data-p="0"]',"e=>e.getAttribute('data-done')") != "1":
         fail("workbook","Part 1 not marked finished after finishing it")
     else: ok("workbook","finishing a part marks it done on the workbook home")
+    resume_before = p.inner_text('[data-wb="resume"]')
+    if "Part 2 of 5" not in resume_before: fail("workbook","resume button has no progress indicator")
+    else: ok("workbook","resume button names which part you're on")
+
+    # rereading an already-finished part must not rehijack where "resume" sends you
+    p.click('[data-wb="part"][data-p="0"]'); p.wait_for_timeout(250)
+    p.click('[data-wb="home"]'); p.wait_for_timeout(250)
+    resume_after = p.inner_text('[data-wb="resume"]')
+    if resume_after != resume_before: fail("workbook", f"rereading a finished part changed the resume target: '{resume_before}' -> '{resume_after}'")
+    else: ok("workbook","rereading a finished part doesn't rehijack the resume target")
 
     p.reload(); p.wait_for_timeout(1400)
     p.click('[data-wb="open"]'); p.wait_for_timeout(300)
@@ -532,10 +553,30 @@ with sync_playwright() as pw:
         fail("workbook","finished-part state did not survive reload")
     else: ok("workbook","workbook progress persists across reload")
 
+    # a habit day logged with zero written answers must never read as "Not started"
+    p.click('[data-wb="part"][data-p="2"]'); p.wait_for_timeout(250)
+    p.click("details.wbfold summary"); p.wait_for_timeout(150)
+    if "written your three truth statements" not in p.inner_text(".habit p"):
+        fail("workbook","Part 3's habit still presupposes statements that haven't been written yet")
+    else: ok("workbook","Part 3's habit text doesn't presuppose unwritten statements")
+    p.click('[data-wb="hlog"]'); p.wait_for_timeout(300)
+    p.click('[data-wb="home"]'); p.wait_for_timeout(250)
+    stat3 = p.inner_text(".wbparts .wbpart:nth-child(3) .wbstat").lower()
+    if "not started" in stat3 and "habit day" in stat3:
+        fail("workbook", f"self-contradictory status line survived: '{stat3}'")
+    elif "habit day" not in stat3:
+        fail("workbook", f"habit day logged but not reflected in the status line: '{stat3}'")
+    else: ok("workbook", f"habit-only progress reads consistently: '{stat3}'")
+
     # "practice on a real thought" (Part 2) must round-trip through the four-page
     # flow and back without dead-ending, same invariant as the main flow
     p.click('[data-wb="part"][data-p="1"]'); p.wait_for_timeout(250)
     p.click('[data-wb="next"]'); p.wait_for_timeout(200)
+    walk_cls = p.eval_on_selector('[data-wb="practice"]',"e=>e.className")
+    next_cls = p.eval_on_selector('.wbnav [data-wb="next"]',"e=>e.className")
+    if "ghost" in walk_cls or "ghost" not in next_cls:
+        fail("workbook", f"practice screen doesn't have exactly one filled primary button on first visit (walk={walk_cls!r}, next={next_cls!r})")
+    else: ok("workbook","practice screen has exactly one filled primary button on first visit")
     if not p.is_visible('[data-wb="practice"]'): fail("workbook","Part 2's practice screen missing its button")
     else:
         p.click('[data-wb="practice"]'); p.wait_for_timeout(300)
@@ -548,11 +589,41 @@ with sync_playwright() as pw:
             if not p.is_visible("#v-done"): fail("workbook","saving from a workbook practice detour got stuck")
             elif not p.is_visible('[data-wb="return"]'): fail("workbook","closing screen missing the 'Back to the workbook' button")
             else:
-                p.click('[data-wb="return"]'); p.wait_for_timeout(300)
-                if not p.is_visible("#v-workbook"): fail("workbook","'Back to the workbook' did not return to the workbook")
+                practiced_id = p.evaluate("() => JSON.parse(localStorage.getItem('tet.workbook.v1')).practice[0]")
+                # deleting that journal entry must not leave a dangling practice link
+                p.click('#doneWrap [data-view="journal"]'); p.wait_for_timeout(300)
+                p.click(f'[data-del="{practiced_id}"]'); p.wait_for_timeout(300)
+                practice_after_delete = p.evaluate("() => JSON.parse(localStorage.getItem('tet.workbook.v1')).practice")
+                if practiced_id in practice_after_delete:
+                    fail("workbook","deleting a practiced entry's journal entry left it in wb.practice")
+                else: ok("workbook","deleting a practiced entry's journal entry prunes it from the workbook's progress")
+                p.click("#homeBtn"); p.wait_for_timeout(200)
+                p.click('[data-wb="open"]'); p.wait_for_timeout(300)
+                if not p.is_visible("#v-workbook"): fail("workbook","returning to the workbook from the journal failed")
                 else: ok("workbook","practicing on a real thought round-trips back to the workbook, every field still skippable")
 
     p.click("#homeBtn"); p.wait_for_timeout(200)
+
+    # --- cross-tab save: a second tab/window must not silently clobber the first
+    ctx2 = b.new_context(viewport={"width":1024,"height":900})
+    pA = ctx2.new_page(); pA.goto(URL); pA.wait_for_timeout(300)
+    pB = ctx2.new_page(); pB.goto(URL); pB.wait_for_timeout(300)
+    pA.click('[data-wb="open"]'); pA.wait_for_timeout(200)
+    pA.click('[data-wb="part"][data-p="0"]'); pA.wait_for_timeout(200)
+    pA.click('[data-wb="next"]'); pA.wait_for_timeout(150)
+    pA.fill('textarea[data-wk="p1.q1"]', "TAB A ANSWER")
+    pA.wait_for_timeout(600)
+    pB.click('[data-wb="open"]'); pB.wait_for_timeout(300)
+    pB.click('[data-wb="part"][data-p="2"]'); pB.wait_for_timeout(300)
+    pB.click('[data-wb="next"]'); pB.wait_for_timeout(300)
+    pB.click('[data-wb="next"]'); pB.wait_for_timeout(300)
+    pB.fill('textarea[data-wk="p3.q1"]', "TAB B ANSWER")
+    pB.wait_for_timeout(600)
+    merged = pA.evaluate("() => JSON.parse(localStorage.getItem('tet.workbook.v1')).a")
+    if merged.get("p1.q1") != "TAB A ANSWER" or merged.get("p3.q1") != "TAB B ANSWER":
+        fail("workbook", f"a second tab's save clobbered the first tab's unrelated answer: {merged}")
+    else: ok("workbook","a second tab's save does not clobber an unrelated answer saved in the first")
+    ctx2.close()
 
     # focus + aria
     p.goto(URL); p.wait_for_timeout(1400)
