@@ -2109,6 +2109,7 @@ function wbHabit(p, where){
   var earlier = L.filter(function(x){ return x !== today; }).sort(function(a, b){ return (b.date || "") < (a.date || "") ? -1 : (b.date || "") > (a.date || "") ? 1 : b.ts - a.ts; });
   var h = '<div class="habit" id="habit-'+P.id+'" data-where="'+(where || "")+'">'+
     '<b>'+(where === "home" ? "Today’s habit · Part "+(p+1)+" · "+esc(P.name) : "Daily habit for this part")+'</b><p>'+esc(P.habit)+'</p>'+
+    (where === "home" ? '<p class="field-hint">This card follows whichever part isn’t finished yet, so it can switch parts on you. Logging here always counts for Part '+(p+1)+' specifically — to log a different part’s habit, open that part from the list below instead.</p>' : '')+
     '<div class="hcount"><div class="hdots">'+dots+'</div><span class="small">'+(n ? n+" day"+(n === 1 ? "" : "s")+" logged"+(n >= 7 ? ". Keep going as long as it helps." : "") : "No days logged yet")+'</span></div>'+
     '<div class="hday">'+
       '<div class="wbrowtop"><span class="field-label">Today</span>'+
@@ -2137,7 +2138,7 @@ function wbNav(primary, extra){
   return '<div class="wbnav">'+primary+
     '<button class="btn ghost" type="button" data-wb="prev">Back</button>'+
     (extra||"")+
-    '<button class="btn quiet" type="button" data-wb="home">Stop here for now</button>'+
+    '<button class="btn quiet" type="button" data-wb="home">Save and stop for today</button>'+
     '<span class="savedtick" id="wbSaved" aria-live="polite">Saved</span></div>';
 }
 
@@ -2154,7 +2155,9 @@ function wbHomeHTML(){
   if(started && !all) h += wbHabit(r.p, "home");
   h += '<div class="wbparts">'+WB.map(function(P, p){
     var n = partCount(p), tot = P.screens.length, done = !!wb.done[P.id];
+    var hd = hLog(P).length;
     var stat = done ? "Finished" : (n ? n+" of "+tot+" answered" : "Not started");
+    if(hd) stat += " · "+hd+" habit day"+(hd === 1 ? "" : "s")+" logged";
     return '<button class="wbpart" type="button" data-wb="part" data-p="'+p+'" data-done="'+(done ? 1 : 0)+'">'+
       '<span class="wbnum" aria-hidden="true">'+(p+1)+'</span><span>'+
       '<span class="wbname">'+esc(P.name)+'</span><span class="wbsub">'+esc(P.title)+'</span>'+
@@ -2305,7 +2308,8 @@ function wbPartHTML(){
       (ans ? '<div class="readback">'+ans+'</div>' : '')+
       wbHabit(p)+
       '<p class="prayer">'+esc(P.prayer)+'</p>'+
-      wbNav('<button class="btn" type="button" data-wb="finish">'+(wb.done[P.id] ? (last ? "Back to the workbook" : "On to Part "+(p+2)) : (last ? "Finish the workbook" : "Finish Part "+(p+1)))+'</button>');
+      (!wb.done[P.id] ? '<p class="field-hint">Logging today’s habit above does not finish this part on its own — you can come back and log it again tomorrow with “Save and stop for today.” Only the button below actually moves you on.</p>' : '')+
+      wbNav('<button class="btn" type="button" data-wb="finish">'+(wb.done[P.id] ? (last ? "Back to the workbook" : "On to Part "+(p+2)) : (last ? "Finish the workbook — all five parts done" : "Finish Part "+(p+1)+" — on to Part "+(p+2)))+'</button>');
   } else {
     h += wbBodyHTML(P, p, P.screens[i-1])+
       wbNav('<button class="btn" type="button" data-wb="next">'+(i === len-2 ? "Read it back" : "Next")+'</button>');
