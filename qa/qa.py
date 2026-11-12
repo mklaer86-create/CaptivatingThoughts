@@ -252,7 +252,14 @@ with sync_playwright() as pw:
     p.eval_on_selector("#f-after","el=>{el.value=30;el.dispatchEvent(new Event('input'))}")
     check_contrast(p,"step4@390"); check_overflow(p,"step4@390")
     p.click("#saveRecord"); p.wait_for_timeout(500)
-    if not p.is_visible("#v-journal"): fail("save","did not land on journal")
+    if not p.is_visible("#v-done"): fail("save","did not land on the closing 'done' screen")
+    else: ok("save","lands on the closing screen after saving")
+    done_body = p.inner_text("#doneWrap")
+    if "TRUER SENTENCE" not in done_body: fail("done","closing screen does not read back the truer sentence")
+    if "85" not in done_body or "30" not in done_body: fail("done","closing screen missing the before/after reading")
+    check_contrast(p,"done@390")
+    p.click('#doneWrap [data-view="journal"]'); p.wait_for_timeout(300)
+    if not p.is_visible("#v-journal"): fail("save","'See everything' on the done screen did not open the journal")
     body = p.inner_text("#entries")
     for needle in ["SITUATION TEXT","THE THOUGHT","LEFT OUT","TRUER SENTENCE","NEXT TIME LINE","SMALL STEP","85","30"]:
         if needle not in body: fail("save","entry missing "+needle)
@@ -268,9 +275,10 @@ with sync_playwright() as pw:
     p.click('.btn.quiet[data-step="3"]'); p.wait_for_timeout(200)
     p.click('.btn.quiet[data-step="4"]'); p.wait_for_timeout(250)
     p.click("#saveRecord"); p.wait_for_timeout(400)
-    if not p.is_visible("#v-journal"):
-        fail("save","skipping every field on all four pages got stuck instead of reaching the journal")
+    if not p.is_visible("#v-done"):
+        fail("save","skipping every field on all four pages got stuck instead of reaching the closing screen")
     else:
+        p.click('#doneWrap [data-view="journal"]'); p.wait_for_timeout(300)
         after_entries = p.eval_on_selector_all(".entry","e=>e.length")
         if after_entries != before_entries + 1: fail("save", f"skip-everything entry not saved: {before_entries} -> {after_entries}")
         else: ok("save","skipping every field on all four pages still saves successfully")
@@ -288,6 +296,9 @@ with sync_playwright() as pw:
     p.click("#promptBtn"); p.wait_for_timeout(150)
     if not p.inner_text("#promptOut"): fail("write","prompt empty")
     p.fill("#w-text","FREE PAGE"); p.click("#w-chips .chip"); p.click("#saveWrite"); p.wait_for_timeout(400)
+    if not p.is_visible("#v-done"): fail("write","free page did not land on the closing screen")
+    if "FREE PAGE" not in p.inner_text("#doneWrap"): fail("done","closing screen does not read back the free page")
+    p.click('#doneWrap [data-view="journal"]'); p.wait_for_timeout(300)
     if "FREE PAGE" not in p.inner_text("#entries"): fail("write","page not saved")
     else: ok("write","free page saves")
     p.click("#printAll"); p.wait_for_timeout(200)
@@ -307,6 +318,7 @@ with sync_playwright() as pw:
     p.click("#homeBtn"); p.wait_for_timeout(200)
     p.click('[data-view="write"]'); p.wait_for_timeout(200)
     p.fill("#w-text","BACKUP CANARY"); p.click("#saveWrite"); p.wait_for_timeout(400)
+    p.click('#doneWrap [data-view="journal"]'); p.wait_for_timeout(300)
     before_count = p.eval_on_selector_all(".entry","e=>e.length")
     with p.expect_download() as dl_info:
         p.click("#saveBackup")
@@ -345,6 +357,7 @@ with sync_playwright() as pw:
     p.click("#homeBtn"); p.wait_for_timeout(200)
     p.click('[data-view="write"]'); p.wait_for_timeout(200)
     p.fill("#w-text","NEWER THAN BACKUP"); p.click("#saveWrite"); p.wait_for_timeout(400)
+    p.click('#doneWrap [data-view="journal"]'); p.wait_for_timeout(300)
     with p.expect_file_chooser() as fc3:
         p.click("#loadBackup")
     fc3.value.set_files(backup_path)
@@ -460,8 +473,9 @@ with sync_playwright() as pw:
     p.click('.btn.quiet[data-step="3"]'); p.wait_for_timeout(200)
     p.click('.btn.quiet[data-step="4"]'); p.wait_for_timeout(250)
     p.click("#saveRecord"); p.wait_for_timeout(400)
-    if not p.is_visible("#v-journal"): fail("lang","saving after a mid-flow language switch got stuck instead of reaching the journal")
+    if not p.is_visible("#v-done"): fail("lang","saving after a mid-flow language switch got stuck instead of reaching the closing screen")
     else:
+        p.click('#doneWrap [data-view="journal"]'); p.wait_for_timeout(300)
         after_lang_entries = p.eval_on_selector_all(".entry","e=>e.length")
         after_worked_tags = p.eval_on_selector_all(".entry .tag","els=>els.filter(e=>e.textContent==='Worked through').length")
         if after_lang_entries != before_lang_entries + 1: fail("lang", f"entry not saved after mid-flow language switch: {before_lang_entries} -> {after_lang_entries}")
@@ -484,6 +498,61 @@ with sync_playwright() as pw:
     p.reload(); p.wait_for_timeout(1600)
     if p.eval_on_selector("#langSelect","e=>e.value") != "en": fail("lang","language choice did not persist across reload")
     else: ok("lang","language choice persists across reload")
+
+    # --- workbook ("Renewing your mind")
+    p.goto(URL); p.wait_for_timeout(1400)
+    if not p.is_visible('[data-wb="open"]'): fail("workbook","door missing from home screen")
+    else: ok("workbook","door present on home screen")
+    p.click('[data-wb="open"]'); p.wait_for_timeout(300)
+    if not p.is_visible("#v-workbook"): fail("workbook","opening the door did not open the workbook view")
+    n = p.eval_on_selector_all("#wbWrap .wbpart","e=>e.length")
+    if n != 5: fail("workbook", f"{n} parts listed, expected 5")
+    else: ok("workbook","all five parts listed")
+    check_overflow(p,"workbook-home@390"); check_contrast(p,"workbook-home@390")
+
+    p.click('[data-wb="part"][data-p="0"]'); p.wait_for_timeout(250)
+    if "Catch what the voice says" not in p.inner_text("#wbWrap"): fail("workbook","Part 1 intro screen did not open")
+    p.click('[data-wb="next"]'); p.wait_for_timeout(200)
+    p.fill('textarea[data-wk="p1.q1"]', "WORKBOOK ANSWER ONE"); p.wait_for_timeout(500)
+    check_contrast(p,"workbook-screen@390")
+    for _ in range(6):
+        p.click('[data-wb="next"]'); p.wait_for_timeout(150)
+    if "read back" not in p.inner_text("#wbWrap").lower(): fail("workbook","did not reach the part's read-back screen")
+    if "WORKBOOK ANSWER ONE" not in p.inner_text("#wbWrap"): fail("workbook","read-back screen missing the typed answer")
+    else: ok("workbook","a typed answer survives to the part's read-back screen")
+    p.click('[data-wb="finish"]'); p.wait_for_timeout(250)
+    p.click('[data-wb="home"]'); p.wait_for_timeout(250)
+    if p.eval_on_selector('[data-wb="part"][data-p="0"]',"e=>e.getAttribute('data-done')") != "1":
+        fail("workbook","Part 1 not marked finished after finishing it")
+    else: ok("workbook","finishing a part marks it done on the workbook home")
+
+    p.reload(); p.wait_for_timeout(1400)
+    p.click('[data-wb="open"]'); p.wait_for_timeout(300)
+    if p.eval_on_selector('[data-wb="part"][data-p="0"]',"e=>e.getAttribute('data-done')") != "1":
+        fail("workbook","finished-part state did not survive reload")
+    else: ok("workbook","workbook progress persists across reload")
+
+    # "practice on a real thought" (Part 2) must round-trip through the four-page
+    # flow and back without dead-ending, same invariant as the main flow
+    p.click('[data-wb="part"][data-p="1"]'); p.wait_for_timeout(250)
+    p.click('[data-wb="next"]'); p.wait_for_timeout(200)
+    if not p.is_visible('[data-wb="practice"]'): fail("workbook","Part 2's practice screen missing its button")
+    else:
+        p.click('[data-wb="practice"]'); p.wait_for_timeout(300)
+        if not p.is_visible("#v-untangle"): fail("workbook","practice link did not open the four-page flow")
+        else:
+            p.click('.btn.quiet[data-step="2"]'); p.wait_for_timeout(150)
+            p.click('.btn.quiet[data-step="3"]'); p.wait_for_timeout(150)
+            p.click('.btn.quiet[data-step="4"]'); p.wait_for_timeout(150)
+            p.click("#saveRecord"); p.wait_for_timeout(400)
+            if not p.is_visible("#v-done"): fail("workbook","saving from a workbook practice detour got stuck")
+            elif not p.is_visible('[data-wb="return"]'): fail("workbook","closing screen missing the 'Back to the workbook' button")
+            else:
+                p.click('[data-wb="return"]'); p.wait_for_timeout(300)
+                if not p.is_visible("#v-workbook"): fail("workbook","'Back to the workbook' did not return to the workbook")
+                else: ok("workbook","practicing on a real thought round-trips back to the workbook, every field still skippable")
+
+    p.click("#homeBtn"); p.wait_for_timeout(200)
 
     # focus + aria
     p.goto(URL); p.wait_for_timeout(1400)

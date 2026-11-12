@@ -22,6 +22,10 @@ Underneath: everything you've written, the eleven shapes your inner voice takes 
 
 There's also a small **Quick Remap** button below the three doors — not a fourth door, just a shortcut for when you already know the shape and want the reframe without the four pages: every shape's thought, its truer sentence, and a verse, all on one page.
 
+A fourth door, **Renewing your mind**, is a five-part guided workbook for the slower work on a day that isn't an emergency — notice the voice, test it, replace it with what's true, quiet the noise, live like it's true — with its own habit-tracking and a way to practice on a real thought and come straight back. It's currently English-only.
+
+Saving a thought or a page lands on a closing screen first — what you wrote, read back, with the heaviness reading and three ways on — rather than jumping straight to the journal.
+
 A language switcher in the top corner — English or Español. It translates everything the app says; Bible verses stay in English (ESV) in both languages until a real named Spanish translation is added, rather than a machine translation of scripture. Your choice is remembered.
 
 Four colour settings in the top corner — match my device, Rose, Harbor, Dusk. Rose is the default until you pick something else; it remembers whichever you chose.
@@ -72,6 +76,7 @@ Everything worth changing lives near the top of the `<script>` block in one plac
 - `STEPS` — the four pages: heading, opening line, margin verse, and the fields.
 - `PROMPTS` — the writing prompts.
 - `STRINGS.en` / `STRINGS.es` — every other piece of fixed UI text (buttons, headings, messages), looked up with `T(key)`.
+- `WB` / `WB_TOOLS` — the five-part workbook's parts and its eight "lower the volume" tools. English-only; see `HANDOFF.md` before touching this.
 
 Colours are CSS custom properties at the top of the `<style>` block: one block per palette (`[data-skin="rose"]`, `"harbor"`, `"dusk"`), plus the no-attribute default that follows the device. Add a fourth palette by copying a block and adding a swatch button.
 

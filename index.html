@@ -278,6 +278,97 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 .pick[aria-pressed="true"] .ref, .pick[aria-pressed="true"] .ref a{color:var(--calm)}
 .pick q{font-family:var(--serif);font-style:italic;font-size:1.0625rem;line-height:1.4;quotes:none}
 
+/* ---------- workbook ---------- */
+.wbdoor{border-left:3px solid var(--accent)}
+.wbmeta{font-family:var(--mono);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.4rem}
+.wbscreen{display:flex;flex-direction:column;gap:1.35rem;animation:wbin .26s ease both}
+@keyframes wbin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.wbscreen{animation:none}}
+.wbparts{display:flex;flex-direction:column;gap:.6rem}
+.wbpart{
+  display:grid;grid-template-columns:2rem minmax(0,1fr);gap:.9rem;align-items:start;width:100%;text-align:left;cursor:pointer;
+  background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:1rem 1.1rem;transition:border-color .15s ease;
+}
+.wbpart:hover{border-color:var(--accent)}
+.wbnum{font-family:var(--serif);font-size:1.75rem;line-height:1;color:var(--accent)}
+.wbpart[data-done="1"] .wbnum{color:var(--calm)}
+.wbname{font-family:var(--serif);font-size:1.3125rem;font-weight:500;line-height:1.2;display:block}
+.wbsub{color:var(--ink-2);font-size:.9063rem;line-height:1.45;display:block;margin-top:.2rem}
+.wbstat{font-family:var(--mono);font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);display:block;margin-top:.55rem}
+.wbpart[data-done="1"] .wbstat{color:var(--calm)}
+.wbbar{height:3px;background:var(--rule);border-radius:2px;margin-top:.45rem;overflow:hidden;display:block}
+.wbbar span{display:block;height:100%;background:var(--accent);transition:width .3s ease}
+.wbpart[data-done="1"] .wbbar span{background:var(--calm)}
+.wbq{font-family:var(--serif);font-weight:500;font-size:clamp(1.4rem,4.6vw,1.75rem);line-height:1.25;letter-spacing:-.005em;margin:0}
+.voices{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.75rem;margin-top:.75rem}
+.voice{border:1px solid var(--rule);border-radius:6px;background:var(--panel);padding:1rem 1.1rem}
+.voice.shep{border-color:var(--calm);background:var(--calm-wash)}
+.voice h3{font-family:var(--mono);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--ink-3)}
+.voice.shep h3{color:var(--calm)}
+.voice ul{margin:.6rem 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.45rem;font-size:.9063rem;line-height:1.45;color:var(--ink-2)}
+.voice li b{color:var(--ink);font-weight:600}
+details.wbfold{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:.65rem 0}
+details.wbfold>summary{cursor:pointer;font-size:.9375rem;font-weight:600;color:var(--ink-2)}
+details.wbfold[open]>summary{color:var(--ink)}
+.habit{border:1px solid var(--rule);border-radius:6px;background:var(--panel);padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.65rem}
+.habit b{font-family:var(--mono);font-size:.625rem;letter-spacing:.12em;text-transform:uppercase;color:var(--calm);font-weight:500}
+.habit p{font-size:.9375rem;line-height:1.5}
+.hdots{display:flex;gap:.45rem;flex-wrap:wrap}
+.hdot{width:2.4rem;height:2.4rem;border-radius:50%;border:1px solid var(--rule-2);background:none;cursor:pointer;font-family:var(--mono);font-size:.75rem;color:var(--ink-3);padding:0}
+.hdot[aria-pressed="true"]{background:var(--calm);border-color:var(--calm);color:var(--on-accent)}
+.hcount{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.habit .hdot{width:.85rem;height:.85rem;cursor:default}
+.habit .hdot[data-on="1"]{background:var(--calm);border-color:var(--calm)}
+.logged{font-size:.8125rem;font-weight:600;color:var(--calm)}
+.hearlier{border-bottom:0;padding-bottom:0}
+.hearlier .rb:last-child{border-bottom:0}
+.hday{display:flex;flex-direction:column;gap:.5rem;border-top:1px solid var(--rule);padding-top:.85rem;margin-top:.35rem}
+.hday textarea{background:var(--paper)}
+.habit .hdots{gap:.3rem}
+.wbrow{border:1px solid var(--rule);border-radius:6px;background:var(--panel);padding:.95rem 1rem;display:flex;flex-direction:column;gap:.65rem}
+.wbrow textarea{background:var(--paper)}
+.wbrow .field-label{font-size:.8125rem}
+.wbrowtop{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.tools{display:flex;flex-direction:column;border-top:1px solid var(--rule)}
+.tool{border-bottom:1px solid var(--rule);padding:1rem 0;display:flex;flex-direction:column;gap:.5rem}
+.toolhead{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.toolname{font-family:var(--serif);font-style:italic;font-size:1.25rem;line-height:1.25}
+.tool p{font-size:.9375rem;color:var(--ink-2);line-height:1.5}
+.tool .ref{white-space:nowrap}
+.readback{display:flex;flex-direction:column}
+.rb{border-bottom:1px solid var(--rule);padding-block:.95rem}
+.rbq{font-size:.8438rem;color:var(--ink-3);line-height:1.45}
+.rba{font-size:.9688rem;line-height:1.6;white-space:pre-wrap;margin-top:.3rem}
+.wbjhead{border-top:1px solid var(--rule-2);margin-top:1.5rem;padding-top:1.5rem;display:flex;flex-direction:column;gap:.35rem}
+.wbjhead h3{font-family:var(--serif);font-weight:500;font-size:1.5rem}
+.rbpart{font-family:var(--mono);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);padding-top:1.4rem}
+.wbnav{
+  position:sticky;bottom:0;z-index:5;background:var(--paper);border-top:1px solid var(--rule);
+  display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;padding:.8rem 0;margin-top:.4rem;
+}
+.savedtick{font-size:.8125rem;color:var(--calm);font-weight:500;opacity:0;transition:opacity .25s ease;margin-left:auto}
+.savedtick.on{opacity:1}
+.prayer{font-family:var(--serif);font-style:italic;font-size:1.125rem;line-height:1.45;color:var(--ink-2);border-left:2px solid var(--accent);padding-left:1rem;margin:0}
+@media print{.wbnav{display:none!important}}
+
+/* ---------- the closing screen ---------- */
+.donecard{
+  border:1px solid var(--rule);border-radius:6px;background:var(--panel);
+  padding:1.25rem 1.35rem;display:flex;flex-direction:column;gap:.9rem;max-width:34rem;
+}
+.donecard .said{font-family:var(--serif);font-size:1.25rem;font-style:italic;line-height:1.4;color:var(--ink)}
+.donecard .nextline{
+  background:var(--calm-wash);border-left:2px solid var(--calm);padding:.65rem .9rem;
+  border-radius:0 4px 4px 0;font-size:.9375rem;line-height:1.55;
+}
+.donecard .nextline b{display:block;font-family:var(--mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--calm);font-weight:500;margin-bottom:.2rem}
+.donecard .carried{font-family:var(--serif);font-style:italic;font-size:1.0625rem;line-height:1.4;color:var(--ink-2)}
+.movedline{font-size:.9375rem;color:var(--ink-2);line-height:1.55;max-width:34rem;display:flex;
+  align-items:center;gap:.6rem;flex-wrap:wrap}
+.movednum{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:1.125rem;color:var(--ink)}
+.movednum .to{color:var(--calm);font-weight:500}
+
 /* ---------- buttons ---------- */
 .actions{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;padding-top:.35rem}
 .btn{border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);padding:.6rem 1.25rem;border-radius:5px;cursor:pointer;font-size:.9375rem;font-weight:500}
@@ -364,6 +455,14 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
       <button class="remap-pill" type="button" data-view="remap">
         <span class="remap-pill-label" id="remapLabel">Quick Remap</span>
         <span class="remap-pill-note" id="remapNote">Skip straight to the reframes</span>
+      </button>
+    </div>
+
+    <div class="doors">
+      <button class="door wbdoor" type="button" data-wb="open">
+        <span class="wbmeta" id="wbDoorMeta">A five-part workbook</span>
+        <span class="dtitle">Renewing your mind</span>
+        <span class="dsub" id="wbDoorSub">For the slower work, on days that aren&rsquo;t an emergency. About ten minutes at a time, and it keeps your place.</span>
       </button>
     </div>
 
@@ -464,6 +563,11 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
     </div>
   </section>
 
+  <!-- =============== DONE =============== -->
+  <section class="view" id="v-done" hidden>
+    <div id="doneWrap"></div>
+  </section>
+
   <!-- =============== JOURNAL =============== -->
   <section class="view" id="v-journal" hidden>
     <div class="jhead">
@@ -480,6 +584,7 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
       </div>
     </div>
     <div class="entries" id="entries"></div>
+    <div id="wbJournal"></div>
     <div id="copyOut"></div>
     <div id="backupOut"></div>
   </section>
@@ -514,10 +619,16 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
     <div id="remapList"></div>
   </section>
 
+  <!-- =============== WORKBOOK =============== -->
+  <section class="view" id="v-workbook" hidden>
+    <div id="wbWrap"></div>
+  </section>
+
   <footer class="footer">
     <p id="footer1">Scripture quotations are from the ESV&reg; Bible (The Holy Bible, English Standard Version&reg;), copyright &copy; 2001 by Crossway.</p>
     <p id="footer2">This is built on the thought record from cognitive behavioral therapy. It is not therapy and it can&rsquo;t be. If the thoughts are constant, if they&rsquo;re about hurting yourself, or if you just can&rsquo;t get out from under them &mdash; please tell a real person today. A friend, your campus counseling center, your doctor. In the US you can call or text <strong>988</strong> any hour of any day, and you don&rsquo;t have to be in crisis to do it.</p>
     <p id="footer3">Made with love, to be shared freely.</p>
+    <p class="small" id="appVersion">Version 2026.11.12</p>
   </footer>
 </div>
 
@@ -987,6 +1098,11 @@ var STEPS_EN = [
         '<div class="scale-ends"><span>I can carry it</span><span>It&rsquo;s all of me</span></div></div>'+
         '<div class="readout" id="afterVal">45</div></div>'+
         '<span class="field-hint">It does not have to have moved. If it hasn&rsquo;t, that&rsquo;s information, not failure — and it&rsquo;s worth telling someone.</span></div>'+
+        '<div class="subhead">Only if you want to</div>'+
+        '<label class="field"><span class="field-label">One thing I&rsquo;m thankful for today</span>'+
+        '<input type="text" id="f-thanks" placeholder="My roommate saved me a seat."></label>'+
+        '<label class="field"><span class="field-label">A prayer, in one sentence</span>'+
+        '<textarea id="f-prayer" rows="2" placeholder="Lord, help me believe the truer thing tomorrow too."></textarea></label>'+
         '<div class="margin-note"><blockquote>&ldquo;I appeal to you therefore, brothers, by the mercies of God, to present your bodies as a living sacrifice, holy and acceptable to God, which is your spiritual worship. Do not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect.&rdquo;</blockquote>'+
         refLink("Romans 12:1–2 · ESV","romans/12-1.htm")+vctx("Paul's appeal right after eleven chapters explaining God's mercy toward us — the ‘therefore’ points all the way back to that.")+'</div>' }
 ];
@@ -1058,6 +1174,11 @@ var STEPS_ES = [
         '<div class="scale-ends"><span>Puedo cargarlo</span><span>Es todo lo que soy</span></div></div>'+
         '<div class="readout" id="afterVal">45</div></div>'+
         '<span class="field-hint">No tiene que haberse movido. Si no lo ha hecho, eso es información, no un fracaso &mdash; y vale la pena contárselo a alguien.</span></div>'+
+        '<div class="subhead">Solo si quieres</div>'+
+        '<label class="field"><span class="field-label">Algo por lo que estoy agradecida hoy</span>'+
+        '<input type="text" id="f-thanks" placeholder="Mi compañera de cuarto me guardó un lugar."></label>'+
+        '<label class="field"><span class="field-label">Una oración, en una frase</span>'+
+        '<textarea id="f-prayer" rows="2" placeholder="Señor, ayúdame a creer lo más verdadero también mañana."></textarea></label>'+
         '<div class="margin-note"><blockquote>&ldquo;I appeal to you therefore, brothers, by the mercies of God, to present your bodies as a living sacrifice, holy and acceptable to God, which is your spiritual worship. Do not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect.&rdquo;</blockquote>'+
         refLink("Romans 12:1–2 · ESV","romans/12-1.htm")+vctx("La petición de Pablo justo después de once capítulos explicando la misericordia de Dios hacia nosotros &mdash; el 'por lo tanto' apunta hasta allá.")+'</div>' }
 ];
@@ -1138,7 +1259,24 @@ en: {
   shuffleVerses:"Show me different ones",
   langLabel:"Language",
   txtHappened:"What happened:", txtFeeling:"Feeling:", txtThought:"The thought:", txtDoing:"What it was doing:",
-  txtProvable:"Provable:", txtFriend:"Someone who loves me would say:", txtTruer:"Truer:", txtVerse:"Verse:"
+  txtProvable:"Provable:", txtFriend:"Someone who loves me would say:", txtTruer:"Truer:", txtVerse:"Verse:",
+  entryThanks:"Thankful for:", entryPrayer:"Prayer:", txtThanks:"Thankful for:", txtPrayer:"Prayer:",
+
+  doneKicker:"Kept", doneTitlePage:"That&rsquo;s saved", doneTitleRecord:"That&rsquo;s done",
+  doneLedePage:"It&rsquo;s on your page. You don&rsquo;t have to do anything else with it.",
+  doneLedeReframe:"You wrote it down, looked at it honestly, and said something truer. That is the whole of the work — it doesn&rsquo;t have to feel finished.",
+  doneLedeNamed:"You named what was here and what the thought was doing, on a day when that was hard enough. That counts, and it&rsquo;s kept.",
+  doneWhatWasHere:"What was here:",
+  doneNamedLine:"That&rsquo;s what the thought was doing. Naming it is the part most people never get to.",
+  doneNextStepLabel:"The one small step:",
+  doneSeeEverything:"See everything you&rsquo;ve written", doneWorkAnother:"Work through another", doneFinished:"I&rsquo;m finished for now",
+  doneKeptNote:"Kept on this device only.",
+  doneKeptNotePaper:" If you keep a paper journal, this is a good moment to copy the truer sentence into it.",
+  doneKeptNotePaperAlt:" If you keep a paper journal, this is a good moment to write a line in it.",
+  movedOff:"That is the weight coming off. It does not have to reach zero to count.",
+  movedSame:"It hasn&rsquo;t shifted yet. That is information, not failure — and it is worth telling someone.",
+  movedHeavier:"It is heavier than when you started. That happens, and it is not a sign you did this wrong. Please tell someone today.",
+  movedNoSecondReading:"That is where it was when you started. You didn&rsquo;t take a second reading, which is fine — it is not a test."
 },
 es: {
   wordmark:"Cautivos Todo Pensamiento", backBtn:"← Atrás", homeBtn:"Inicio",
@@ -1207,7 +1345,24 @@ es: {
   shuffleVerses:"Muéstrame otros",
   langLabel:"Idioma",
   txtHappened:"Qué pasó:", txtFeeling:"Sentimiento:", txtThought:"El pensamiento:", txtDoing:"Qué estaba haciendo:",
-  txtProvable:"Comprobable:", txtFriend:"Alguien que me quiere diría:", txtTruer:"Más verdadero:", txtVerse:"Versículo:"
+  txtProvable:"Comprobable:", txtFriend:"Alguien que me quiere diría:", txtTruer:"Más verdadero:", txtVerse:"Versículo:",
+  entryThanks:"Agradecida por:", entryPrayer:"Oración:", txtThanks:"Agradecida por:", txtPrayer:"Oración:",
+
+  doneKicker:"Guardado", doneTitlePage:"Eso está guardado", doneTitleRecord:"Eso está hecho",
+  doneLedePage:"Está en tu página. No tienes que hacer nada más con eso.",
+  doneLedeReframe:"Lo escribiste, lo miraste con honestidad, y dijiste algo más verdadero. Eso es todo el trabajo — no tiene que sentirse terminado.",
+  doneLedeNamed:"Nombraste lo que había aquí y lo que el pensamiento estaba haciendo, en un día en que eso ya era suficientemente difícil. Eso cuenta, y está guardado.",
+  doneWhatWasHere:"Lo que había aquí:",
+  doneNamedLine:"Eso es lo que el pensamiento estaba haciendo. Nombrarlo es la parte a la que la mayoría de la gente nunca llega.",
+  doneNextStepLabel:"El pequeño paso:",
+  doneSeeEverything:"Ver todo lo que has escrito", doneWorkAnother:"Trabajar otro pensamiento", doneFinished:"Es suficiente por ahora",
+  doneKeptNote:"Guardado solo en este dispositivo.",
+  doneKeptNotePaper:" Si llevas un diario de papel, este es un buen momento para copiar la frase más verdadera en él.",
+  doneKeptNotePaperAlt:" Si llevas un diario de papel, este es un buen momento para escribir una línea en él.",
+  movedOff:"Ese es el peso que se está yendo. No tiene que llegar a cero para contar.",
+  movedSame:"Todavía no se ha movido. Eso es información, no un fracaso — y vale la pena contárselo a alguien.",
+  movedHeavier:"Es más pesado que cuando empezaste. Eso pasa, y no es una señal de que lo hiciste mal. Por favor cuéntaselo a alguien hoy.",
+  movedNoSecondReading:"Ahí es donde estaba cuando empezaste. No tomaste una segunda lectura, lo cual está bien — no es una prueba."
 }
 };
 function T(k){ var d = STRINGS[LANG] || STRINGS.en; return (d[k] != null ? d[k] : (STRINGS.en[k] != null ? STRINGS.en[k] : k)); }
@@ -1344,20 +1499,24 @@ function load(){ try{ var r = localStorage.getItem(EKEY); entries = r ? JSON.par
 function persist(){ try{ localStorage.setItem(EKEY, JSON.stringify(entries)); }catch(e){} }
 
 /* ============================================================== views == */
-var VIEWS = ["home","steady","untangle","write","journal","shapes","verses","remap"];
+var VIEWS = ["home","steady","untangle","write","journal","shapes","verses","remap","done","workbook"];
 function show(v, push){
   if(push !== false && v !== view) stack.push(view);
   if(v === "home") stack = [];
   view = v;
+  if(v !== "untangle" && v !== "done") wbReturn = false;
   VIEWS.forEach(function(k){ $("v-"+k).hidden = (k !== v); });
   $("homeBtn").hidden = (v === "home");
   $("backBtn").hidden = (v === "home") || (stack.length === 0 && !(v === "untangle" && step > 1));
   if(v === "untangle") renderStep();
-  if(v === "journal") renderEntries();
+  if(v === "journal"){ renderEntries(); renderWbJournal(); }
+  if(v === "workbook") renderWb();
+  if(v === "home") paintWbDoor();
   if(v === "steady") startBreath(); else stopBreath();
   window.scrollTo(0,0);
 }
 function goBack(){
+  if(view === "workbook" && wbS.mode !== "home"){ wbBack(); return; }
   if(view === "untangle" && step > 1){ goStep(step-1); return; }
   if(stack.length){ show(stack.pop(), false); return; }
   show("home", false);
@@ -1448,9 +1607,12 @@ function renderStep(){
   $("backBtn").hidden = false;
 }
 
-var draft = { situation:"", thought:"", feelings:[], before:70, shapes:[], provable:"", leftOut:"", friend:"", reframe:"", nextTime:"", nextStep:"", after:45 };
+var BLANK_DRAFT = { situation:"", thought:"", feelings:[], before:70, shapes:[], provable:"", leftOut:"", friend:"", reframe:"", nextTime:"", nextStep:"", thanks:"", prayer:"", after:45, movedBefore:false, movedAfter:false };
+function blankDraft(){ return JSON.parse(JSON.stringify(BLANK_DRAFT)); }
+var draft = blankDraft();
 var FIELDMAP = [["situation","f-situation"],["thought","f-thought"],["provable","f-provable"],
-  ["leftOut","f-leftout"],["friend","f-friend"],["reframe","f-reframe"],["nextTime","f-nexttime"],["nextStep","f-step"]];
+  ["leftOut","f-leftout"],["friend","f-friend"],["reframe","f-reframe"],["nextTime","f-nexttime"],["nextStep","f-step"],
+  ["thanks","f-thanks"],["prayer","f-prayer"]];
 
 function capture(){
   FIELDMAP.forEach(function(p){ var el = $(p[1]); if(el) draft[p[0]] = el.value; });
@@ -1481,7 +1643,10 @@ function goStep(n){ capture(); step = n; renderStep(); window.scrollTo(0,0); }
 
 function bindRange(id, out){
   var el = $(id); if(!el) return;
-  el.addEventListener("input", function(){ $(out).textContent = this.value; });
+  el.addEventListener("input", function(){
+    $(out).textContent = this.value;
+    draft[id === "f-before" ? "movedBefore" : "movedAfter"] = true;
+  });
 }
 function paintChips(hostId){
   $(hostId).innerHTML = FEELINGS.map(function(f){
@@ -1578,6 +1743,8 @@ function entryHTML(e){
     (e.nextTime ? '<p class="enext"><b>'+T("entryNextTime")+'</b>'+esc(e.nextTime)+'</p>' : '')+
     (e.nextStep ? '<p class="small" style="margin-top:.5rem"><strong style="color:var(--ink-2)">'+T("entryNextStep")+'</strong> '+esc(e.nextStep)+'</p>' : '')+
     (e.verse ? '<p class="everse">&ldquo;'+esc(e.verse.text)+'&rdquo; '+refLink(e.verse.ref, e.verse.url||"")+'</p>' : '')+
+    (e.thanks ? '<p class="small" style="margin-top:.5rem"><strong style="color:var(--ink-2)">'+T("entryThanks")+'</strong> '+esc(e.thanks)+'</p>' : '')+
+    (e.prayer ? '<p class="small" style="margin-top:.5rem"><strong style="color:var(--ink-2)">'+T("entryPrayer")+'</strong> '+esc(e.prayer)+'</p>' : '')+
     '<div class="actions"><button class="btn quiet" type="button" data-del="'+esc(e.id)+'">'+T("entryDelete")+'</button></div>'+
   '</article>';
 }
@@ -1637,9 +1804,630 @@ function toText(){
     if(e.nextTime) L.push(T("entryNextTime") + " " + e.nextTime);
     if(e.nextStep) L.push(T("entryNextStep") + " " + e.nextStep);
     if(e.verse) L.push(T("txtVerse") + " “" + e.verse.text + "” — " + e.verse.ref + " (ESV)");
+    if(e.thanks) L.push(T("txtThanks") + " " + e.thanks);
+    if(e.prayer) L.push(T("txtPrayer") + " " + e.prayer);
     return L.join("\n\n");
-  }).join("\n\n---\n\n") + "\n";
+  }).join("\n\n---\n\n") + "\n" + (wbHasAny() ? "\n---\n\n" + wbText() : "");
 }
+
+/* =============================================================== done == */
+/* Every flow ends somewhere on purpose: what you wrote, read back to you,
+   and three ways onward. Never a silent jump to a list.                 */
+function movedLine(e){
+  if(typeof e.before !== "number" || typeof e.after !== "number") return "";
+  if(e.kind === "record" && e.movedAfter === false){
+    return '<p class="movedline"><span class="movednum">'+e.before+'</span>'+
+           '<span>'+esc(T("movedNoSecondReading"))+'</span></p>';
+  }
+  var num = '<span class="movednum">'+e.before+' <span aria-hidden="true">&rarr;</span> <span class="to">'+e.after+'</span></span>';
+  var words;
+  if(e.after < e.before) words = T("movedOff");
+  else if(e.after === e.before) words = T("movedSame");
+  else words = T("movedHeavier");
+  return '<p class="movedline">'+num+'<span>'+esc(words)+'</span></p>';
+}
+function renderDone(e){
+  var isPage = e.kind === "page";
+  var body = '<div class="vhead"><div class="kicker">'+T("doneKicker")+'</div>'+
+    '<h2>'+(isPage ? T("doneTitlePage") : T("doneTitleRecord"))+'</h2>'+
+    '<p class="lede">'+(isPage
+      ? T("doneLedePage")
+      : (e.reframe ? T("doneLedeReframe") : T("doneLedeNamed")))+
+    '</p></div>';
+
+  var card = "";
+  if(e.reframe) card += '<p class="said">&ldquo;'+esc(e.reframe)+'&rdquo;</p>';
+  else if(e.text) card += '<p class="said">'+esc(e.text.length > 220 ? e.text.slice(0,220)+"…" : e.text)+'</p>';
+  else if(e.thought) card += '<p class="said">&ldquo;'+esc(e.thought)+'&rdquo;</p>';
+  else if((e.feelings && e.feelings.length) || (e.shapes && e.shapes.length)){
+    /* nothing was typed — read back what was tapped, so it still lands */
+    if(e.feelings && e.feelings.length)
+      card += '<p class="field-hint"><strong style="color:var(--ink-2)">'+T("doneWhatWasHere")+'</strong> '+esc(e.feelings.join(", "))+'</p>';
+    if(e.shapes && e.shapes.length)
+      card += '<p class="said">&ldquo;'+esc(e.shapes.join("”  ·  “"))+'&rdquo;</p>'+
+              '<p class="field-hint">'+T("doneNamedLine")+'</p>';
+  }
+  if(e.nextTime) card += '<p class="nextline"><b>'+T("entryNextTime")+'</b>'+esc(e.nextTime)+'</p>';
+  if(e.nextStep) card += '<p class="field-hint"><strong style="color:var(--ink-2)">'+T("doneNextStepLabel")+'</strong> '+esc(e.nextStep)+'</p>';
+  if(e.verse) card += '<p class="carried">&ldquo;'+esc(e.verse.text)+'&rdquo; '+refLink(e.verse.ref+" · ESV", e.verse.url||"")+'</p>';
+  if(card) body += '<div class="donecard">'+card+'</div>';
+
+  body += movedLine(e);
+
+  body += '<div class="actions">'+
+    '<button class="btn" type="button" data-view="journal">'+T("doneSeeEverything")+'</button>'+
+    '<button class="btn ghost" type="button" data-view="untangle">'+T("doneWorkAnother")+'</button>'+
+    '<button class="btn quiet" type="button" data-view="home">'+T("doneFinished")+'</button>'+
+  '</div>';
+
+  body += '<p class="small" style="max-width:34rem">'+T("doneKeptNote")+
+    (e.reframe ? T("doneKeptNotePaper") : T("doneKeptNotePaperAlt"))+'</p>';
+
+  $("doneWrap").innerHTML = body;
+}
+
+/* =========================================================== workbook == */
+/* A slower, five-part course that sits beside the three doors. One prompt
+   per screen, everything saved as it is typed, and it always remembers
+   where it stopped. English-only for now — translating this is its own
+   future project; see HANDOFF.md.                                       */
+var WKEY = "tet.workbook.v1";
+var wb = { a:{}, rows:[], tools:{}, habits:{}, done:{}, last:null, practice:[], hlog:{} };
+var wbReturn = false, wbEdit = {};
+var wbS = { mode:"home", p:0, i:0 };
+var wbTimer = null, wbResetArmed = false;
+
+var WB = [
+ { id:"p1", name:"Notice", title:"Catch what the voice says",
+   lede:"You can’t answer a thought you haven’t caught. This part is only listening and writing down what the voice says. No fixing yet.",
+   verse:{ ref:"Proverbs 4:23", url:"proverbs/4-23.htm", gist:"Guard your heart above everything else, because the rest of your life flows out of it." },
+   skillT:"Write it as “You,” not “I”",
+   skill:"Instead of “I’m so awkward,” write “You’re so awkward.” That one change shows the thought is something being said to you, not the truth about you.",
+   habit:"Each night, write down one thought you caught and how it left you feeling.",
+   prayer:"Lord, show me what I’ve been believing about myself that didn’t come from You.",
+   screens:[
+    { t:"q", k:"p1.q1", q:"When is the voice loudest?", hint:"After a grade posts. In the mirror. Scrolling at 1 a.m. Walking into a room where everyone already knows each other.", ph:"Mostly at night, and right after I’ve been on my phone a while." },
+    { t:"q", k:"p1.q2", q:"Write three things it said to you this week.", hint:"Use “You…” for each one, exactly the way it sounds in your head.", ph:"You’re behind everyone else.\nYou always make it awkward.\nYou’re not really that close to God.", rows:5 },
+    { t:"q", k:"p1.q3", q:"What does it say about your body, your ability, your friendships, your faith?", hint:"One line each is plenty. Skip any that don’t apply.", ph:"Body: …\nAbility: …\nFriendships: …\nFaith: …", rows:6 },
+    { t:"q", k:"p1.q4", q:"If a friend talked to you the way this voice does, would you keep her around?", hint:"Say why or why not.", ph:"" },
+    { t:"q", k:"p1.q5", q:"Where has the voice sounded kind first and then turned on you?", hint:"“You deserve to skip it.” “Just stay in tonight.” And then, afterward: “See, you never follow through.”", ph:"" },
+    { t:"q", k:"p1.q6", q:"Where did some of these lines first come from?", hint:"A moment, a comment, a comparison. This isn’t about blaming anyone. It’s about finding where a line started, so it stops sounding like your own idea.", ph:"" }
+   ] },
+ { id:"p2", name:"Test", title:"Put the thought on trial",
+   lede:"A thought feeling true doesn’t make it true. In this part every thought gets questioned before it gets believed.",
+   verse:{ ref:"2 Corinthians 10:5", url:"2_corinthians/10-5.htm", gist:"Take every thought captive and make it answer to Christ." },
+   skillT:"Four questions for any thought",
+   skill:"Is it true? Is it the whole truth? Does it sound like the critic or the Shepherd? Does it agree with what God says? On the next screen you’ll practice them on a real thought.",
+   habit:"Catch one thought a day and ask it, “Is that actually true?”",
+   prayer:"Jesus, You said the truth sets us free. Help me see this thought the way You see it.",
+   screens:[
+    { t:"practice" },
+    { t:"q", k:"p2.q2", q:"What’s one lie you’ve believed for so long that it feels like a fact?", hint:"", ph:"" },
+    { t:"multi", q:"Most lies land in one of three places. Which do yours lean toward?", hint:"",
+      fields:[
+       { k:"p2.q3.pick", label:"The one that fits most", pick:["I’m helpless","I’m worthless","I’m unlovable"] },
+       { k:"p2.q3", label:"What makes you say that?", ph:"", rows:4 }
+      ] },
+    { t:"q", k:"p2.q4", q:"Think of a time the voice predicted something that never happened.", hint:"What does that tell you about how reliable it is?", ph:"" },
+    { t:"q", k:"p2.q5", q:"What has believing this lie cost you?", hint:"Things you didn’t try. People you avoided. Joy you missed.", ph:"" }
+   ] },
+ { id:"p3", name:"Replace", title:"Trade the lie for what’s true",
+   lede:"Pulling out a lie leaves a gap, and the lie moves back in unless truth fills it. In this part you answer the voice, in writing and out loud.",
+   verse:{ ref:"Philippians 4:8", url:"philippians/4-8.htm", gist:"Set your mind on what is true, honorable, pure and worth praising." },
+   skillT:"Answer back with “I” and with Scripture",
+   skill:"The voice says “You…” You answer “I…” and add what God says. Jesus answered every temptation in the wilderness the same way: with what was written.",
+   habit:"Read your three truth statements out loud every morning. Put them on your lock screen.",
+   prayer:"Father, help me believe what You say about me more than what I feel about me.",
+   screens:[
+    { t:"rows" },
+    { t:"q", k:"p3.q1", q:"Write to yourself the way you’d write to a younger sister who believed your lie.", hint:"Kind and honest, both.", ph:"", rows:8 },
+    { t:"q", k:"p3.q2", q:"Write three truth statements about who you are in Christ.", hint:"Start each with “Because of Jesus, I am…”", ph:"Because of Jesus, I am…\nBecause of Jesus, I am…\nBecause of Jesus, I am…", rows:5 },
+    { t:"q", k:"p3.q3", q:"Which verse do you most need right now?", hint:"Copy it out of your own Bible and say why this one.", ph:"", link:{ view:"verses", label:"Open verses for the hard days" } },
+    { t:"q", k:"p3.q4", q:"Read your truth statements out loud. What did you feel?", hint:"If they don’t feel true yet, say so. That’s honest, and it’s normal.", ph:"" }
+   ] },
+ { id:"p4", name:"Quiet", title:"Turn the volume down",
+   lede:"Some moments the voice is too loud to argue with. You need something that lowers the volume first. Try each of these and keep the ones that work for you.",
+   verse:{ ref:"Philippians 4:6–7", url:"philippians/4-6.htm", gist:"Bring everything to God in prayer, with thanks, and His peace will stand guard over your heart and mind." },
+   skillT:"Quiet first, then answer",
+   skill:"None of these is about emptying your mind. Each one turns your attention toward God or toward someone else, which is where the noise loses its grip.",
+   habit:"Two minutes of stillness with God before you pick up your phone in the morning.",
+   prayer:"God, I’m handing You this worry. I trust You to hold it.",
+   screens:[
+    { t:"tools" },
+    { t:"q", k:"p4.q1", q:"Which two helped most?", hint:"Describe one time you used each.", ph:"" },
+    { t:"q", k:"p4.q2", q:"What feeds the voice?", hint:"Certain apps or accounts, no sleep, too long alone. What is one thing you could cut back?", ph:"" },
+    { t:"q", k:"p4.q3", q:"Who are the two or three people you can be fully honest with?", hint:"If nobody comes to mind, who could become that person?", ph:"" },
+    { t:"multi", q:"Write your plan for when it gets loud.", hint:"Short enough to remember at the worst moment.",
+      fields:[
+       { k:"p4.plan.a", label:"First I will…", ph:"Put the phone in another room and breathe for two minutes.", line:true },
+       { k:"p4.plan.b", label:"Then I will…", ph:"Say Philippians 4:6–7 out loud.", line:true },
+       { k:"p4.plan.c", label:"And I will text…", ph:"", line:true }
+      ] }
+   ] },
+ { id:"p5", name:"Live", title:"Act on what’s true",
+   lede:"The voice loses power when you do the thing it told you not to do. In this part you take one small step that agrees with truth, not with the lie.",
+   verse:{ ref:"James 1:22", url:"james/1-22.htm", gist:"Do what the Word says. Don’t only listen to it." },
+   skillT:"Act against the voice, and expect it to get louder first",
+   skill:"When you step out, the critic usually pushes back harder for a while. That’s normal, and it fades. Joshua 1:9 was written for exactly that moment.",
+   habit:"Each night, write one way you acted on truth today, however small.",
+   prayer:"Holy Spirit, give me the courage to live like what You say about me is true.",
+   screens:[
+    { t:"q", k:"p5.q1", q:"What has the voice kept you from doing?", hint:"Trying out. Speaking up. Starting a friendship. Sharing your faith. Forgiving someone.", ph:"" },
+    { t:"multi", q:"Pick one small step for this week.", hint:"Small enough that you’ll actually do it.",
+      fields:[
+       { k:"p5.step.what", label:"What", ph:"Sit with someone new at lunch.", line:true },
+       { k:"p5.step.when", label:"When", ph:"Thursday", line:true },
+       { k:"p5.step.where", label:"Where", ph:"", line:true }
+      ] },
+    { t:"multi", q:"Come back after you’ve done it.", hint:"It’s fine to leave this blank until then.",
+      fields:[
+       { k:"p5.after.before", label:"What did the voice say beforehand?", ph:"", rows:3 },
+       { k:"p5.after.real", label:"What actually happened?", ph:"", rows:3 }
+      ] },
+    { t:"q", k:"p5.q4", q:"Who is God shaping you to become?", hint:"Describe her in five sentences.", ph:"", rows:7 },
+    { t:"q", k:"p5.q5", q:"Which fruit of the Spirit do you most want to grow in?", hint:"Galatians 5:22–23 lists them. What would it look like on a normal Tuesday?", ph:"" },
+    { t:"q", k:"p5.q6", q:"Look back at Part 1. What has changed in how you hear the voice?", hint:"And what is still hard?", ph:"" }
+   ] }
+];
+
+var WB_TOOLS = [
+ { id:"hand",   name:"Hand it over", how:"Tell God exactly what you’re worried about, out loud or on paper.", ref:"1 Peter 5:7", url:"1_peter/5-7.htm" },
+ { id:"still",  name:"Be still", how:"Two minutes, no phone, slow breaths, one short verse repeated.", ref:"Psalm 46:10", url:"psalms/46-10.htm", view:"steady", viewLabel:"Open the breathing page" },
+ { id:"step",   name:"Step back", how:"Coach yourself by name: “What would you tell a friend right now?” A little distance makes a thought less sticky." },
+ { id:"zoom",   name:"Zoom out", how:"Will this matter in a week? A year? In eternity?", ref:"2 Corinthians 4:17–18", url:"2_corinthians/4-17.htm" },
+ { id:"look",   name:"Look up", how:"Go outside. Notice something bigger than you, and thank the One who made it.", ref:"Psalm 19:1", url:"psalms/19-1.htm" },
+ { id:"thanks", name:"Give thanks", how:"Three specific things from today.", ref:"1 Thessalonians 5:18", url:"1_thessalonians/5-18.htm" },
+ { id:"reach",  name:"Reach out", how:"Tell one person you trust. Pick someone who helps you think, not just someone who agrees.", ref:"Galatians 6:2", url:"galatians/6-2.htm" },
+ { id:"serve",  name:"Serve", how:"Do one small thing for someone else.", ref:"Philippians 2:3–4", url:"philippians/2-3.htm" }
+];
+
+function wbLoad(){
+  try{
+    var r = localStorage.getItem(WKEY), o = r ? JSON.parse(r) : null;
+    if(o && typeof o === "object"){
+      wb.a = o.a && typeof o.a === "object" ? o.a : {};
+      wb.rows = Array.isArray(o.rows) ? o.rows : [];
+      wb.tools = o.tools && typeof o.tools === "object" ? o.tools : {};
+      wb.habits = o.habits && typeof o.habits === "object" ? o.habits : {};
+      wb.done = o.done && typeof o.done === "object" ? o.done : {};
+      wb.last = o.last && typeof o.last.p === "number" ? o.last : null;
+      wb.practice = Array.isArray(o.practice) ? o.practice : [];
+      wb.hlog = o.hlog && typeof o.hlog === "object" ? o.hlog : {};
+    }
+  }catch(e){}
+}
+function wbPersist(){ try{ localStorage.setItem(WKEY, JSON.stringify(wb)); }catch(e){} }
+function wbTouch(){
+  if(wbTimer) clearTimeout(wbTimer);
+  wbTimer = setTimeout(function(){
+    wbTimer = null; wbPersist();
+    var s = $("wbSaved"); if(s){ s.classList.add("on"); setTimeout(function(){ if(s) s.classList.remove("on"); }, 1400); }
+  }, 350);
+}
+function wbFlush(){ if(wbTimer){ clearTimeout(wbTimer); wbTimer = null; } wbPersist(); }
+function has(k){ return !!String(wb.a[k] || "").trim(); }
+function rowFilled(r){ return !!(r && ((r.lie||"").trim() || (r.answer||"").trim() || (r.truth||"").trim())); }
+function wbPracticed(){
+  return entries.filter(function(e){ return wb.practice.indexOf(e.id) > -1; }).sort(function(a,b){ return a.ts - b.ts; });
+}
+function screenFilled(s){
+  if(s.t === "practice") return wbPracticed().length > 0;
+  if(s.t === "q") return has(s.k);
+  if(s.t === "multi") return s.fields.some(function(f){ return has(f.k); });
+  if(s.t === "rows") return wb.rows.some(rowFilled);
+  if(s.t === "tools") return WB_TOOLS.some(function(t){ return wb.tools[t.id] || has("p4.tool."+t.id); });
+  return false;
+}
+function dayKey(t){ var d = t ? new Date(t) : new Date(); return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
+function dayLabel(x){
+  if(!x.date) return x.label || "Earlier";
+  if(x.date === dayKey()) return "Today";
+  var p = x.date.split("-"), d = new Date(+p[0], +p[1]-1, +p[2]);
+  return d.toLocaleDateString(undefined, { weekday:"short", month:"short", day:"numeric" });
+}
+function hLog(P){ return wb.hlog[P.id] || []; }
+function hToday(P){ var k = dayKey(); return hLog(P).filter(function(x){ return x.date === k; })[0] || null; }
+function hEnsureToday(P){
+  var t = hToday(P); if(t) return t;
+  t = { id:"h"+Date.now(), date:dayKey(), ts:Date.now(), text:"" };
+  (wb.hlog[P.id] || (wb.hlog[P.id] = [])).push(t); return t;
+}
+function habitNotes(P){
+  return hLog(P).slice().sort(function(a, b){ return (a.date || "") < (b.date || "") ? -1 : (a.date || "") > (b.date || "") ? 1 : a.ts - b.ts; });
+}
+function partCount(p){ return WB[p].screens.filter(screenFilled).length; }
+function partLen(p){ return WB[p].screens.length + 2; }
+function wbStarted(){
+  if(wb.last) return true;
+  for(var q = 0; q < WB.length; q++){ if(hLog(WB[q]).length) return true; }
+  for(var p = 0; p < WB.length; p++){ if(partCount(p) || wb.done[WB[p].id]) return true; }
+  return false;
+}
+function wbResume(){
+  if(wb.last && WB[wb.last.p]) return { p:wb.last.p, i:Math.min(wb.last.i, partLen(wb.last.p)-1) };
+  for(var p = 0; p < WB.length; p++){ if(!wb.done[WB[p].id]) return { p:p, i:0 }; }
+  return { p:0, i:0 };
+}
+function wbAllDone(){ return WB.every(function(P){ return wb.done[P.id]; }); }
+
+function paintWbDoor(){
+  var m = $("wbDoorMeta"), s = $("wbDoorSub"); if(!m || !s) return;
+  if(wbAllDone()){
+    m.textContent = "Workbook · finished";
+    s.textContent = "All five parts are done. Read back what you wrote, or go through any part again.";
+  } else if(wbStarted()){
+    var r = wbResume(), P = WB[r.p];
+    m.textContent = "Workbook · Part "+(r.p+1)+" of 5";
+    s.textContent = "Pick up where you left off: “"+P.name+".” Everything you wrote is still here.";
+  } else {
+    m.textContent = "A five-part workbook";
+    s.textContent = "For the slower work, on days that aren’t an emergency. About ten minutes at a time, and it keeps your place.";
+  }
+}
+
+/* ---- small builders ---- */
+function wbTA(k, rows, ph){
+  return '<textarea data-wk="'+esc(k)+'" rows="'+(rows||5)+'" placeholder="'+esc(ph||"")+'">'+esc(wb.a[k]||"")+'</textarea>';
+}
+function wbLine(k, ph){
+  return '<input type="text" data-wk="'+esc(k)+'" placeholder="'+esc(ph||"")+'" value="'+esc(wb.a[k]||"")+'">';
+}
+function wbPick(k, opts){
+  return '<div class="chips">'+opts.map(function(o){
+    return '<button type="button" class="chip" data-wb="pick" data-k="'+esc(k)+'" data-v="'+esc(o)+'" aria-pressed="'+(wb.a[k] === o ? "true" : "false")+'">'+esc(o)+'</button>';
+  }).join("")+'</div>';
+}
+function wbHabit(p, where){
+  var P = WB[p], L = hLog(P), today = hToday(P), n = L.length, dots = "";
+  for(var d = 0; d < 7; d++) dots += '<span class="hdot" data-on="'+(d < n ? 1 : 0)+'" aria-hidden="true"></span>';
+  var earlier = L.filter(function(x){ return x !== today; }).sort(function(a, b){ return (b.date || "") < (a.date || "") ? -1 : (b.date || "") > (a.date || "") ? 1 : b.ts - a.ts; });
+  var h = '<div class="habit" id="habit-'+P.id+'" data-where="'+(where || "")+'">'+
+    '<b>'+(where === "home" ? "Today’s habit · Part "+(p+1)+" · "+esc(P.name) : "Daily habit for this part")+'</b><p>'+esc(P.habit)+'</p>'+
+    '<div class="hcount"><div class="hdots">'+dots+'</div><span class="small">'+(n ? n+" day"+(n === 1 ? "" : "s")+" logged"+(n >= 7 ? ". Keep going as long as it helps." : "") : "No days logged yet")+'</span></div>'+
+    '<div class="hday">'+
+      '<div class="wbrowtop"><span class="field-label">Today</span>'+
+      (today ? '<span class="logged">Logged</span>' : '<button type="button" class="chip" data-wb="hlog" data-p="'+p+'">I did it today</button>')+'</div>'+
+      '<textarea rows="4" data-hl="'+P.id+'" data-id="today" aria-label="Today’s note" placeholder="How it went, what the voice said, what you noticed.">'+esc(today ? today.text : "")+'</textarea>'+
+      '<p class="field-hint">Write it the way it really went, heavy parts included. Getting it out is part of healing, and it’s how you’ll see what you’re learning. Tomorrow this box starts fresh, and today moves into the list below.</p>'+
+    '</div>';
+  if(earlier.length){
+    h += '<details class="wbfold hearlier"'+(wbEdit[P.id] ? ' open' : '')+'><summary>Earlier days ('+earlier.length+')</summary><div class="readback">'+
+      earlier.map(function(x){
+        var editing = wbEdit[P.id] === x.id;
+        return '<div class="rb"><div class="wbrowtop"><p class="rbq">'+esc(dayLabel(x))+'</p>'+
+          '<button class="btn quiet" type="button" data-wb="hedit" data-p="'+p+'" data-id="'+esc(x.id)+'" style="padding-block:0">'+(editing ? "Done" : "Edit")+'</button></div>'+
+          (editing ? '<textarea rows="4" data-hl="'+P.id+'" data-id="'+esc(x.id)+'" aria-label="Note for '+esc(dayLabel(x))+'">'+esc(x.text)+'</textarea>'
+                   : '<p class="rba">'+(x.text.trim() ? esc(x.text) : '<span class="small">Did it, no note.</span>')+'</p>')+'</div>';
+      }).join("")+'</div></details>';
+  }
+  return h+'<p class="small">Seven days is a guide, not a deadline. Everything here is also in your journal.</p></div>';
+}
+function rerenderHabit(P){
+  var card = $("habit-"+P.id); if(!card) return;
+  var p = WB.indexOf(P), tmp = document.createElement("div");
+  tmp.innerHTML = wbHabit(p, card.getAttribute("data-where")); card.replaceWith(tmp.firstChild);
+}
+function wbNav(primary, extra){
+  return '<div class="wbnav">'+primary+
+    '<button class="btn ghost" type="button" data-wb="prev">Back</button>'+
+    (extra||"")+
+    '<button class="btn quiet" type="button" data-wb="home">Stop here for now</button>'+
+    '<span class="savedtick" id="wbSaved" aria-live="polite">Saved</span></div>';
+}
+
+/* ---- workbook home ---- */
+function wbHomeHTML(){
+  var started = wbStarted(), r = wbResume(), all = wbAllDone();
+  var h = '<div class="wbscreen"><div class="vhead"><div class="kicker">The workbook</div>'+
+    '<h2>Renewing your mind</h2>'+
+    '<p class="lede">Five parts that follow one path: notice the voice in your head, test what it says, replace the lies with what God says is true, quiet the noise, and live like it’s true. Built on Romans 12:2.</p></div>';
+  h += '<div class="actions" style="padding-top:0">'+
+    (all ? '<button class="btn" type="button" data-view="journal">Read back what you wrote</button>'
+         : '<button class="btn" type="button" data-wb="resume">'+(started ? "Pick up where you left off" : "Start with Part 1")+'</button>')+
+    '</div>';
+  if(started && !all) h += wbHabit(r.p, "home");
+  h += '<div class="wbparts">'+WB.map(function(P, p){
+    var n = partCount(p), tot = P.screens.length, done = !!wb.done[P.id];
+    var stat = done ? "Finished" : (n ? n+" of "+tot+" answered" : "Not started");
+    return '<button class="wbpart" type="button" data-wb="part" data-p="'+p+'" data-done="'+(done ? 1 : 0)+'">'+
+      '<span class="wbnum" aria-hidden="true">'+(p+1)+'</span><span>'+
+      '<span class="wbname">'+esc(P.name)+'</span><span class="wbsub">'+esc(P.title)+'</span>'+
+      '<span class="wbstat">'+stat+'</span>'+
+      '<span class="wbbar"><span style="width:'+Math.round(100*n/tot)+'%"></span></span></span></button>';
+  }).join("")+'</div>';
+  h += '<details class="wbfold"><summary>First, tell the two voices apart</summary>'+
+    '<p class="small" style="margin-top:.6rem;max-width:34rem">The inner critic isn’t your conscience and it isn’t God’s voice. Scripture describes an accuser who lies ('+refLink("John 8:44","john/8-44.htm")+') and a Shepherd whose sheep know His voice ('+refLink("John 10:27","john/10-27.htm")+'). You can learn to tell them apart.</p>'+
+    '<div class="voices">'+
+      '<div class="voice"><h3>The critic</h3><ul>'+
+        '<li><b>Tone:</b> harsh, mocking, rushed.</li>'+
+        '<li><b>Aims at who you are:</b> “You’re a failure.”</li>'+
+        '<li><b>Leaves you:</b> ashamed, hiding, stuck.</li>'+
+        '<li><b>About the future:</b> “You’ll never change.”</li></ul></div>'+
+      '<div class="voice shep"><h3>The Shepherd</h3><ul>'+
+        '<li><b>Tone:</b> firm but kind, patient.</li>'+
+        '<li><b>Aims at what you did:</b> “That was wrong. Come back.”</li>'+
+        '<li><b>Leaves you:</b> sorry, hopeful, moving toward God.</li>'+
+        '<li><b>About the future:</b> “I’m not finished with you.”</li></ul></div>'+
+    '</div>'+
+    '<p class="small" style="margin-top:.75rem;max-width:34rem">Condemnation isn’t for anyone who is in Christ ('+refLink("Romans 8:1","romans/8-1.htm")+'). The goal here isn’t to think highly of yourself. It’s to think truthfully about yourself, which means agreeing with what God says.</p>'+
+    '</details>';
+  h += '<nav class="quietnav" aria-label="Workbook" style="border-top:0;padding-top:0">'+
+    '<button class="qlink" type="button" data-view="journal">Read back what you wrote</button>'+
+    '<button class="qlink" type="button" data-view="verses">Verses for the hard days</button>'+
+    '<button class="qlink" type="button" data-wb="reset" id="wbReset">'+(wbResetArmed ? "Tap again to erase every workbook answer" : "Start the workbook over")+'</button></nav>';
+  h += '<p class="small" style="max-width:34rem">Take one part a week, or one screen a day, or all of it out of order. Your answers save as you type and stay on this device only. Write the hard things honestly, even when every note comes out negative. Getting it out is part of healing: a thought on the page can be seen, prayed over and answered. Having a harsh thought isn’t a sin and doesn’t mean something is wrong with you.</p>';
+  return h+'</div>';
+}
+
+/* ---- one screen of a part ---- */
+function wbBodyHTML(P, p, s){
+  var h = "";
+  if(s.t === "q"){
+    h += '<h3 class="wbq">'+esc(s.q)+'</h3>'+(s.hint ? '<p class="field-hint" style="font-size:.9375rem">'+esc(s.hint)+'</p>' : '')+
+      wbTA(s.k, s.rows || 6, s.ph);
+  }
+  if(s.t === "multi"){
+    h += '<h3 class="wbq">'+esc(s.q)+'</h3>'+(s.hint ? '<p class="field-hint" style="font-size:.9375rem">'+esc(s.hint)+'</p>' : '');
+    h += s.fields.map(function(f){
+      return '<div class="field"><span class="field-label">'+esc(f.label)+'</span>'+
+        (f.hint ? '<span class="field-hint">'+esc(f.hint)+'</span>' : '')+
+        (f.pick ? wbPick(f.k, f.pick) : (f.line ? wbLine(f.k, f.ph) : wbTA(f.k, f.rows || 3, f.ph)))+'</div>';
+    }).join("");
+  }
+  if(s.t === "rows"){
+    if(!wb.rows.length) wb.rows.push({ lie:"", answer:"", truth:"" });
+    h += '<h3 class="wbq">Answer the voice, line by line.</h3>'+
+      '<p class="field-hint" style="font-size:.9375rem">One card per lie. The voice says “You…” You answer “I…” Then add what God says.</p>'+
+      '<div class="example"><span class="exlabel">Two examples</span>'+
+        '<p><em>You’re not good enough.</em><br>I’m still growing, and my worth was never earned by performance. '+refLink("Ephesians 2:8–10","ephesians/2-8.htm")+'</p>'+
+        '<p><em>You’re nothing next to her.</em><br>I was made on purpose, and comparing steals my joy. '+refLink("Psalm 139:13–14","psalms/139-13.htm")+'</p></div>';
+    h += wb.rows.map(function(r, i){
+      return '<div class="wbrow"><div class="wbrowtop"><span class="kicker">Lie '+(i+1)+'</span>'+
+        (wb.rows.length > 1 ? '<button class="btn quiet" type="button" data-wb="delrow" data-i="'+i+'" style="padding-block:0">Remove</button>' : '')+'</div>'+
+        '<label class="field"><span class="field-label">The voice says (You…)</span><textarea rows="2" data-row="'+i+'" data-col="lie">'+esc(r.lie||"")+'</textarea></label>'+
+        '<label class="field"><span class="field-label">My answer (I…)</span><textarea rows="2" data-row="'+i+'" data-col="answer">'+esc(r.answer||"")+'</textarea></label>'+
+        '<label class="field"><span class="field-label">What God says</span><textarea rows="2" data-row="'+i+'" data-col="truth" placeholder="A reference, or the verse in your own words.">'+esc(r.truth||"")+'</textarea></label></div>';
+    }).join("");
+    h += '<div><button class="btn ghost" type="button" data-wb="addrow">Add another</button> '+
+      '<button class="btn quiet" type="button" data-view="verses">Find a verse</button></div>';
+  }
+  if(s.t === "tools"){
+    h += '<h3 class="wbq">Eight ways to lower the volume.</h3>'+
+      '<p class="field-hint" style="font-size:.9375rem">Try them over the week. Mark the ones you’ve tried and jot what happened.</p><div class="tools">';
+    h += WB_TOOLS.map(function(t){
+      var on = !!wb.tools[t.id];
+      return '<div class="tool"><div class="toolhead"><span class="toolname">'+esc(t.name)+'</span>'+
+        '<button type="button" class="chip" data-wb="tool" data-id="'+t.id+'" aria-pressed="'+(on ? "true" : "false")+'">'+(on ? "Tried it" : "Mark as tried")+'</button></div>'+
+        '<p>'+esc(t.how)+(t.ref ? ' '+refLink(t.ref, t.url) : '')+'</p>'+
+        (t.view ? '<div><button class="btn quiet" type="button" data-view="'+t.view+'" style="padding-block:0">'+esc(t.viewLabel)+'</button></div>' : '')+
+        '<input type="text" data-wk="p4.tool.'+t.id+'" placeholder="What happened when you tried it?" value="'+esc(wb.a["p4.tool."+t.id]||"")+'" aria-label="Note on '+esc(t.name)+'"></div>';
+    }).join("")+'</div>';
+  }
+  if(s.t === "practice"){
+    var pr = wbPracticed();
+    h += '<h3 class="wbq">Practice on a real thought.</h3>'+
+      '<p class="field-hint" style="font-size:.9375rem">The walk-through on the home screen, “I’m struggling with my thoughts,” asks these same four questions in its own words. Take one real thought through it now. It will bring you back here when you’re done.</p>'+
+      '<div class="holds" style="max-width:34rem">'+
+        '<div class="hold-item"><span><strong>Is it true?</strong> It asks what you could actually prove.</span></div>'+
+        '<div class="hold-item"><span><strong>Is it the whole truth?</strong> It asks what the thought left out.</span></div>'+
+        '<div class="hold-item"><span><strong>Critic or Shepherd?</strong> It asks what someone who loves you would say.</span></div>'+
+        '<div class="hold-item"><span><strong>Does it agree with God?</strong> It ends with a verse to carry.</span></div>'+
+      '</div>';
+    if(pr.length){
+      h += '<div class="readback">'+pr.map(function(e){
+        return '<div class="rb"><p class="rbq">'+esc(fmtDate(e.ts))+'</p>'+
+          (e.thought ? '<p class="ethought" style="margin-top:.3rem">“'+esc(e.thought)+'”</p>' : '')+
+          (e.reframe ? '<p class="ereframe">'+esc(e.reframe)+'</p>' : '')+
+          (!e.thought && !e.reframe ? '<p class="rba">Walked through and kept.</p>' : '')+'</div>';
+      }).join("")+'</div>';
+    }
+    h += '<div><button class="btn'+(pr.length ? ' ghost' : '')+'" type="button" data-wb="practice">'+(pr.length ? "Walk another thought through" : "Walk a thought through")+'</button></div>'+
+      '<p class="small">You can also skip this and come back. Next still works.</p>';
+  }
+  if(s.link) h += '<div><button class="btn quiet" type="button" data-view="'+s.link.view+'">'+esc(s.link.label)+'</button></div>';
+  return h;
+}
+function wbAnswersHTML(p){
+  var P = WB[p], out = "";
+  P.screens.forEach(function(s){
+    if(s.t === "practice"){
+      var pr = wbPracticed();
+      if(pr.length) out += '<div class="rb"><p class="rbq">Thoughts you walked through</p>'+pr.map(function(e){
+        return '<p class="rba">'+(e.thought ? '“'+esc(e.thought)+'”' : esc(fmtDate(e.ts)))+(e.reframe ? '<br><span style="color:var(--calm)">'+esc(e.reframe)+'</span>' : '')+'</p>'; }).join("")+'</div>';
+    }
+    if(s.t === "q" && has(s.k)) out += '<div class="rb"><p class="rbq">'+esc(s.q)+'</p><p class="rba">'+esc(wb.a[s.k])+'</p></div>';
+    if(s.t === "multi"){
+      var parts = s.fields.filter(function(f){ return has(f.k); });
+      if(parts.length) out += '<div class="rb"><p class="rbq">'+esc(s.q)+'</p>'+parts.map(function(f){
+        return '<p class="rba"><span class="small">'+esc(f.label)+'</span><br>'+esc(wb.a[f.k])+'</p>'; }).join("")+'</div>';
+    }
+    if(s.t === "rows"){
+      wb.rows.filter(rowFilled).forEach(function(r){
+        out += '<div class="rb">'+(r.lie ? '<p class="ethought" style="margin-top:0">“'+esc(r.lie)+'”</p>' : '')+
+          (r.answer ? '<p class="ereframe">'+esc(r.answer)+'</p>' : '')+
+          (r.truth ? '<p class="everse">'+esc(r.truth)+'</p>' : '')+'</div>';
+      });
+    }
+    if(s.t === "tools"){
+      var used = WB_TOOLS.filter(function(t){ return wb.tools[t.id] || has("p4.tool."+t.id); });
+      if(used.length) out += '<div class="rb"><p class="rbq">Tools you tried</p>'+used.map(function(t){
+        return '<p class="rba"><strong>'+esc(t.name)+'</strong>'+(has("p4.tool."+t.id) ? ' — '+esc(wb.a["p4.tool."+t.id]) : '')+'</p>'; }).join("")+'</div>';
+    }
+  });
+  var hns = habitNotes(P);
+  if(hns.length) out += '<div class="rb"><p class="rbq">Daily habit notes</p>'+hns.map(function(x){
+    return '<p class="rba"><span class="small">'+esc(dayLabel(x))+'</span><br>'+(x.text.trim() ? esc(x.text) : '<span class="small">Did it, no note.</span>')+'</p>'; }).join("")+'</div>';
+  return out;
+}
+function wbPartHTML(){
+  var p = wbS.p, P = WB[p], len = partLen(p), i = wbS.i;
+  var dots = ""; for(var d = 0; d < len; d++) dots += '<span class="pdot" data-on="'+(d <= i ? 1 : 0)+'"></span>';
+  var h = '<div class="wbscreen"><div class="progress" aria-hidden="true">'+dots+'</div>'+
+    '<div class="kicker">Part '+(p+1)+' · '+esc(P.name)+' · '+(i+1)+' of '+len+'</div>';
+  if(i === 0){
+    h += '<div class="vhead"><h2>'+esc(P.title)+'</h2><p class="lede">'+esc(P.lede)+'</p></div>'+
+      '<div class="margin-note"><blockquote>'+esc(P.verse.gist)+'</blockquote>'+refLink(P.verse.ref+" · in short", P.verse.url)+
+      '<p class="small">That’s a summary. Tap the reference to read the verse itself.</p></div>'+
+      '<div class="whymatters"><b>The skill</b><strong style="color:var(--ink)">'+esc(P.skillT)+'.</strong> '+esc(P.skill)+'</div>'+
+      wbHabit(p)+
+      wbNav('<button class="btn" type="button" data-wb="next">Begin</button>');
+  } else if(i === len-1){
+    var ans = wbAnswersHTML(p), last = (p === WB.length-1);
+    h += '<div class="vhead"><h2>'+esc(P.name)+', read back</h2>'+
+      '<p class="lede">'+(ans ? "This is what you wrote in this part. Read it slowly, once." : "You haven’t written anything in this part yet, and that’s allowed. You can come back to any screen.")+'</p></div>'+
+      (ans ? '<div class="whymatters"><b>If it reads heavy</b>That isn’t going backward. It’s the voice out in the light, where it can be seen and answered ('+refLink("Ephesians 5:13","ephesians/5-13.htm")+'). Look for what keeps repeating. That’s usually where the learning is.</div>' : '')+
+      (ans ? '<div class="readback">'+ans+'</div>' : '')+
+      wbHabit(p)+
+      '<p class="prayer">'+esc(P.prayer)+'</p>'+
+      wbNav('<button class="btn" type="button" data-wb="finish">'+(wb.done[P.id] ? (last ? "Back to the workbook" : "On to Part "+(p+2)) : (last ? "Finish the workbook" : "Finish Part "+(p+1)))+'</button>');
+  } else {
+    h += wbBodyHTML(P, p, P.screens[i-1])+
+      wbNav('<button class="btn" type="button" data-wb="next">'+(i === len-2 ? "Read it back" : "Next")+'</button>');
+  }
+  return h+'</div>';
+}
+
+/* ---- the workbook's pages, shown inside the one journal ---- */
+function wbHasAny(){ for(var p = 0; p < WB.length; p++){ if(wbAnswersHTML(p)) return true; } return false; }
+function renderWbJournal(){
+  var host = $("wbJournal"); if(!host) return;
+  var body = "";
+  WB.forEach(function(P, p){
+    var a = wbAnswersHTML(p);
+    if(a) body += '<div class="rbpart">Part '+(p+1)+' · '+esc(P.name)+(wb.done[P.id] ? ' · finished' : '')+'</div>'+a;
+  });
+  host.innerHTML = body ? '<div class="wbjhead"><h3>From the workbook</h3>'+
+    '<p class="small">What you’ve written in “Renewing your mind,” in order, heavy parts included. They belong here. Change any of it by opening that part again.</p></div>'+
+    '<div class="readback">'+body+'</div>'+
+    '<div class="actions"><button class="btn ghost" type="button" data-wb="open">Open the workbook</button></div>' : "";
+}
+function wbText(){
+  var L = [];
+  WB.forEach(function(P, p){
+    var sec = [];
+    P.screens.forEach(function(s){
+      if(s.t === "practice"){
+        var pr = wbPracticed();
+        if(pr.length) sec.push("Thoughts I walked through\n"+pr.map(function(e){ return (e.thought ? "“"+e.thought+"”" : fmtDate(e.ts))+(e.reframe ? " → "+e.reframe : ""); }).join("\n"));
+      }
+      if(s.t === "q" && has(s.k)) sec.push(s.q+"\n"+wb.a[s.k]);
+      if(s.t === "multi"){
+        var fs = s.fields.filter(function(f){ return has(f.k); });
+        if(fs.length) sec.push(s.q+"\n"+fs.map(function(f){ return f.label+" "+wb.a[f.k]; }).join("\n"));
+      }
+      if(s.t === "rows") wb.rows.filter(rowFilled).forEach(function(r){
+        sec.push("The voice says: "+(r.lie||"")+"\nMy answer: "+(r.answer||"")+"\nWhat God says: "+(r.truth||"")); });
+      if(s.t === "tools"){
+        var used = WB_TOOLS.filter(function(t){ return wb.tools[t.id] || has("p4.tool."+t.id); });
+        if(used.length) sec.push("Tools I tried\n"+used.map(function(t){ return t.name+(has("p4.tool."+t.id) ? ": "+wb.a["p4.tool."+t.id] : ""); }).join("\n"));
+      }
+    });
+    var hns = habitNotes(P);
+    if(hns.length) sec.push("Daily habit notes\n"+hns.map(function(x){ return dayLabel(x)+": "+(x.text.trim() ? x.text.trim() : "did it"); }).join("\n"));
+    if(sec.length) L.push("## Part "+(p+1)+": "+P.name+"\n\n"+sec.join("\n\n"));
+  });
+  return L.length ? "# From the workbook: Renewing your mind\n\n"+L.join("\n\n---\n\n")+"\n" : "";
+}
+
+function renderWb(){
+  var host = $("wbWrap"); if(!host) return;
+  if(wbS.mode === "part"){ wb.last = { p:wbS.p, i:wbS.i }; wbPersist(); host.innerHTML = wbPartHTML(); }
+  else host.innerHTML = wbHomeHTML();
+  $("backBtn").hidden = (wbS.mode === "home" && stack.length === 0);
+}
+function wbGo(mode, p, i){
+  wbFlush(); wbResetArmed = false;
+  wbS.mode = mode;
+  if(typeof p === "number") wbS.p = p;
+  if(typeof i === "number") wbS.i = i;
+  renderWb(); window.scrollTo(0,0);
+}
+function wbBack(){
+  if(wbS.mode === "part" && wbS.i > 0) wbGo("part", wbS.p, wbS.i-1);
+  else wbGo("home");
+}
+
+document.addEventListener("input", function(ev){
+  var t = ev.target; if(!t || !t.getAttribute) return;
+  var k = t.getAttribute("data-wk");
+  if(k){ wb.a[k] = t.value; wbTouch(); return; }
+  var hl = t.getAttribute("data-hl");
+  if(hl){
+    var HP = WB.filter(function(x){ return x.id === hl; })[0]; if(!HP) return;
+    var id = t.getAttribute("data-id"), first = !hToday(HP);
+    var e = id === "today" ? hEnsureToday(HP) : hLog(HP).filter(function(x){ return x.id === id; })[0];
+    if(!e) return;
+    e.text = t.value; wbTouch();
+    if(id === "today" && first){
+      /* first keystroke of the day: show it as logged without stealing focus */
+      var card = $("habit-"+HP.id), top = card.querySelector(".hday .wbrowtop");
+      var btn = top.querySelector('[data-wb="hlog"]'); if(btn) btn.outerHTML = '<span class="logged">Logged</span>';
+      var n = hLog(HP).length;
+      card.querySelectorAll(".hcount .hdot").forEach(function(dd, i){ dd.setAttribute("data-on", i < n ? "1" : "0"); });
+      card.querySelector(".hcount .small").textContent = n+" day"+(n === 1 ? "" : "s")+" logged";
+    }
+    return;
+  }
+  var ri = t.getAttribute("data-row");
+  if(ri !== null && wb.rows[+ri]){ wb.rows[+ri][t.getAttribute("data-col")] = t.value; wbTouch(); }
+});
+/* only write on the way out if something is waiting to be saved, so an idle
+   tab never overwrites newer notes written in another tab or window */
+window.addEventListener("pagehide", function(){ if(wbTimer) wbFlush(); });
+document.addEventListener("visibilitychange", function(){ if(document.hidden && wbTimer) wbFlush(); });
+
+document.addEventListener("click", function(ev){
+  var t = ev.target.closest ? ev.target.closest("[data-wb]") : null;
+  if(!t) return;
+  var act = t.getAttribute("data-wb");
+  if(act !== "reset") wbResetArmed = false;
+
+  if(act === "open"){ wbS.mode = "home"; show("workbook"); return; }
+  if(act === "home"){ wbGo("home"); return; }
+  if(act === "practice"){ wbFlush(); wbReturn = true; show("untangle"); return; }
+  if(act === "return"){ stack = ["home"]; show("workbook", false); return; }
+  if(act === "resume"){ var r = wbResume(); wbGo("part", r.p, r.i); return; }
+  if(act === "part"){
+    var p = +t.getAttribute("data-p");
+    var at = (wb.last && wb.last.p === p && !wb.done[WB[p].id]) ? Math.min(wb.last.i, partLen(p)-1) : 0;
+    wbGo("part", p, at); return;
+  }
+  if(act === "next"){ wbGo("part", wbS.p, Math.min(wbS.i+1, partLen(wbS.p)-1)); return; }
+  if(act === "prev"){ wbBack(); return; }
+  if(act === "finish"){
+    wb.done[WB[wbS.p].id] = true;
+    if(wbS.p < WB.length-1){ wb.last = { p:wbS.p+1, i:0 }; wbPersist(); wbGo("part", wbS.p+1, 0); }
+    else { wb.last = null; wbPersist(); wbGo("home"); }
+    return;
+  }
+  if(act === "pick"){
+    var k = t.getAttribute("data-k"), v = t.getAttribute("data-v");
+    wb.a[k] = (wb.a[k] === v) ? "" : v; wbTouch();
+    t.parentElement.querySelectorAll(".chip").forEach(function(c){
+      c.setAttribute("aria-pressed", wb.a[k] === c.getAttribute("data-v") ? "true" : "false"); });
+    return;
+  }
+  if(act === "hlog"){ var LP = WB[+t.getAttribute("data-p")]; hEnsureToday(LP); wbFlush(); rerenderHabit(LP); return; }
+  if(act === "hedit"){
+    var EP = WB[+t.getAttribute("data-p")], eid = t.getAttribute("data-id");
+    wbEdit[EP.id] = (wbEdit[EP.id] === eid) ? null : eid; wbFlush(); rerenderHabit(EP);
+    if(wbEdit[EP.id]){ var ta = $("habit-"+EP.id).querySelector('textarea[data-id="'+eid+'"]'); if(ta) ta.focus(); }
+    return;
+  }
+  if(act === "tool"){
+    var id = t.getAttribute("data-id"); wb.tools[id] = !wb.tools[id];
+    t.setAttribute("aria-pressed", wb.tools[id] ? "true" : "false");
+    t.textContent = wb.tools[id] ? "Tried it" : "Mark as tried"; wbTouch(); return;
+  }
+  if(act === "addrow"){ wb.rows.push({ lie:"", answer:"", truth:"" }); wbFlush(); renderWb(); return; }
+  if(act === "delrow"){ wb.rows.splice(+t.getAttribute("data-i"), 1); wbFlush(); renderWb(); return; }
+  if(act === "reset"){
+    if(!wbResetArmed){ wbResetArmed = true; t.textContent = "Tap again to erase every workbook answer"; return; }
+    wbResetArmed = false;
+    wb = { a:{}, rows:[], tools:{}, habits:{}, done:{}, last:null, practice:[], hlog:{} }; wbEdit = {};
+    wbPersist(); wbGo("home"); return;
+  }
+});
 
 /* ============================================================= events == */
 document.addEventListener("click", function(ev){
@@ -1701,7 +2489,8 @@ document.addEventListener("click", function(ev){
       friend:"My mom would say one exam isn't a verdict on whether I belong, and she'd mean it.",
       reframe:"That exam was hard and I didn't do as well as I wanted. That's a result, not a ruling on whether I belong here.",
       nextTime:"One score is data, not a verdict. Find out what I missed, then go to bed.",
-      nextStep:"Go to office hours Thursday with the two problems I couldn't finish.", after:45 };
+      nextStep:"Go to office hours Thursday with the two problems I couldn't finish.", thanks:"", prayer:"", after:45,
+      movedBefore:true, movedAfter:true };
     chosenVerse = VERSES.notenough.items[0];
     renderStep();
   }
@@ -1714,11 +2503,20 @@ document.addEventListener("click", function(ev){
       feelings:draft.feelings.slice(), before:draft.before, shapes:names,
       provable:draft.provable.trim(), leftOut:draft.leftOut.trim(), friend:draft.friend.trim(),
       reframe:draft.reframe.trim(), nextTime:draft.nextTime.trim(), nextStep:draft.nextStep.trim(),
-      verse:chosenVerse, after:draft.after });
+      thanks:(draft.thanks||"").trim(), prayer:(draft.prayer||"").trim(),
+      verse:chosenVerse, after:draft.after, movedAfter:draft.movedAfter });
     persist();
-    draft = { situation:"", thought:"", feelings:[], before:70, shapes:[], provable:"", leftOut:"", friend:"", reframe:"", nextTime:"", nextStep:"", after:45 };
+    renderDone(entries[entries.length-1]);
+    if(wbReturn){
+      /* came here from the workbook: note the practice, and offer the way back first */
+      wb.practice.push(entries[entries.length-1].id); wbPersist();
+      var acts = $("doneWrap").querySelector(".actions"), jb = acts.querySelector('[data-view="journal"]');
+      if(jb) jb.className = "btn ghost";
+      acts.insertAdjacentHTML("afterbegin", '<button class="btn" type="button" data-wb="return">Back to the workbook</button>');
+    }
+    draft = blankDraft();
     chosenVerse = null; shuffle = 0; step = 1;
-    show("journal", false);
+    show("done", false);
   }
 
   if(t.id === "promptBtn"){ $("promptOut").textContent = PROMPTS[Math.floor(Math.random()*PROMPTS.length)]; }
@@ -1732,11 +2530,13 @@ document.addEventListener("click", function(ev){
     }
     var feels = [];
     $("w-chips").querySelectorAll('.chip[aria-pressed="true"]').forEach(function(c){ feels.push(c.getAttribute("data-feel")); });
-    entries.push({ id:"e"+Date.now(), ts:Date.now(), kind:"page", text:txt, feelings:feels });
+    var entry = { id:"e"+Date.now(), ts:Date.now(), kind:"page", text:txt, feelings:feels };
+    entries.push(entry);
     persist();
+    renderDone(entry);
     $("w-text").value = ""; $("promptOut").textContent = "";
     $("w-chips").querySelectorAll(".chip").forEach(function(c){ c.setAttribute("aria-pressed","false"); });
-    show("journal", false);
+    show("done", false);
   }
 
   if(t.id === "copyAll"){
@@ -1805,6 +2605,7 @@ $("langSelect").value = LANG;
 $("langSelect").addEventListener("change", function(){ setLang(this.value); });
 
 load();
+wbLoad();
 applyChrome();
 paintChips("w-chips");
 paintShapes("shapeList", false);
