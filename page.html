@@ -88,6 +88,20 @@ p{margin:0}
 button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:3px}
 
+/* ---------- tactile feedback ---------- */
+.btn,.chip,.door,.swatch,.qlink,.remap-pill,.pick,.wbpart,.hdot,.shape-head{transition:transform .12s ease,border-color .15s ease,opacity .15s ease,color .15s ease}
+.btn:active,.chip:active,.door:active,.swatch:active,.remap-pill:active,.pick:active,.wbpart:active,.hdot:active,.shape-head:active{transform:scale(.97)}
+.door:hover,.wbpart:hover{transform:translateY(-1px)}
+.door:active,.wbpart:active{transform:translateY(0) scale(.985)}
+@media (prefers-reduced-motion:reduce){.btn,.chip,.door,.swatch,.qlink,.remap-pill,.pick,.wbpart,.hdot,.shape-head{transition:none!important}
+  .btn:active,.chip:active,.door:active,.swatch:active,.remap-pill:active,.pick:active,.wbpart:active,.hdot:active,.shape-head:active,.door:hover,.wbpart:hover{transform:none!important}}
+
+/* ---------- screen transitions ---------- */
+@keyframes screenin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.enter{animation:screenin .22s cubic-bezier(.16,1,.3,1) both}
+.screenin{display:flex;flex-direction:column;gap:1.35rem;animation:screenin .22s cubic-bezier(.16,1,.3,1) both}
+@media (prefers-reduced-motion:reduce){.enter,.screenin{animation:none}}
+
 /* ---------- top bar ---------- */
 .topbar{
   display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .75rem;padding-block:1rem;
@@ -1491,12 +1505,20 @@ function persist(){ try{ localStorage.setItem(EKEY, JSON.stringify(entries)); }c
 
 /* ============================================================== views == */
 var VIEWS = ["home","steady","untangle","write","journal","shapes","verses","remap","done","workbook"];
+var SELF_ANIMATED_VIEWS = ["untangle","done","workbook"]; /* these render their own .screenin/.wbscreen wrapper */
+function animateIn(el){
+  if(!el) return;
+  el.classList.remove("enter");
+  void el.offsetWidth; /* force reflow so the animation restarts */
+  el.classList.add("enter");
+}
 function show(v, push){
   if(push !== false && v !== view) stack.push(view);
   if(v === "home") stack = [];
   view = v;
   if(v !== "untangle" && v !== "done") wbReturn = false;
   VIEWS.forEach(function(k){ $("v-"+k).hidden = (k !== v); });
+  if(SELF_ANIMATED_VIEWS.indexOf(v) === -1) animateIn($("v-"+v));
   $("homeBtn").hidden = (v === "home");
   $("backBtn").hidden = (v === "home") || (stack.length === 0 && !(v === "untangle" && step > 1));
   if(v === "untangle") renderStep();
@@ -1556,6 +1578,7 @@ function renderStep(){
   var s = STEPS[step-1];
   renderProgress();
   $("stepwrap").innerHTML =
+    '<div class="screenin">'+
     '<div class="vhead"><div class="kicker">'+tpl(T("stepOf"), {k:s.kicker.toLowerCase()})+'</div>'+
     '<h2>'+s.title+'</h2><p class="lede">'+s.lede+'</p></div>'+
     (step === 4 ? '' : '<div class="margin-note"><blockquote>&ldquo;'+esc(s.v.text)+'&rdquo;</blockquote>'+refLink(s.v.ref+" · ESV", s.v.url)+vctx(s.v.ctx)+'</div>')+
@@ -1568,6 +1591,7 @@ function renderStep(){
         : '<button class="btn" type="button" id="saveRecord">'+T("stepKeep")+'</button>')+
       (step < 4 ? '<button class="btn quiet" type="button" data-step="'+(step+1)+'">'+T("stepSkip")+'</button>' : '')+
       (step === 1 ? '<button class="btn quiet" type="button" id="loadExample">'+T("stepFillIn")+'</button>' : '')+
+    '</div>'+
     '</div>';
   if(step === 1 && s.v){
     /* step one keeps its verse under the heading; already inserted above */
@@ -1819,7 +1843,8 @@ function movedLine(e){
 }
 function renderDone(e){
   var isPage = e.kind === "page";
-  var body = '<div class="vhead"><div class="kicker">'+T("doneKicker")+'</div>'+
+  var body = '<div class="screenin">'+
+    '<div class="vhead"><div class="kicker">'+T("doneKicker")+'</div>'+
     '<h2>'+(isPage ? T("doneTitlePage") : T("doneTitleRecord"))+'</h2>'+
     '<p class="lede">'+(isPage
       ? T("doneLedePage")
@@ -1853,6 +1878,7 @@ function renderDone(e){
 
   body += '<p class="small" style="max-width:34rem">'+T("doneKeptNote")+
     (e.reframe ? T("doneKeptNotePaper") : T("doneKeptNotePaperAlt"))+'</p>';
+  body += '</div>';
 
   $("doneWrap").innerHTML = body;
 }
